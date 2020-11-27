@@ -1,0 +1,36 @@
+.weTalkIconContainer {
+  width: 103px;
+  height: 39.5px;
+
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  cursor: pointer;
+
+  background-color: transparent !important;
+  z-index: 999;
+}
+
+.weTalkIcon {
+  width: 103px;
+  height: 39.5px;
+}
+
+.weTalkIconTip {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: 18px;
+  height: 18px;
+  background: #ef3535;
+  border-radius: 50%;
+
+  text-align: center;
+  line-height: 18px;
+
+  font-size: 12px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #ffffff;
+}

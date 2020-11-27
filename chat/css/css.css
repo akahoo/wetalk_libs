@@ -1,0 +1,4138 @@
+/* 通用 */
+body {
+  width: 100%;
+  height: 100%;
+  /* background-color: #f4f4f4; */
+}
+
+.weTalkGameGif,
+.weTalkGameRes {
+  width: 88px;
+  height: 88px;
+
+  user-select: none;
+}
+
+.weTalkGameRes {
+  display: none;
+}
+
+.weTalkWeb {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 40px;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #999999;
+}
+
+.weTalkBtn1:hover {
+  background: #ddd5fc;
+}
+
+.weTalkBtn2:hover {
+  background: #7944d8;
+}
+
+/* 文字溢出省略 */
+.weTalkTextDis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.weTalkPurpleMiniFont {
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #904ce4;
+
+  cursor: pointer;
+}
+
+.weTalkSubTitle {
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #9a9a9a;
+}
+
+.weTalkTitle {
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #333333;
+}
+
+.weTalkChatFont {
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #999999;
+}
+
+.weTalkChatMemberFont {
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  color: #ec5455;
+
+  /* background:-webkit-linear-gradient(-90deg, #FFB400 0%, #FFADD0 100%);-moz-linear-gradient(-90deg, #FFB400 0%, #FFADD0 100%);-ms-linear-gradient(-90deg, #FFB400 0%, #FFADD0 100%);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: bold;
+  */
+
+  display: none;
+}
+
+.weTalkPointer {
+  cursor: pointer;
+}
+
+.weTalkML5 {
+  margin-left: 5px;
+}
+
+.weTalkMT15 {
+  margin-top: 15px;
+}
+
+.weTalkFlex {
+  display: flex;
+  align-items: center;
+}
+
+/* 可编辑div边框去除 */
+[contenteditable]:focus {
+  outline: none;
+}
+
+/* 聊天室整体布局 */
+.weTalkIconContainer {
+  width: 103px;
+  height: 39.5px;
+
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  cursor: pointer;
+
+  background-color: transparent !important;
+  z-index: 999;
+}
+
+.weTalkIcon {
+  width: 103px;
+  height: 39.5px;
+}
+
+.weTalkIconTip {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: 18px;
+  height: 18px;
+  background: #ef3535;
+  border-radius: 50%;
+
+  text-align: center;
+  line-height: 18px;
+
+  font-size: 12px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.weTalkChatRoom {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 997;
+
+  width: 950px;
+  height: 580px;
+
+  /* display: none; */
+}
+
+.weTalkChatRoomContent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.weTalkMain {
+  position: relative;
+
+  width: 950px;
+  height: 580px;
+  /* box-shadow: 0px 8px 35px 0px #cccccc; */
+  border-radius: 4px;
+}
+
+.weTalkTz {
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  width: 3px;
+  height: 580px;
+
+  cursor: e-resize;
+}
+
+.weTalkHead {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  background: #ede7ff;
+  border-radius: 4px 4px 0px 0px;
+  padding: 0 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  user-select: none;
+}
+
+.weTalkContent {
+  width: 100%;
+  height: 530px;
+  display: flex;
+}
+
+.weTalkLeft {
+  width: 200px;
+  height: 530px;
+  background: #fff;
+
+  box-sizing: border-box;
+  border: 1px solid #f4f4f4;
+}
+
+.weTalkRight {
+  position: relative;
+  width: 750px;
+  height: 530px;
+  background: #fff;
+
+  border-radius: 0px 0px 0px 4px;
+  display: flex;
+}
+
+.weTalkRightMain {
+  position: relative;
+  width: 100%;
+  height: 530px;
+
+  border: 2px solid #f4f4f4;
+}
+
+.weTalkUsersOpe {
+  position: absolute;
+  right: 20px;
+  top: 102px;
+  z-index: 2;
+
+  width: 270px;
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+
+  display: none;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.weTalkUsersOpeOneF,
+.weTalkItemOpeOneF {
+  display: flex;
+  align-items: center;
+}
+
+.weTalkUsersSl {
+  width: 60px;
+  height: 24px;
+  background: #944eea;
+  border-radius: 12px;
+
+  line-height: 24px;
+  text-align: center;
+
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #fefefe;
+}
+
+.weTalkPerSign {
+  width: 250px;
+  min-height: 25px;
+  background: #f5f5f5;
+  border-radius: 1px;
+
+  padding: 9px 11px;
+  box-sizing: border-box;
+
+  font-size: 14px;
+  font-family: 微软雅黑;
+  color: #999;
+}
+
+.weTalkHisLooking {
+  width: 250px;
+  margin-top: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.weTalkTzk {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+}
+
+.weTalkTzkWeb {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #944eea;
+}
+
+/* .weTalkZlShrink{
+  position: absolute;
+  top:30%;
+  left:0;
+
+  width: 20px;
+  height: 50px;
+  background: #F4F4F4;
+  box-shadow: 2px 0px 4px 0px rgba(222, 222, 222, 0.6);
+  border-radius: 0px 16px 16px 0px;
+
+  cursor: pointer;
+
+  z-index:1;
+} */
+
+.weTalkZlIcon {
+  position: absolute;
+  top: 35%;
+  left: 20%;
+}
+
+/* 头部 */
+
+.weTalkLogo {
+  width: 103px;
+  height: 30px;
+}
+
+.weTalkLogo1 {
+  display: block;
+  width: 107px;
+  height: 12px;
+  margin: 4px 0 0 19px !important;
+}
+
+.weTalkLogoArr {
+  display: flex;
+  align-items: center;
+}
+
+.weTalkBroadcast {
+  position: absolute;
+  top: 14px;
+  left: 200px;
+
+  display: flex;
+  align-items: center;
+
+  display: none;
+}
+
+.weTalkBroadContent {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #fe9149;
+}
+
+.weTalkBroadContent > span {
+  color: #ec5455;
+}
+
+.weTalkBroadImg {
+  width: 20px;
+  height: 20px;
+}
+
+.weTalkAvatarCon {
+  display: flex;
+  align-items: center;
+}
+
+.weTalkOpenUserSet {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.weTalkSignIn {
+  width: 60px;
+  height: 26px;
+  margin-right: 21px;
+}
+
+.weTalkAvatar {
+  position: relative;
+
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin: 0 6px 0 10px;
+}
+
+.weTalkAvatarImg {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.weTalkAvatarTip {
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  width: 10px;
+  height: 10px;
+  background: #ef3436;
+  border-radius: 50%;
+
+  display: none;
+}
+
+.weTalkMan {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  widows: 12px;
+  height: 12px;
+}
+
+.weTalkNick {
+  /* width: 81px; */
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #666666;
+
+  margin-right: 11px;
+}
+
+.weTalkNickVip {
+  /* width: 81px; */
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  margin-right: 11px;
+  font-weight: 400;
+  color: #ec5455;
+  /* 
+  background:-webkit-linear-gradient(-90deg, #FFB400 0%, #FFADD0 100%);-moz-linear-gradient(-90deg, #FFB400 0%, #FFADD0 100%);-ms-linear-gradient(-90deg, #FFB400 0%, #FFADD0 100%);
+  -webkit-background-clip: text;
+  color: transparent; 
+  font-weight: bold;
+  */
+}
+
+#weTalkNick {
+  justify-content: space-between;
+}
+
+.weTalkBindAc {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #904ce4;
+
+  margin-left: 5px;
+}
+
+.weTalkKthy {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #ffa800;
+
+  margin-left: 5px;
+
+  display: none;
+}
+
+.weTalkXiala {
+  width: 12px;
+  height: 8px;
+  margin-right: 12px !important;
+  cursor: pointer;
+}
+
+.weTalkUserSet {
+  position: absolute;
+  top: 49px;
+  right: 36px;
+  z-index: 20;
+  width: 120px;
+  height: 170px;
+  background: #fff;
+  box-shadow: 0px 3px 8px 0px #dddddd;
+  border-radius: 4px 0px 0px 0px;
+  display: none;
+}
+
+.weTalkSetFont {
+  width: 100%;
+  height: 33.33px;
+
+  text-align: center;
+  line-height: 33.33px;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #944eea;
+  cursor: pointer;
+}
+
+.weTalkSetFontArr {
+  width: 100%;
+  height: 33.33px;
+
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+#weTalkSystemNews {
+  width: 42px;
+  height: 12px;
+  line-height: 12px;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #944eea;
+
+  margin-left: 33px;
+}
+
+.weTalkSystemNewsNum {
+  width: 17px;
+  height: 17px;
+  background: #ef3436;
+  border-radius: 50%;
+
+  font-size: 10px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #ffffff;
+
+  text-align: center;
+  line-height: 17px;
+
+  margin-left: 15px;
+
+  visibility: hidden;
+}
+
+.weTalkClose {
+  width: 20px;
+  height: 20px;
+
+  cursor: pointer;
+}
+/* 头部结束 */
+
+/* 聊天列表 */
+.sessionPoint {
+  position: absolute;
+  bottom: 49px;
+  left: 32px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: red;
+  display: none;
+}
+
+#act > div {
+  position: relative;
+}
+
+.weTalkChatList {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+
+  user-select: none;
+}
+
+.weTalkPublicChannnell {
+  width: 100%;
+  height: 52px;
+  background: linear-gradient(-90deg, #944eea 0%, #ffadd0 100%);
+
+  padding: 8px 10px 8px 20px;
+  box-sizing: border-box;
+
+  cursor: pointer;
+}
+
+.weTalkPublicChannnellTime {
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 300;
+  color: #ffffff;
+}
+
+.weTalkPublicChannnellOne {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.weTalkPublicChannnellTitle {
+  max-width: 126px;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.weTalkPublicChannnellUser,
+.weTalkPublicChannnellRecord {
+  font-size: 12px;
+  font-weight: Regular;
+  font-family: Microsoft YaHei;
+  color: #ffffff;
+
+  white-space: nowrap;
+}
+
+.weTalkPublicChannnellRecord {
+  width: 96px;
+}
+
+.weTalkPublicChannnellRecord > img {
+  width: 20px;
+  height: 20px;
+}
+
+.weTalkPublicChannnellLastRecords {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.weTalkPublicChannnellNum {
+  position: absolute;
+  right: 5px;
+  top: 1px;
+
+  width: 18px;
+  height: 18px;
+  background: #ef3435;
+  border-radius: 50%;
+
+  text-align: center;
+  line-height: 18px;
+
+  font-size: 12px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #ffffff;
+
+  display: none;
+}
+
+.weTalkChatItem {
+  width: 100%;
+  height: 52px;
+  background: #fff;
+
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 10px 0 6px;
+
+  cursor: pointer;
+
+  position: relative;
+}
+
+.weTalkChatItemOne {
+  position: relative;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+}
+
+.weTalkItemRecordView {
+  width: 110px;
+  height: 33px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.weTalkItemRecord {
+  width: 110px;
+  height: 11px;
+
+  margin-left: 4px;
+
+  display: flex;
+  align-items: center;
+}
+
+.weTalkItemRecordContent,
+.weTalkItemRecordUser {
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #999999;
+
+  white-space: nowrap;
+}
+
+.weTalkItemRecordContent {
+  width: 96px;
+}
+
+.weTalkItemRecordContent > img {
+  width: 22px;
+  height: 22px;
+}
+
+.weTalkYjOptions {
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  z-index: 1;
+
+  box-shadow: 0px 2px 10px 0px rgba(187, 187, 187, 0.5);
+  width: 130px;
+  background: #fff;
+
+  display: none;
+}
+
+.weTalkYjOptionsItem {
+  width: 130px;
+  height: 40px;
+
+  box-sizing: border-box;
+  border-bottom: 1px solid #ddd;
+
+  text-align: center;
+  line-height: 40px;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #666666;
+}
+
+.weTalkChatItemAvatar {
+  margin-left: 0;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+}
+
+.weTalkChatItemAvatarGroup {
+  width: 30px;
+  height: 30px;
+}
+
+.weTalkUserAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.weTalkItemDeAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+
+  text-align: center;
+  line-height: 30px;
+  background: rgb(148, 78, 234);
+
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.weTalkBoy {
+  width: 12px;
+  height: 12px;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.weTalkItemNick {
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  /* color: #944eea; */
+  color: #666666;
+
+  margin-left: 4px;
+}
+
+.weTalkItemNickVip {
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #ec5455;
+  /* font-weight: bold;
+  background:-webkit-linear-gradient(-90deg, #FFB400 0%, #FFADD0 100%);-moz-linear-gradient(-90deg, #FFB400 0%, #FFADD0 100%);-ms-linear-gradient(-90deg, #FFB400 0%, #FFADD0 100%);
+  -webkit-background-clip: text;
+  color: transparent; */
+
+  margin-left: 4px;
+}
+
+.weTalkNewsTime {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 300;
+  color: #999999;
+}
+
+.weTalkNewsRecords {
+  position: absolute;
+  bottom: -4px;
+  right: 6px;
+  width: 18px;
+  height: 18px;
+  background: #ef3435;
+  border-radius: 50%;
+
+  text-align: center;
+  line-height: 18px;
+
+  font-size: 12px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #ffffff;
+
+  display: none;
+}
+
+.weTalkNewsRecordsjd {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 18px;
+  height: 18px;
+  background: #ef3435;
+  border-radius: 50%;
+
+  text-align: center;
+  line-height: 18px;
+
+  font-size: 12px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.weTalkRemoveUser {
+  width: 14px;
+  height: 14px;
+
+  position: absolute;
+  right: 10px;
+
+  display: none;
+}
+
+/* 聊天列表 结束 */
+
+/* 广告 */
+.weTalkAd {
+  position: relative;
+  width: 150px;
+  height: 224px;
+  box-sizing: border-box;
+  padding: 10px;
+  padding-top: 20px;
+}
+
+.weTalkAdImg {
+  width: 130px;
+  height: 190px;
+  cursor: pointer;
+}
+
+.weTalkCloseAd {
+  position: absolute;
+  top: 0;
+  right: 8px;
+  cursor: pointer;
+}
+/* 广告结束 */
+
+/* 聊天主体 */
+.weTalkLoadRecord {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  visibility: hidden;
+}
+
+@keyframes weTalkLoad {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  50% {
+    -webkit-transform: rotate(180deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+.weTalkLoadAni {
+  width: 34px;
+  height: 34px;
+  animation: weTalkLoad 6s linear infinite;
+}
+
+.weTalkLoadingTip {
+  margin-top: 20px;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #999999;
+}
+
+.weTalkChatMain {
+  position: relative;
+  width: 100%;
+  height: 370px;
+
+  padding: 45px 20px 20px;
+  box-sizing: border-box;
+
+  overflow-y: auto;
+}
+
+/* 聊天框头部 */
+.weTalkChatMainHead,
+.weTalkChatMainHeadP {
+  width: 589px;
+  height: 45px;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+
+  position: absolute;
+  /* z-index: 1; */
+  padding: 10px 20px;
+  box-sizing: border-box;
+  display: none;
+  user-select: none;
+}
+
+.weTalkChatMainHeadP {
+  width: 100%;
+}
+
+.weTalkChatMainHeadInner,
+.weTalkChatMainHeadInnerP {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.weTalkChatMainHeadName,
+.weTalkChatMainHeadNameP {
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+}
+
+.weTalkChatMainHeadEvent,
+.weTalkChatMainHeadEventP {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #944eea;
+
+  cursor: pointer;
+}
+
+/* 有人@我 */
+.weTalkAtTip {
+  position: fixed;
+  right: 159px;
+  top: 346px;
+
+  display: flex;
+  align-items: center;
+
+  width: 100px;
+  height: 30px;
+  background: #febc49;
+  border-radius: 15px 0px 0px 15px;
+
+  z-index: 2;
+  cursor: pointer;
+}
+
+.weTalkAtAvatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.weTalkAtYouD {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #944eea;
+
+  font-size: 12px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #fff;
+
+  text-align: center;
+  line-height: 24px;
+}
+
+.weTalkAtYou {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #ffffff;
+
+  margin-left: 8px;
+}
+
+.weTalkAtWo {
+  font-size: 12px;
+  font-family: MicrosoftYaHei;
+  font-weight: 400;
+  color: #ffcc00;
+
+  white-space: nowrap;
+
+  display: none;
+}
+
+/* 滚动条 */
+
+.weTalkChatMain::-webkit-scrollbar {
+  width: 8px;
+}
+.weTalkChatMain::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+.weTalkChatMain::-webkit-scrollbar-thumb {
+  background-color: rgba(221, 221, 221, 1);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+.weTalkTransmitList::-webkit-scrollbar {
+  width: 8px;
+}
+.weTalkTransmitList::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+.weTalkTransmitList::-webkit-scrollbar-thumb {
+  background-color: rgba(221, 221, 221, 1);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+.weTalkChatList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.weTalkChatList::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+.weTalkChatList::-webkit-scrollbar-thumb {
+  background-color: rgba(221, 221, 221, 1);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+.weTalkUsersItemList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.weTalkUsersItemList::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+.weTalkUsersItemList::-webkit-scrollbar-thumb {
+  background-color: rgba(221, 221, 221, 1);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+.weTalkUserPerSignText::-webkit-scrollbar {
+  width: 8px;
+}
+.weTalkUserPerSignText::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+.weTalkUserPerSignText::-webkit-scrollbar-thumb {
+  background-color: rgba(221, 221, 221, 1);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+.weTalkChatOther {
+  position: relative;
+  display: flex;
+}
+
+.weTalkDisEmoj {
+  width: 32px;
+  height: 32px;
+}
+
+.weTalkChatOtherOpe {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 220px;
+  height: 104px;
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.weTalkChatOtherOpeOne {
+  width: 100%;
+  height: 30px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ede7ff;
+
+  display: flex;
+}
+
+.weTalkChatOtherOpeOneImg {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: blue;
+}
+
+.weTalkChatOtherOpeOneSex {
+  width: 12px;
+  height: 12px;
+}
+
+.weTalkChatOtherOpeOneNick {
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #666666;
+
+  background: linear-gradient(-90deg, #ffb400 0%, #ffadd0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.weTalkChatOtherAvatar,
+.weTalkChatSelfAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  user-select: none;
+}
+
+.weTalkChatOtherInfo {
+  display: flex;
+  align-items: center;
+}
+
+.weTalkChatOtherSex {
+  margin-right: 4px !important;
+}
+
+.weTalkChatOtherRight {
+  position: relative;
+
+  margin-left: 10px;
+}
+
+.weTalkChatOtherRightTransmit {
+  position: absolute;
+  top: -10px;
+  left: -1px;
+}
+
+.weTalkChatOtherRightReport {
+  position: absolute;
+  top: -10px;
+  left: 66px;
+}
+
+.weTalkChatOtherRightReport,
+.weTalkChatOtherRightTransmit {
+  width: 60px;
+  height: 30px;
+  background: #944eea;
+  border-radius: 15px;
+
+  text-align: center;
+  line-height: 30px;
+
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #ffffff;
+
+  display: none;
+}
+
+.weTalkChatOtherContent {
+  width: auto;
+  display: inline-block !important;
+  max-width: 334px;
+  min-height: 42px;
+
+  background: #f5f5f5;
+  border-radius: 0px 10px 10px 10px;
+
+  padding: 16px 14px;
+  margin-top: 6px;
+  box-sizing: border-box;
+
+  color: #333333;
+  font-weight: MicrosoftYaHeiLight;
+  font-size: 14px;
+}
+
+.weTalkChatSelf {
+  position: relative;
+  /* width: 384px; */
+
+  margin-left: auto;
+  display: flex;
+  user-select: none;
+}
+
+.weTalkChatSelfLeft {
+  position: relative;
+
+  margin-right: 6px;
+
+  margin-left: auto;
+
+  text-align: right;
+}
+
+.weTalkChatSelfInfo {
+  display: flex;
+  align-items: center;
+
+  justify-content: space-between;
+}
+
+.weTalkChatSelfInfoRight {
+  user-select: none;
+}
+
+.weTalkChatSelfSex {
+  margin-right: 6px !important;
+}
+
+.weTalkChatSelfContent {
+  width: auto;
+  display: inline-block !important;
+  max-width: 334px;
+  min-height: 42px;
+
+  box-sizing: border-box;
+  padding: 16px 14px;
+  margin-top: 6px;
+
+  background: #944eea;
+  border-radius: 10px 0px 10px 10px;
+  color: #fff;
+  font-weight: MicrosoftYaHeiLight;
+  font-size: 14px;
+}
+
+.weTalkChatMain > div + div {
+  margin-top: 10px;
+}
+
+.weTalkChatSelfLeftTransmit {
+  position: absolute;
+  top: 0px;
+  left: -66px;
+
+  width: 60px;
+  height: 30px;
+  background: #944eea;
+  border-radius: 15px;
+
+  text-align: center;
+  line-height: 30px;
+
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #ffffff;
+
+  display: none;
+}
+
+.weTalkChatTool {
+  position: relative;
+
+  width: 100%;
+  height: 40px;
+  background: #f7f7f7;
+  border-radius: 0px 0px 0px 4px;
+
+  box-sizing: border-box;
+  padding: 0 22px 0 30px;
+
+  display: flex;
+  align-items: center;
+
+  user-select: none;
+}
+
+.weTalkChatTool > div {
+  user-select: none;
+}
+
+.weTalkChatFacePackage {
+  position: absolute;
+  bottom: 40px;
+  left: 80px;
+
+  padding: 10px 0 10px 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  width: 280px;
+  height: 150px;
+  background: #ffffff;
+  box-shadow: 0px -3px 8px 0px #dedede;
+  border-radius: 4px 0px 0px 0px;
+
+  overflow-y: auto;
+
+  visibility: hidden;
+}
+
+.weTalkFaceItem {
+  width: 28px;
+  height: 28px;
+}
+
+.weTalkChatToolPic,
+.weTalkChatFace {
+  cursor: pointer;
+}
+
+.weTalkChatFace1,
+.weTalkChatFace2,
+.weTalkChatFace3 {
+  margin-left: 30px !important;
+
+  cursor: pointer;
+}
+
+.weTalkSendPic {
+  display: none !important;
+}
+
+.weTalkSendPicFor {
+  width: 21px;
+  height: 19px;
+  margin: 0 30px 5px 0;
+}
+
+.weTalkOnlineCount {
+  width: 100%;
+  height: 40px;
+
+  line-height: 40px;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+
+  border-bottom: 2px solid #eee;
+
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+
+.weTalkYoula {
+  cursor: pointer;
+  margin-left: 11px !important;
+}
+
+.weTalkChatFrame {
+  width: 100%;
+  height: 120px;
+
+  box-sizing: border-box;
+  padding: 10px;
+
+  overflow-y: auto;
+}
+
+/* 聊天主体 结束 */
+
+/* 用户列表 */
+
+.weTalkUsers {
+  width: 150px;
+  height: 530px;
+  background: #ffffff;
+  border: 2px solid #f4f4f4;
+
+  user-select: none;
+}
+
+.weTalkUsersItemList {
+  width: 150px;
+  height: 490px;
+
+  overflow-y: auto;
+}
+
+.weTalkUsersHead {
+  width: 150px;
+  height: 50px;
+  background: #ede7ff;
+  border-radius: 4px 4px 0px 0px;
+
+  padding-left: 20px;
+  box-sizing: border-box;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #954eeb;
+  line-height: 50px;
+}
+
+.weTalkUsersItem {
+  position: relative;
+
+  width: 150px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 10px 0 6px;
+
+  cursor: pointer;
+}
+
+.weTalkItemOpe {
+  position: absolute;
+  top: 0;
+  left: -51px;
+  z-index: 2;
+
+  width: 270px;
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+
+  box-sizing: border-box;
+  padding: 10px;
+
+  display: none;
+}
+
+.weTalkItemOpeOne,
+.weTalkUsersOpeOne {
+  width: 100%;
+  height: 40px;
+
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ede7ff;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.weTalkItemOpeOneAvatar,
+.weTalkUsersOpeOneAvatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+
+  background-color: blue;
+  margin-right: 10px;
+}
+
+.weTalkItemOpeOneSex,
+.weTalkUsersOpeOneSex {
+  width: 12px;
+  height: 12px;
+}
+
+.weTalkItemOpeOneNick,
+.weTalkUsersOpeOneNick {
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #666666;
+
+  margin-left: 6px;
+}
+
+.weTalkItemOpeTow {
+  width: 100%;
+  height: 33px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.weTalkItemOpeTowBtn {
+  width: 60px;
+  height: 24px;
+  background: #ede7ff;
+  border-radius: 12px;
+
+  padding: 5px 16px;
+  box-sizing: border-box;
+
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 600;
+  color: #944eea;
+  text-align: center;
+
+  cursor: pointer;
+
+  margin-top: 7px;
+}
+/* 用户列表 结束 */
+
+/* 个人信息 */
+.weTalkPersonalInfoCover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 21;
+
+  display: none;
+}
+.weTalkPersonalInfo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  width: 670px;
+  height: 440px;
+  background: #ffffff;
+  box-shadow: 1px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+  padding: 30px 20px;
+  box-sizing: border-box !important;
+  display: none;
+  user-select: none;
+}
+
+.weTalkPersonalInfoClose,
+.weTalkSystemNewsViewClose {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+}
+
+.weTalkPersonalInfoTitle {
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #343434;
+
+  padding-bottom: 9px;
+  border-bottom: 2px solid #f5f5f5;
+}
+
+.weTalkPersonalInfoContent {
+  position: relative;
+  width: 100%;
+
+  padding: 19px 30px 0 80px;
+  box-sizing: border-box;
+}
+
+.weTalkChangeAvatar {
+  width: 64px;
+  height: 80px;
+
+  position: absolute;
+  left: 6px;
+  top: 20px;
+}
+
+.weTalkChangeMethod {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #904ce4;
+
+  margin-left: 3px;
+}
+
+#weTalkChangeMethodInput {
+  display: none;
+}
+
+/* 上传头像 */
+.weTalkAvatarCjView {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 22;
+  width: 500px;
+  height: 400px;
+  background: #ffffff;
+  box-shadow: 1px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+  padding: 30px 20px;
+  box-sizing: border-box !important;
+
+  display: none;
+}
+
+.weTalkavatarPreview {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+
+  width: 250px;
+  height: 250px;
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+
+  /* padding: 10px 10px 0;
+  box-sizing: border-box; */
+
+  /* display: none; */
+}
+
+.weTalkCjRes {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+
+  display: none;
+}
+
+.weTalkCjRes > img {
+  width: 128px;
+  height: 128px;
+}
+
+.weTalkavatarPreviewCj {
+  position: absolute;
+  top: 50%;
+  left: 77%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+
+  width: 128px;
+  height: 128px;
+  overflow: hidden;
+
+  /* display: none; */
+}
+
+.weTalkavatarBtns {
+  left: 90% !important;
+  margin-top: 15px !important;
+}
+
+.weTalkbxs {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+
+/* 普通用户 */
+.weTalkDefaultAvatar,
+.weTalkDeInfoAvatar,
+.weTalkOtherDefaultAvatar,
+.weTalkTransmitDefaultAvatar {
+  width: 36px;
+  height: 36px;
+  background: #944eea;
+  border-radius: 50%;
+
+  text-align: center;
+  line-height: 36px;
+
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #ffffff;
+  cursor: pointer;
+
+  display: none;
+}
+
+.weTalkOtherDefaultAvatar {
+  width: 88px;
+  height: 88px;
+
+  line-height: 88px;
+  font-size: 28px;
+}
+
+.weTalkDeInfoAvatar {
+  width: 64px;
+  height: 64px;
+  line-height: 64px;
+}
+
+.weTalkPersonalInfoItem + .weTalkPersonalInfoItem {
+  margin-top: 10px;
+}
+
+.weTalkPersonalInfoItem {
+  display: flex;
+  align-items: center;
+}
+
+.weTalkPersonalInfoHigh {
+  color: #343434;
+  font-size: 14px;
+  font-family: MicrosoftYaHei;
+
+  white-space: nowrap;
+  margin-right: 5px;
+}
+
+.weTalkPersonalInfoJh {
+  display: flex;
+  align-items: center;
+}
+
+.weTalkPersonalInfoLow,
+.weTalkPointVal {
+  color: #666666;
+  font-size: 14px;
+  font-family: MicrosoftYaHei;
+}
+
+.weTalkPersonalInfoVip {
+  font-weight: bold;
+  font-size: 14px;
+  font-family: MicrosoftYaHei;
+  color: #ffa700;
+
+  display: none;
+}
+
+.weTalkMemberRight {
+  width: 400px;
+  height: 152px;
+  background: #393939;
+  border-radius: 8px;
+
+  box-sizing: border-box;
+  padding: 20px;
+  margin: 19px 0 15px 0;
+}
+
+.weTalkMemberRightFirst {
+  width: 100%;
+  height: 14px;
+  justify-content: space-between;
+}
+
+.weTalkMemberTitle {
+  height: 14px;
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+.weTalkMemberYoula {
+  width: 12px;
+  height: 12px;
+}
+
+.weTalkOpenMember {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #fdabd1;
+}
+
+.weTalkMemberWelfare {
+  width: 100%;
+  height: 70px;
+
+  justify-content: space-around;
+  margin-top: 22px;
+}
+
+.weTalkMemberWelfareImg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weTalkMemberWelfareImg > img {
+  width: 50px;
+  height: 50px;
+}
+
+.weTalkMemberBtn {
+  width: 80px;
+  height: 34px;
+  background: #904ce4;
+  border-radius: 17px;
+
+  line-height: 34px;
+  text-align: center;
+  margin-top: 25px;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+/* vip用户 */
+.weTalkPersonalInfoVIP {
+  font-size: 14px;
+  color: #ffa800;
+  font-weight: bold;
+  font-family: MicrosoftYaHei-Bold;
+}
+
+.weTalkMemberHeaderContent {
+  width: 136px;
+  height: 86px;
+
+  margin-top: 20px;
+
+  display: flex;
+}
+
+.weTalkMemberHeader {
+  width: 100%;
+  height: 100%;
+
+  margin-left: 15px;
+
+  text-align: center;
+}
+
+.weTalkMemberHeaderImg {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+/* 绑定邮箱 */
+.weTalkBindMail {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 22;
+
+  width: 404px;
+  height: 390px;
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+
+  box-sizing: border-box;
+  padding: 30px 20px;
+
+  display: none;
+}
+
+.weTalkUpYzm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+
+  width: 304px;
+  height: 270px;
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+
+  padding: 30px 20px;
+  box-sizing: border-box;
+
+  display: none;
+}
+
+.weTalkUpYzmImg {
+  display: block;
+  margin: 20px auto 0 !important;
+  width: 90px;
+  height: 30px;
+  border-radius: 4px;
+
+  cursor: pointer;
+}
+
+.weTalkUpYzmInput {
+  width: 248px;
+  height: 30px;
+  background: #ffffff;
+  border: 1px solid #dddddd !important;
+  border-radius: 4px;
+
+  border: 0;
+  outline: 0;
+  margin-top: 20px;
+
+  padding: 0 5px;
+  box-sizing: border-box;
+}
+
+.weTalkBindBorder {
+  padding-bottom: 9px;
+  border-bottom: 2px solid #f5f5f5;
+}
+
+.weTalkBindMailContent {
+  position: relative;
+
+  width: 100%;
+  height: 198px;
+
+  box-sizing: border-box;
+  padding: 20px 24px 0 24px;
+}
+
+.weTalkMailTitle {
+  width: 56px;
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 500;
+  color: #333333;
+}
+
+.weTalkBindMailItem,
+.weTalkLoginItem {
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
+.weTalkBindMailItem + .weTalkBindMailItem {
+  margin-top: 19px;
+}
+
+.weTalkMailInput {
+  width: 250px !important;
+  height: 30px !important;
+  background: #ffffff !important;
+  border: 1px solid #dddddd !important;
+  border-radius: 4px !important;
+
+  outline: none !important;
+
+  box-sizing: border-box !important;
+  padding: 0 10px !important;
+
+  margin-left: 10px !important;
+}
+
+.weTalkMailInputyzm {
+  width: 160px !important;
+}
+
+.weTalkSendyzm {
+  width: 80px;
+  height: 30px;
+  background: #8e4be0;
+  border-radius: 4px;
+
+  text-align: center;
+  line-height: 30px;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+.weTalkBindMailTip {
+  width: 252px;
+
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #8e4ce0;
+
+  margin: 11px 0 0 65px;
+}
+
+.weTalkBindMailBtns,
+.weTalkBinLoginBtns,
+.weTalkFGbtns,
+.weTalkRemoveDiagbtns,
+.weTalkStartMemberbtns,
+.weTalkUpYzmBtns,
+.weTalkXgbtns,
+.weTalkYsPickbtns,
+.weTalkavatarBtns,
+.weTalkSwitchRoomTipBtns {
+  width: 180px;
+  height: 34px;
+
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 38px;
+
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.weTalkBindMailBtns {
+  bottom: 30px;
+}
+
+.weTalkBindMailBtn1,
+.weTalkBindMailBtn2,
+.weTalkBindLoginBtn1,
+.weTalkBindLoginBtn2,
+.weTalkFGbtn1,
+.weTalkFGbtn2,
+.weTalkRemoveDiagbtn1,
+.weTalkRemoveDiagbtn2,
+.weTalkStartMemberbtn1,
+.weTalkStartMemberbtn2,
+.weTalkUpdateNickbtn1,
+.weTalkUpdateNickbtn2,
+.weTalkTransmitbtn1,
+.weTalkTransmitbtn2,
+.weTalkFeedBackbtn1,
+.weTalkFeedBackbtn2,
+.weTalkUpYzmBtn1,
+.weTalkUpYzmBtn2,
+.weTalkXgbtn1,
+.weTalkXgbtn2,
+.weTalkYsPicbtn1,
+.weTalkYsPicbtn2,
+.weTalkavatarBtn1,
+.weTalkavatarBtn2,
+.weTalkSwitchRoomTipBtn1,
+.weTalkSwitchRoomTipBtn2 {
+  width: 80px;
+  height: 34px;
+  border-radius: 17px;
+  text-align: center;
+  line-height: 32px;
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  cursor: pointer;
+}
+.weTalkBindMailBtn1,
+.weTalkBindLoginBtn1,
+.weTalkFGbtn1,
+.weTalkRemoveDiagbtn1,
+.weTalkStartMemberbtn1,
+.weTalkUpdateNickbtn1,
+.weTalkTransmitbtn1,
+.weTalkFeedBackbtn1,
+.weTalkUpYzmBtn1,
+.weTalkXgbtn1,
+.weTalkYsPicbtn1,
+.weTalkavatarBtn1,
+.weTalkSwitchRoomTipBtn1 {
+  background: #ede7ff;
+  color: #8e4ae0;
+}
+
+.weTalkBindMailBtn2,
+.weTalkBindLoginBtn2,
+.weTalkFGbtn2,
+.weTalkRemoveDiagbtn2,
+.weTalkStartMemberbtn2,
+.weTalkUpdateNickbtn2,
+.weTalkTransmitbtn2,
+.weTalkFeedBackbtn2,
+.weTalkUpYzmBtn2,
+.weTalkXgbtn2,
+.weTalkYsPicbtn2,
+.weTalkavatarBtn2,
+.weTalkSwitchRoomTipBtn2 {
+  background: #8e4be0;
+  color: #fff;
+}
+
+/* 切换帐号 */
+.weTalkLogin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+
+  width: 414px;
+  height: 320px;
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+
+  padding: 31px 20px;
+  box-sizing: border-box;
+
+  display: none;
+}
+
+.weTalkLoginContent {
+  width: 100%;
+  height: 120px;
+
+  padding: 20px 24px 0 24px;
+}
+
+.weTalkLoginPswd {
+  height: 51px;
+  margin-top: 19px;
+  display: flex;
+}
+
+#weTalkForgetPswd {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+/* 忘记密码 */
+.weTalkFgPswd {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+
+  width: 414px;
+  height: 264px;
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+
+  box-sizing: border-box;
+  padding: 30px 20px;
+
+  display: none;
+}
+
+.weTalkFGcontent {
+  width: 100%;
+  height: 95px;
+
+  padding: 20px 24px 0 24px;
+}
+
+.weTalkFGItem {
+  display: flex;
+}
+
+.weTalkFGtip {
+  margin-left: 66px;
+  margin-top: 10px;
+}
+
+.weTalkFGtipItem {
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #8e4be0;
+}
+
+.weTalkFGtipItem + .weTalkFGtipItem {
+  margin-top: 8px;
+}
+
+/* 修改密码 */
+.weTalkXgPswd {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 22;
+
+  width: 404px;
+  height: 410px;
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+
+  box-sizing: border-box;
+  padding: 30px 20px;
+
+  display: none;
+}
+
+.weTalkXgCotent {
+  width: 100%;
+
+  margin-top: 20px;
+}
+
+.weTalkXgItem + .weTalkXgItem {
+  margin-top: 20px;
+}
+
+.weTalkOriPswdInput {
+  width: 364px;
+  height: 36px;
+  background: #f5f5f5;
+  border-radius: 4px !important;
+
+  outline: none !important;
+  border: 0 !important;
+
+  padding: 12px 20px;
+  box-sizing: border-box;
+
+  margin-top: 10px;
+}
+
+.weTalkOriPswd,
+.weTalkNewPswd,
+.weTalkQrNewPswd {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+}
+
+/* 移除私聊用户对话框 */
+.weTalkRemoveDiag {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+
+  width: 404px;
+  height: 194px;
+  background: #ffffff;
+  box-shadow: 1px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+
+  padding: 29px 20px;
+  box-sizing: border-box;
+
+  display: none;
+}
+
+.weTalkRemoveDiag {
+  margin-top: 20px;
+}
+
+.weTalkRemoveDiagContent {
+  margin-top: 20px;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #343434;
+}
+
+/* 开通会员 */
+.weTalkStartMember {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 21;
+
+  width: 600px;
+  height: 400px;
+  background: #ffffff;
+  box-shadow: 1px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+
+  padding: 25px 20px;
+  box-sizing: border-box;
+
+  display: none;
+}
+
+.weTalkStartMemberItem {
+  height: 31px;
+  display: flex;
+  align-items: center;
+  /* margin-top: 20px; */
+}
+
+.weTalkStartMemberSubTitle {
+  font-family: MicrosoftYaHei;
+  font-size: 14px;
+  font-weight: Regular;
+  color: #343434;
+}
+
+.weTalkStartMemberMail {
+  font-family: MicrosoftYaHei;
+  font-size: 14px;
+  font-weight: Regular;
+  color: #343434;
+
+  margin-left: 25px;
+}
+
+.weTalkSMember {
+  font: 14px !important;
+  font-family: Microsoft YaHei !important;
+  font-weight: 400 !important;
+  /* font:400 Microsoft YaHei 14px !important; */
+  color: #666666;
+}
+
+.weTalkSMemberA {
+  display: flex;
+  align-items: center;
+}
+
+#weTalkSMember1 {
+  margin-left: 25px !important;
+  margin-right: 5px !important;
+}
+
+#weTalkSMember2,
+#weTalkSMember3 {
+  margin-left: 32px !important;
+  margin-right: 5px !important;
+}
+
+.weTalkStartMemberItem2Two {
+  display: flex;
+  align-items: baseline;
+}
+
+.weTalkStartMemberPrice {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: Microsoft YaHei;
+  color: #666666;
+
+  margin-left: 25px;
+}
+
+.weTalkStartMemberUnit {
+  font-family: MicrosoftYaHei;
+  color: #333;
+  font-size: 14px;
+}
+
+.weTalkStartMemberbtns {
+  bottom: 15px;
+}
+
+/* 开通会员支付 */
+.weTalkStartMemberPay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+
+  width: 270px;
+  height: 310px;
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+
+  box-sizing: border-box;
+  padding: 30px 0;
+
+  display: none;
+
+  text-align: center;
+}
+
+.weTalkStartMemberPayCha,
+.weTalkAboutUsCha,
+.weTalkInviteFriendCha,
+.weTalkFeedBackCha {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.weTalkStartMemberPaySuc,
+.weTalkStartMemberAlert,
+.weTalkCopySuc,
+.weTalkSendFrequently,
+.weTalkAddRepeatly,
+.weTalkAddSuc,
+.weTalkChatCommonTip,
+.weTalkGlobalTip,
+.weTalkRemove,
+.weTalkCommonTip,
+.weTalkLTip,
+.weTalkCommonTipTop,
+.weTalkSendFail,
+.weTalkFeedSuc,
+.weTalkYzTip,
+.weTalkdissonantPswd,
+.weTalkBindSuc,
+.weTalkwxTip1,
+.weTalkwxTip2,
+.weTalkwxTip3,
+.weTalkwxTip4,
+.weTalkXGcg,
+.weTalkSwitchSuc,
+.weTalkSwitchFail,
+.weTalkSubmitSuc,
+.weTalkSignSuc,
+.weTalkAsign,
+.weTalkSendPicSuc,
+.weTalkNotMember,
+.weTalkRegSuc,
+.weTalkRegCommon,
+.weTalkLogLSuc,
+.weTalkSendPicFail,
+.weTalkAvatarSuc,
+.weTalkAvatarFail,
+.weTalkFj,
+.weTalkRegUserIsHas,
+.weTalkError,
+.weTalkChatMgc,
+.weTalkUserNameEmpty,
+.weTalkUserPswdEmpty,
+.weTalkFGEmailEmpty,
+.weTalkFGEmailUncorrect,
+.weTalkaddRepeatly,
+.weTalkLhSuc,
+.weTalkYlogin,
+.weTalkLoginError,
+.weTalkChatMgc,
+.weTalkUserNameEmpty,
+.weTalkUserPswdEmpty,
+.weTalkFGEmailEmpty,
+.weTalkFGEmailUncorrect,
+.weTalkAmendName,
+.weTalkRemoveFriend,
+.weTalkaddBlacklist,
+.weTalkcancelCollection,
+.searchChatroomHint,
+.collectChatroomSucceed,
+.driftBottleDetailsHint,
+.throwDriftBottleHint,
+.bottleOnePage,
+.bottleHint,
+.bottleEndPage,
+.bottleRemove,
+.alreadycollectChatroom {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  min-width: 80px;
+  height: 30px;
+  background: #222222;
+  border-radius: 4px;
+
+  text-align: center;
+  line-height: 30px;
+
+  padding: 10px;
+  box-sizing: content-box;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #ffffff;
+
+  display: none;
+  z-index: 5;
+}
+
+.weTalkCommonTip,
+.weTalkGlobalTip {
+  z-index: 1000;
+}
+
+.weTalkBindSuc,
+.weTalkwxTip1,
+.weTalkwxTip2,
+.weTalkwxTip3,
+.weTalkwxTip4 {
+  z-index: 2;
+}
+
+.weTalkSendFrequently {
+  z-index: 1;
+}
+
+.weTalkStartMemberPayQr {
+  width: 158px;
+  height: 158px;
+  background: #f5f5f5;
+
+  padding: 12px;
+  box-sizing: border-box;
+
+  margin: 30px auto 0 auto;
+}
+
+.weTalkStartMemberPayQrImg {
+  width: 100%;
+  height: 100%;
+
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.weTalkStartMemberPayTip {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #999999;
+
+  margin-top: 20px;
+}
+
+/* 修改昵称 */
+.weTalkUpdateNick {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 22;
+
+  width: 404px;
+  height: 194px;
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+
+  box-sizing: border-box;
+  padding: 29px 20px;
+
+  display: none;
+}
+
+.weTalkUpdateNickImg {
+  width: 16px;
+  height: 16px;
+}
+
+.weTalkUpdateNickInput {
+  width: 364px !important;
+  height: 36px !important;
+  background: #f5f5f5 !important;
+  border-radius: 4px !important;
+
+  box-sizing: border-box !important;
+  padding: 10px !important;
+  margin-top: 20px !important;
+
+  border: none !important;
+  outline: none !important;
+}
+
+.weTalkUpdateNickbtns {
+  width: 180px;
+  height: 34px;
+
+  display: flex;
+  justify-content: space-between;
+  margin-top: 26px;
+
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 个性签名 */
+.weTalkUserPerSignText {
+  width: 464px;
+  height: 90px;
+
+  background: #f5f5f5;
+  border-radius: 4px !important;
+
+  border: 0 !important;
+  outline: none !important;
+  resize: none !important;
+
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* 关于我们 */
+.weTalkAboutUs {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 15;
+
+  width: 670px;
+  height: 440px;
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+
+  box-sizing: border-box;
+  padding: 29px 30px;
+
+  display: none;
+  user-select: none;
+}
+
+.weTalkAboutIntro {
+  width: 350px;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+
+  margin-top: 12px;
+  line-height: 30px;
+}
+
+.weTalkJoinUs > span,
+.weTalkOfficial {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+}
+
+.weTalkJoinUs {
+  margin-top: 40px;
+}
+
+.weTalkJoinUsQQ {
+  display: inline-block;
+}
+
+.weTalkJoinUsQQVal {
+  display: inline-block;
+  color: #944eea;
+}
+
+.weTalkOfficial {
+  display: block;
+  color: #944eea;
+
+  margin-top: 16px;
+}
+
+/* 转发 */
+.weTalkTransmit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+
+  width: 300px;
+  height: 400px;
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+
+  padding: 29px 20px;
+  box-sizing: border-box;
+
+  display: none;
+}
+
+.weTalkTransmitList {
+  width: 100%;
+  height: 278px;
+  overflow-y: auto;
+}
+
+.weTalkZfSwitch {
+  position: absolute;
+  right: 20px;
+  top: 29px;
+}
+
+.weTalkZfSwitchSession,
+.weTalkZfSwitchFriend {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #333333;
+  cursor: pointer;
+}
+
+.weTalkZfSwitchSession:hover {
+  color: #944eea;
+}
+
+.weTalkZfSwitchFriend:hover {
+  color: #944eea;
+}
+
+.weTalkTransmitItem {
+  position: relative;
+
+  width: 100%;
+  height: 45px;
+
+  margin-top: 10px;
+}
+
+.weTalkTransmitItemLeft {
+  height: 100%;
+  max-width: 220px;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.weTalkTransmitItemLeftAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.weTalkTransmitAvatarImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.weTalkTransmitSexImg {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  position: absolute;
+
+  left: 2px;
+  bottom: 2px;
+}
+
+.weTalkTransmitItemLeftTitle {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+
+  margin-left: 10px;
+}
+
+.weTalkTransmitItemRight {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.weTalkTransmitbtns {
+  width: 180px;
+  height: 34px;
+
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 14px;
+
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 邀请好友 */
+.weTalkInviteFriend {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 15;
+
+  width: 670px;
+  height: 440px;
+  background: #ffffff;
+  box-shadow: 1px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+
+  padding: 30px 20px;
+  box-sizing: border-box;
+
+  display: none;
+  /* user-select: none; */
+}
+
+.weTalkInviteContent {
+  position: relative;
+
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
+.weTalkInviteBoon {
+  width: 100%;
+
+  font-size: 14px;
+  color: #343434;
+  font-family: MicrosoftYaHei;
+}
+
+.weTalkInviteBoon > span:first-child {
+  font-weight: bold;
+}
+
+.weTalkInviteBoon > span:last-child {
+  color: #904ce4;
+}
+
+.weTalkInviteA {
+  width: 100%;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #343434;
+
+  margin-top: 30px;
+}
+
+.weTalkInviteGray {
+  width: 100%;
+  height: 106px;
+  background: #f5f5f5;
+  border-radius: 4px;
+
+  padding: 30px 20px;
+  box-sizing: border-box;
+
+  margin-top: 10px;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #343434;
+}
+
+.weTalkInviteGrayInner {
+  width: 500px;
+  height: 100%;
+  line-height: 24px;
+}
+/* .weTalkInviteGray > div{
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #343434;
+} */
+
+/* .weTalkInviteGray > div + div{
+  margin-top:10px;
+} */
+
+.weTalkInviteBtn {
+  width: 80px;
+  height: 34px;
+  background: #904ce4;
+  border-radius: 17px;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #fff;
+
+  text-align: center;
+  line-height: 34px;
+
+  margin-top: 22px;
+}
+
+#weTalkInviteGrayText {
+  display: none;
+  /* visibility: hidden; */
+}
+
+/* 用户反馈 */
+.weTalkFeedBack {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 15;
+
+  width: 670px;
+  height: 440px;
+  background: #ffffff;
+  box-shadow: 1px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+
+  padding: 30px 20px;
+  box-sizing: border-box;
+
+  display: none;
+  user-select: none;
+}
+
+.weTalkFeedBackContent {
+  width: 100%;
+
+  padding: 0 20px;
+}
+
+.weTalkFeedBackTitle {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #343434;
+}
+
+.weTalkFeedBackRadio {
+  display: flex;
+  align-items: center;
+
+  margin-top: 18px;
+}
+
+.weTalkFeedBackT2 {
+  margin-top: 15px;
+}
+
+.weTalkFeedBackT3 {
+  margin-top: 25px;
+}
+
+.weTalkFeedBackLabel {
+  margin: 0 30px 0 10px;
+}
+
+.weTalkMobile {
+  margin-top: 25px;
+}
+
+.weTalkFeedBackMobileInput {
+  width: 200px !important;
+  height: 30px !important;
+  background: #f5f5f5 !important;
+  border-radius: 4px !important;
+
+  outline: none !important;
+  border: none !important;
+
+  padding: 10px !important;
+  box-sizing: border-box !important;
+
+  margin-top: 10px !important;
+}
+
+.weTalkFeedBackText {
+  margin-top: 15px;
+}
+
+.weTalkFeedTextArea {
+  width: 500px;
+  height: 100px;
+  background: #f5f5f5;
+  border-radius: 4px;
+
+  padding: 10px;
+  box-sizing: border-box;
+
+  outline: none;
+  border: none;
+
+  resize: none;
+
+  margin-top: 10px;
+}
+
+.weTalkFeedBackbtns {
+  width: 180px;
+  height: 34px;
+
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+
+  position: absolute;
+  left: 40px;
+}
+
+/* 站内信 */
+.weTalkSystemNewsView {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 15;
+  width: 670px;
+  height: 440px;
+  background: #ffffff;
+  box-shadow: 1px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+  padding: 30px 20px;
+  box-sizing: border-box;
+  display: none;
+  user-select: none;
+}
+
+.weTalkSystemUnread {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+
+  width: 8px;
+  height: 8px;
+  background: #ef3436;
+  border-radius: 50%;
+
+  display: none;
+}
+
+.weTalkSystemNewsViewContent {
+  width: 100%;
+  height: 350px;
+
+  overflow-y: auto;
+  margin-top: 18px;
+}
+
+.weTalkSystemNewsViewItem {
+  position: relative;
+  width: 630px;
+  background: #f5f5f5;
+  border-radius: 4px;
+
+  box-sizing: border-box;
+  padding: 24px 19px;
+}
+
+.weTalkSystemNewsViewItem + .weTalkSystemNewsViewItem {
+  margin-top: 10px;
+}
+
+.weTalkSystemNewsViewItemOne {
+  width: 100%;
+
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.weTalkSystemNewsViewFont {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #343434;
+}
+
+.weTalkSystemNewsViewOpe {
+  width: 120px;
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+}
+
+.weTalkSystemNewsViewTime {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #666666;
+}
+
+.weTalkSystemNewsViewDel {
+  width: 24px;
+  height: 24px;
+  background: #dedede;
+  border-radius: 50%;
+
+  text-align: center;
+  line-height: 24px;
+
+  margin-left: 15px;
+}
+
+.weTalkViewDelIcon {
+  width: 12px;
+  height: 14px;
+}
+
+.weTalkSystemNewsViewItemTwo {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #666666;
+
+  margin-top: 20px;
+
+  display: none;
+}
+
+.emptyInBoxMessage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.emptyInBoxMessageText {
+  margin-top: 15px;
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 300;
+  color: #999999;
+}
+
+/* 签到 */
+.weTalkSignInView {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+
+  width: 580px;
+  height: 320px;
+
+  padding: 120px 80px 0;
+  box-sizing: border-box;
+
+  display: none;
+  user-select: none;
+}
+
+.weTalkSignFont {
+  font-size: 12px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #999999;
+}
+
+.weTalkSignDays {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.weTalkSignDay {
+  width: 50px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weTalkSignDiyImg {
+  width: 36px;
+  height: 36px;
+  background: #dddddd;
+  border-radius: 50%;
+
+  text-align: center;
+  line-height: 36px;
+
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.weTalkSignImg {
+  width: 50px;
+  height: 50px;
+  background: #ffb527;
+  border-radius: 50%;
+
+  text-align: center;
+  line-height: 70px;
+
+  font-size: 12px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.weTalkGetQdRevenue {
+  position: absolute;
+  width: 140px;
+  height: 32px;
+  top: 230px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 上传图片预览 */
+.weTalkYsPickbtns {
+  margin-top: 19px;
+}
+
+.weTalkYsPic {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+
+  min-width: 200px;
+  text-align: center;
+  /* width: 280px; */
+  /* height: 300px; */
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+
+  padding: 10px 10px 60px;
+
+  display: none;
+  user-select: none;
+}
+
+/* 聊天框图片 */
+.weTalkRecordsImg {
+}
+
+/* 个人信息头像 */
+.weTalkCurAvater {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+}
+
+/* 登录log界面 */
+.weTalkRegView,
+.weTalkLogView {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000000;
+
+  width: 50%;
+  background-color: #fff;
+  padding: 20px 33px 20px 0;
+  min-width: 580px;
+
+  display: none;
+}
+
+.weTalkRegView {
+  padding-right: 10px;
+}
+
+.weTalkRegItem {
+  position: relative;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.weTalkRegItem + .weTalkRegItem {
+  margin-top: 20px;
+}
+
+.weTalkRegTitle {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #333333;
+
+  white-space: nowrap;
+
+  margin-right: 13px;
+}
+
+.weTalkRegInput {
+  width: 350px !important;
+  height: 40px !important;
+  background: #ffffff !important;
+  border: 1px solid #dddddd !important;
+
+  padding: 13px 19px !important;
+  box-sizing: border-box !important;
+
+  outline: none !important;
+}
+
+.weTalkChangeNick {
+  width: 62px;
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #944eea;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 10px;
+}
+
+.weTalkChangeNick > img {
+  width: 16px;
+  height: 16px;
+}
+
+.weTalkRegItemS {
+  display: flex;
+}
+
+#regSex2 {
+  margin-left: 39px;
+}
+
+.weTalkUserDeal {
+  display: flex;
+  align-items: center;
+}
+
+.weTalkDealFont {
+  font-size: 12px;
+  font-family: Source Han Sans CN;
+  color: #999999;
+}
+
+.weTalkPurpleF {
+  font-weight: bold;
+  color: #944eea;
+}
+
+#weTalkUserDeal {
+  margin-right: 10px;
+}
+
+.weTalkRegItemc {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* margin: 35px 0 20px 0; */
+}
+
+.weTalkRegBtns {
+  width: 350px;
+  height: 40px;
+
+  line-height: 40px;
+  text-align: center;
+
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+}
+
+.weTalkRegBtns:last-child {
+  margin-top: 10px;
+}
+
+#weTalkRegBtn {
+  background: #944eea;
+  color: #fff;
+}
+
+#weTalkLogBtn {
+  border: 1px solid #944eea;
+  color: #944eea;
+  background: #fff;
+}
+
+/* 登录 */
+
+.weTalkAccountOpe {
+  width: 350px;
+  height: 15px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 20px;
+}
+
+.weTalkAccountOpe > div {
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #944eea;
+}
+
+.weTalkLogHead {
+  width: 100%;
+  height: 70px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 45px;
+}
+
+.weTalklogLogo {
+  width: 70px;
+  height: 70px;
+}
+
+.weTalkLogTilte {
+  font-size: 48px;
+  font-family: Bertha;
+  font-weight: bold;
+  color: #333333;
+}
+
+.weTalkRegFgPswd {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #944eea;
+}
+
+.weTalkBlock {
+  width: 55px;
+  height: 40px;
+}
+
+/* 右键用户信息 */
+.weTalkyjInfo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+
+  width: 400px;
+  height: 400px;
+
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+
+  display: none;
+}
+
+.weTalkyjAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+
+  background-color: #904ce4;
+}
+
+.weTalkyjNick {
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #333333;
+}
+
+.weTalkyjPerSign {
+  width: 100%;
+
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #999999;
+}
+
+.weTalkyjbtn {
+  width: 100%;
+  height: 25px;
+
+  line-height: 25px;
+  text-align: center;
+
+  background: blue;
+}
+
+/* 遮罩层 */
+.weTalkOverCover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 998;
+
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+}
+
+.weTalkOverCoverCha {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+}
+
+/* 图片预览 */
+.weTalkImgPreview {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  z-index: 999;
+
+  padding: 20px;
+
+  display: none;
+}
+
+.weTalkImgPreview > img {
+}
+
+/* 忘记密码界面 */
+.weTalkRegResetPswdV {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000000;
+
+  width: 50%;
+  background-color: #fff;
+  padding: 30px 0;
+
+  display: none;
+}
+
+#weTalkRegResetPswdmail {
+  display: block;
+  margin: 0 auto 20px;
+}
+
+.weTalkResetTip {
+  font-size: 12px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #944eea;
+}
+
+.weTalkSubmitReset {
+  width: 350px;
+  height: 40px;
+  background: #944eea;
+
+  text-align: center;
+  line-height: 40px;
+
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #ffffff;
+
+  cursor: pointer;
+
+  margin: 0 auto 0;
+}
+
+.weTalkResetTip {
+  width: 350px;
+  font-size: 12px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #944eea;
+
+  margin: 10px auto 30px;
+}
+
+.weTalkSwitchOpe {
+  width: 350px;
+  height: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin: 20px auto 0;
+  cursor: pointer;
+}
+
+.weTalkSwitchOpe > div {
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #944eea;
+}
+
+/* 他人信息 */
+.weTalkOtherInfo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  width: 360px;
+  /* height: 414px; */
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+  border-radius: 40px 0px 40px 0px;
+
+  padding: 60px 20px 20px;
+  box-sizing: border-box;
+}
+
+.weTalkOtherAvatar {
+  position: absolute;
+  top: -44px;
+  left: 50%;
+  transform: translate(-50%);
+
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.weTalkOtherAvatarImg {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+}
+
+.weTalkOtherSexImg {
+  width: 16px;
+  height: 16px;
+
+  position: absolute;
+  left: 12px;
+  bottom: 6px;
+}
+
+.weTalkOtherNick,
+.weTalkOtherBz {
+  width: 100%;
+  text-align: center;
+
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+}
+
+.weTalkOtherPerSign {
+  width: 320px;
+  /* height: 60px; */
+  background: #f5f5f5;
+  text-align: center;
+  margin: 15px 0 9px;
+
+  padding: 10px;
+}
+
+.weTalkOtherTzk {
+  width: 100%;
+  display: flex;
+  align-items: center;
+
+  white-space: nowrap;
+
+  margin-bottom: 29px;
+}
+
+.weTalkOtherTzk > div {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+}
+
+.weTalkOtherTzkDe {
+  color: #666;
+}
+
+.weTalkOtherTzkContent {
+  width: 100%;
+  color: #944eea;
+
+  cursor: pointer;
+}
+
+.weTalkOtherBtn {
+  width: 220px;
+  height: 40px;
+  border-radius: 4px;
+
+  text-align: center;
+  line-height: 40px;
+  border: 1px solid #944eea;
+  cursor: pointer;
+
+  background: #fff;
+  color: #944eea;
+
+  margin: 0 auto 0;
+}
+
+.weTalkOtherBtn + .weTalkOtherBtn {
+  margin-top: 10px;
+}
+
+.weTalkOtherBtn:hover {
+  background-color: #944eea;
+  color: #fff;
+}
+
+/* weTalk初始加载页面 */
+.weTalkInitial {
+  position: relative;
+  width: 750px;
+  height: 530px;
+  background-color: #fff;
+
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-left: 0;
+}
+
+.weTalkInitialView {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  text-align: center;
+}
+
+.weTalkInitialImg {
+  width: 92px;
+  height: 92px;
+}
+
+.weTalkInitialTip {
+  margin-top: 30px;
+
+  font-size: 18px;
+  font-family: HelloFont;
+  font-weight: bold;
+  color: #333333;
+
+  user-select: none;
+}
+.driftBottleDetailsHint,
+.throwDriftBottleHint,
+.bottleOnePage,
+.bottleEndPage .bottleRemove .bottleHint {
+  z-index: 20;
+}
+
+/* 功能遮罩层 */
+.weTalkFunCover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: none;
+  z-index: 14;
+}
+
+/* 切换聊天室提醒 */
+.weTalkSwitchChatRoomTip {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 15;
+  width: 404px;
+  height: 154px;
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 29px 20px;
+  display: none;
+}
+
+/* 幸运抽奖 */
+.weTalkLottery {
+  position: relative;
+  width: 750px;
+  height: 530px;
+  background-image: url("../images/lottery/lottery_bg.png");
+  padding: 99px 44px 0;
+  box-sizing: border-box;
+
+  display: none;
+}
+.weTalkAward {
+  width: 662px;
+  height: 333px;
+  background-image: url("../images/lottery/lottery_xbg.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  padding: 22px 41px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.weTalkAwardItem {
+  width: 130px;
+  height: 90px;
+  background: url("../images/lottery/award_bg.png");
+
+  padding: 10px 42px 0;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.weTalkAwardPoint {
+  width: 46px;
+  height: 48px;
+  box-shadow: -1px 4px 6px 0px rgba(232, 120, 0, 0.91);
+}
+
+.weTalkAwardInfo {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #db5947;
+  white-space: nowrap;
+  margin-top: 5px;
+}
+
+.weTalkLotteryBtn {
+  width: 278px;
+  background: url("../images/lottery/lottery_btn2.png") no-repeat;
+  border-radius: 26px;
+  cursor: pointer;
+}
+
+.weTalkLotteryBtn:active {
+  background: url("../images/lottery/lottery_btn1.png") no-repeat;
+}
+
+.weTalkLotteryTipItem {
+  display: flex;
+}
+.weTalkLotteryTip {
+  height: 58px;
+  padding-left: 16px;
+  box-sizing: border-box;
+}
+
+.weTalkLotteryTipTitle,
+.weTalkLotteryTipItem {
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  color: #ffffff;
+}
+.weTalkLotteryTipTitle {
+  font-weight: bold;
+}
+.weTalkLotteryTipBlock {
+  width: 70px;
+  height: 19px;
+}
+
+.weTalkLotteryHistory {
+  position: absolute;
+  bottom: 34px;
+  right: 63px;
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+.weTalkLotteryResView {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+
+  width: 340px;
+  height: 160px;
+  background: #eae3d7;
+  border-radius: 8px;
+
+  padding: 20px 30px;
+  box-sizing: border-box;
+
+  display: none;
+}
+
+.weTalkLotteryResViewTitle {
+  width: 100%;
+  text-align: center;
+
+  font-size: 24px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #dd6300;
+}
+
+.weTalkLotteryResViewTip {
+  width: 100%;
+
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #917865;
+
+  margin: 5px 0;
+}
+
+.weTalkLotteryResViewBtn {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 34px;
+  background: #dd6300;
+  border-radius: 4px;
+
+  text-align: center;
+  line-height: 34px;
+
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+.weTalkLotteryAwardFont {
+  color: #dd6300;
+  font-weight: bold;
+}
+
+.weTalkCloseRes {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+
+  cursor: pointer;
+}
+
+.weTalkLotteryRecords {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 440px;
+  height: 440px;
+  background: #eae3d7;
+  border-radius: 8px;
+
+  padding: 20px 19px;
+  box-sizing: border-box;
+
+  display: none;
+}
+
+.weTalkLotteryRecordsTitle > span:first-child {
+  font-size: 16px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #dd6300;
+
+  margin-right: 10px;
+}
+
+.weTalkLotteryRecordsTitle > span:last-child {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #917865;
+}
+
+.weTalkLotteryRecordsContent {
+  width: 400px;
+  height: 320px;
+  background: #d8d1c4;
+
+  padding: 20px 19px;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
+.weTalkLotteryRecordsContent > div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.weTalkLotteryRecordsContent > div + div {
+  margin-top: 15px;
+}
+
+.weTalkLotteryRecordsContent > div > div {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #917865;
+}
+
+.weTalkLotteryRecordsPages {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 58px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.weTalkLotteryRecordsNextP,
+.weTalkLotteryRecordsLastP {
+  cursor: pointer;
+}
+
+.weTalkLotteryRecordsXX {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  cursor: pointer;
+}
+
+.weTalkLotteryCover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}

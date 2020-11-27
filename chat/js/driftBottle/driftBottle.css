@@ -1,0 +1,873 @@
+#driftBottleIndex {
+    /* margin: 80px auto; */
+    display: none;
+    width: 750px;
+    height: 530px;
+    background: url(../images/driftbottle/bg.png);
+    position: relative;
+  }
+  
+  .driftBottleIndexMasking {
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    opacity: 0.5;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    z-index: 15;
+    display: none;
+  }
+  .bottlePreviewTier {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 20;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    display: none;
+  }
+  .bottlePreviewTierPic {
+    width: 100%;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    height: 442px;
+    /* background: pink; */
+    margin-top: 44px;
+    align-items: center;
+  }
+  .bottlePreviewTierFooter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #closeBottlePreviewTier {
+    cursor: pointer;
+  }
+  #driftBottleAllBtn {
+    position: absolute;
+    right: 32px;
+    top: 31px;
+    z-index: 10;
+  }
+  #driftBottleAllBtn p {
+    position: relative;
+  }
+  #pickNum {
+    position: absolute;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #f15334;
+    border-radius: 50%;
+    right: -5px;
+    top: 15px;
+    font-size: 12px;
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+    color: #ffffff;
+    line-height: 20px;
+    text-align: center;
+  }
+  #throwNum {
+    position: absolute;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #f15334;
+    border-radius: 50%;
+    right: -5px;
+    top: 15px;
+    font-size: 12px;
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+    color: #ffffff;
+    line-height: 20px;
+    text-align: center;
+  }
+  #fishForBottle {
+    margin: 6px 0;
+  }
+  
+  .driftBottleFooter {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+  }
+  
+  #driftBottleBottle {
+    display: none;
+    position: absolute;
+    left: 121px;
+    bottom: 0;
+    cursor: pointer;
+  }
+  
+  #oneCloud {
+    position: absolute;
+    top: 74px;
+    left: 29px;
+  }
+  
+  #twoCloud {
+    position: absolute;
+    right: 0;
+    top: 150px;
+  }
+  
+  #driftBottleAllBtn p {
+    cursor: pointer;
+  }
+  #driftBottleIndexIcon {
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  /* 漂流瓶简介 */
+  #driftBottleIntro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    padding: 0 20px;
+    width: 300px;
+    height: 420px;
+    background: #eae6dd;
+    border-radius: 4px;
+    z-index: 100;
+  }
+  
+  #driftBottleIntro > p {
+    width: 100%;
+    text-align: center;
+    padding-top: 30px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+    color: #a0711b;
+  }
+  
+  #driftBottleIntro div {
+    width: 100%;
+    padding: 12px 0;
+    border-top: 2px solid #a0711b;
+  }
+  
+  #driftBottleIntro div p {
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 300;
+    color: #a0711b;
+    line-height: 24px;
+  }
+  
+  #driftBottleIntro div :nth-child(2) {
+    margin: 10px 0;
+  }
+  #driftBottleIntro span {
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    margin-top: 5px;
+  
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #ffffff;
+  }
+  #driftBottleIntroBtn {
+    border: none;
+    outline-style: none;
+    width: 120px;
+    height: 40px;
+    background: #a0711b;
+    border-radius: 20px;
+  }
+  
+  /* 我的瓶子 */
+  #myDriftBottle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 15;
+    width: 600px;
+    height: 480px;
+    background: #eae6dd;
+    border-radius: 8px;
+    padding: 0 20px;
+  }
+  
+  #myDriftBottle > p {
+    padding-top: 30px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+    color: #a0711b;
+    cursor: pointer;
+  }
+  #myBottleOption {
+    background: #a0711b;
+    color: #fff;
+  }
+  .myDriftBottleOut {
+    display: flex;
+    width: 100%;
+    border-top: 2px solid #a0711b;
+    /* height: 325px; */
+  }
+  
+  .myDriftBottleTab p {
+    width: 100px;
+    height: 40px;
+    background: #d0c3ab;
+    text-align: center;
+    line-height: 40px;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #a0711b;
+    cursor: pointer;
+  }
+  
+  #myDriftBottle > span {
+    text-align: right;
+    display: inline-block;
+    width: 460px;
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+  }
+  
+  #myBottle {
+    width: 460px;
+    height: 120px;
+    background: #e1dbd1;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1px;
+  }
+  
+  .myBottleLeft {
+    height: 80px;
+    width: 80px;
+    border-right: 1px solid #bbb3a4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin-right: 10px; */
+  }
+  
+  .myBottleLeft p {
+    width: 60px;
+    height: 60px;
+    background: #d1cabb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .myBottleRight {
+    width: 380px;
+    padding: 10px 16px;
+  }
+  
+  .myBottleRightTop {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .myBottleRightTopRight {
+    display: flex;
+    align-items: center;
+  }
+  
+  #myBottleType {
+    display: inline-block;
+    width: 50px;
+    height: 20px;
+    background: #eb6052;
+    color: #ffffff;
+    text-align: center;
+    line-height: 20px;
+    margin-right: 10px;
+  }
+  
+  #myBottleTime {
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #a0711b;
+  }
+  
+  .myBottleTab {
+    cursor: pointer;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #529eeb;
+  }
+  
+  .myBottleLine {
+    display: inline-block;
+    height: 14px;
+    width: 1px;
+    background: #529eeb;
+    margin: 0 10px;
+  }
+  
+  .myBottleRightCenter {
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #a0711b;
+    margin-bottom: 20px;
+  }
+  
+  .myBottleRighBottom {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .myBottleRighBottomLeft {
+    display: flex;
+  }
+  
+  .myBottleRighBottomLeft p {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #c0a676;
+  }
+  
+  .myBottleRighBottomLeft p img {
+    margin-right: 7px;
+  }
+  
+  .myBottleRighBottom > p {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #c0a676;
+  }
+  .myBottleRighBottom > p img {
+    margin-right: 7px;
+  }
+  #myFootprint {
+    width: 460px;
+    height: 80px;
+    background: #e1dbd1;
+    margin-bottom: 1px;
+    padding: 16px 8px;
+  }
+  #myFootprint > div {
+    display: flex;
+    justify-content: space-between;
+  }
+  #myFootprint > p {
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #a0711b;
+    margin-top: 10px;
+  }
+  #myFootprintTime {
+    margin-right: 10px;
+    color: #a0711b;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+  }
+  .myFootprintText {
+    color: #529eeb;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+  }
+  #myFootprintOpen {
+    cursor: pointer;
+  }
+  
+  /* 扔个瓶子 */
+  #throwDriftBottle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 101;
+    width: 600px;
+    height: 460px;
+    background: #eae6dd;
+    border-radius: 8px;
+    padding: 0 20px;
+  }
+  
+  #throwDriftBottle > p {
+    padding-top: 30px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+    color: #a0711b;
+  }
+  
+  #throwDriftBottle > div {
+    border-top: 2px solid #a0711b;
+  }
+  
+  .throwDriftBottleAllBtn {
+    display: flex;
+    margin: 10px 0;
+    padding: 0 10px;
+  }
+  #friendBottle {
+    color: #fff;
+    background: #e5b155;
+  }
+  .throwDriftBottleAllBtn p {
+    margin-right: 30px;
+    display: flex;
+    align-items: flex-end;
+  }
+  .throwDriftBottleAllBtn p button {
+    width: 80px;
+    height: 34px;
+    background: #dbd4c6;
+    cursor: pointer;
+    border: none;
+    outline-style: none;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #a0711b;
+  }
+  #throwDriftBottleIpt {
+    width: 560px;
+    height: 120px;
+    background: #e1dbd1;
+    border-radius: 4px;
+    outline-style: none;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  [contentEditable="true"]:empty:not(:focus):before {
+    content: attr(data-text);
+    color: #bcae9b;
+  }
+  
+  .throwDriftBottleUplodeDiv {
+    margin-top: 10px;
+    display: flex;
+  }
+  .throwDriftBottleUplode {
+    width: 84px;
+    height: 80px;
+    background: #e1dbd1;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  #bottleLocalityPic {
+    display: flex;
+    align-items: center;
+  }
+  .BottleLocalityPic {
+    max-width: 150px;
+    max-height: 80px;
+  }
+  #showBottleLocalityPic {
+    margin-right: 10px;
+    position: relative;
+  }
+  
+  #throwBottleMasking {
+    width: 100%;
+    height: 100%;
+    background: #000000;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    display: none;
+  }
+  #removeBottleLocalityPic {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 11;
+    cursor: pointer;
+    display: none;
+  }
+  .throwDriftBottleText {
+    margin-top: 10px;
+    font-size: 12px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #bcae9b;
+    margin-bottom: 20px;
+  }
+  
+  #throwDriftBottle > span {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+  }
+  
+  #throwDriftBottleBtn {
+    width: 120px;
+    height: 40px;
+    background: #a0711b;
+    border-radius: 20px;
+    border: none;
+    outline-style: none;
+    color: #ffffff;
+  }
+  
+  /* 瓶子详情 */
+  #driftBottleDetails {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    z-index: 15;
+    width: 600px;
+    height: 480px;
+    background: #eae6dd;
+    border-radius: 8px;
+    padding: 0 20px;
+    overflow-y: auto;
+  }
+  #driftBottleDetails::-webkit-scrollbar {
+    width: 8px;
+  }
+  #driftBottleDetails::-webkit-scrollbar-track {
+    background-color: #f5f5f5;
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em;
+  }
+  #driftBottleDetails::-webkit-scrollbar-thumb {
+    background-color: rgba(221, 221, 221, 1);
+    -webkit-border-radius: 2em;
+    -moz-border-radius: 2em;
+    border-radius: 2em;
+  }
+  #driftBottleDetailsHot {
+    cursor: pointer;
+    color: #a0711b;
+  }
+  #driftBottleDetailsNew {
+    cursor: pointer;
+    color: #c0a676;
+  }
+  .driftBottleDetailsTop {
+    display: flex;
+    padding-top: 30px;
+    margin-bottom: 10px;
+  }
+  
+  .driftBottleDetailsTop > p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    background: #d1cabb;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  #driftBottleDetailsType {
+    width: 50px;
+    height: 20px;
+    background: #7854e8;
+    text-align: center;
+    line-height: 20px;
+    color: #ffffff;
+    margin-bottom: 10px;
+  }
+  
+  .topRightFooter {
+    display: flex;
+    justify-content: space-between;
+    width: 470px;
+  }
+  
+  .topRightFooterLeft {
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #a0711b;
+  }
+  
+  .detailtopTime {
+    margin-right: 20px;
+  }
+  
+  #driftBottleDetailsMap {
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #529eeb;
+    cursor: pointer;
+  }
+  
+  .driftBottleContent {
+    width: 100%;
+    /* min-height: 231px; */
+    border-top: 2px solid #a0711b;
+    border-bottom: 2px solid #a0711b;
+    padding: 20px 0;
+  }
+  
+  .driftBottleContentText {
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #a0711b;
+  }
+  
+  .driftBottleContentPic {
+    width: 100%;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    /* display: none; */
+  }
+  .driftBottleContentPic img {
+    max-width: 150px;
+    max-height: 80px;
+    margin-right: 10px;
+  }
+  .driftBottleContentFooter {
+    display: flex;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #a0711b;
+  }
+  
+  .driftBottleContentPraise {
+    display: flex;
+    align-items: center;
+    margin-right: 28px;
+  }
+  
+  .driftBottleContentPraise img {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  #bottleAlreadyLike {
+    display: none;
+  }
+  .driftBottleDetailsBottom {
+    padding: 20px;
+  }
+  
+  .driftBottleComment {
+    width: 520px;
+    height: 60px;
+    background: #e1dbd1;
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-bottom: 10px;
+  }
+  
+  .driftBottleCommentTab {
+    text-align: right;
+    margin-bottom: 20px;
+  }
+  
+  #driftBottleCommentStay {
+    width: 80px;
+    height: 30px;
+    background: #a0711b;
+    border-radius: 15px;
+    cursor: pointer;
+    border: none;
+    outline-style: none;
+    color: #ffffff;
+  }
+  
+  #driftBottleCommentThrow {
+    width: 80px;
+    height: 30px;
+    background: #d0c3ab;
+    border-radius: 15px;
+    cursor: pointer;
+    border: none;
+    outline-style: none;
+    color: #a0711b;
+    margin-right: 10px;
+  }
+  
+  .driftBottleDetailsBottomTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .driftBottleDetailsTrack {
+    font-size: 16px;
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+    color: #a0711b;
+  }
+  
+  .driftBottleDetailsCut {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #a0711b;
+  }
+  
+  .driftBottleDetailsLine {
+    display: inline-block;
+    width: 1px;
+    height: 15px;
+    background: #a0711b;
+    margin: 0 10px;
+  }
+  
+  .driftBottleDetailsComment {
+    margin-bottom: 20px;
+  }
+  
+  .criticPersonalinFormation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  #criticHeadPortrait {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    background: #944eea;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    font-family: Source Han Sans CN;
+    font-weight: bold;
+    color: #ffffff;
+  }
+  .commentDetilsheadPortrait {
+    width: 40px;
+    height: 40px;
+    background: #944eea;
+    border-radius: 50%;
+  }
+  
+  #criticName {
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: bold;
+    color: #a0711b;
+    margin: 0 10px;
+  }
+  
+  #criticAdd {
+    font-size: 12px;
+    font-family: Microsoft YaHei;
+    color: #a0711b;
+  }
+  
+  #criticTime {
+    margin-right: 20px;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #c0a676;
+  }
+  
+  #endorseNum {
+    display: inline-block;
+    color: #ffffff;
+    width: 40px;
+    height: 20px;
+    background: #a0711b;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .commentContent {
+    width: 520px;
+    height: 60px;
+    background: #e1dbd1;
+    border-radius: 4px;
+    padding: 20px 24px;
+    color: #a0711b;
+  }
+  
+  #driftBottleDetailsvViewMore {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    font-size: 14px;
+    font-family: Microsoft YaHei;
+    font-weight: 400;
+    color: #a0711b;
+    cursor: pointer;
+  }
+  #bottleMapOut {
+    z-index: 20;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+  }
+  #bottleMap {
+    width: 560px;
+    height: 440px;
+    border-radius: 4px;
+  }
+  #bottleMapOut p {
+    width: 100%;
+    text-align: center;
+  }
+  #closeBottleMap {
+    cursor: pointer;
+  }
+  /* 右上角按钮 */
+  #closeDriftBottleDetails,
+  #closeMyDriftBottle,
+  #closeThrowDriftBottle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+  

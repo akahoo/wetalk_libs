@@ -1,0 +1,774 @@
+/* 碎片兑换 首页 */
+.weTalkFragExChange {
+  position: relative;
+  width: 750px;
+  height: 530px;
+
+  background: url("../images/chip/frag_bg.png") no-repeat;
+  background-color: #fabe61;
+
+  padding-top: 111px;
+  box-sizing: border-box;
+
+  /* display: none; */
+}
+
+/* 提示 */
+.weTalkFragTip,
+.weTalkFragTipDetails {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  min-width: 80px;
+  height: 30px;
+  background: #222222;
+  border-radius: 4px;
+
+  text-align: center;
+  line-height: 30px;
+
+  padding: 10px;
+  box-sizing: content-box;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #ffffff;
+
+  display: none;
+  z-index: 5;
+}
+
+/* 滚动条 */
+.weTalkFragContainer::-webkit-scrollbar {
+  width: 8px;
+}
+.weTalkFragContainer::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+.weTalkFragContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(221, 221, 221, 1);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+/* 内容 */
+.weTalkFragContainer {
+  width: 100%;
+  height: 419px;
+
+  padding: 0 20px 0;
+  box-sizing: border-box;
+
+  overflow: auto;
+}
+
+/* 帮助 */
+.weTalkFragHelp {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  opacity: 0.5;
+
+  cursor: pointer;
+}
+
+.weTalkFragCover,
+.weTalkFragDetailsCover {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: none;
+}
+
+.weTalkFragHelpContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 650px;
+  height: 457px;
+  background: #ffffff;
+  border-radius: 4px;
+
+  padding: 30px 20px;
+  box-sizing: border-box;
+
+  display: none;
+}
+
+.weTalkFragHelpClose,
+.weTalkFragExchangeViewClose,
+.weTalkFragExchangeSucClose,
+.weTalkFragExchangeFailClose {
+  position: absolute;
+  right: 20px;
+  top: 30px;
+
+  cursor: pointer;
+}
+
+.weTalkFragHelpTitle,
+.weTalkFragExchangeViewTitle,
+.weTalkFragExchangeSucTitle,
+.weTalkFragExchangeFailTitle {
+  width: 100%;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 9px;
+  box-sizing: border-box;
+
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #333333;
+}
+
+.weTalkFragHelpContent {
+  width: 609px;
+  height: 284px;
+
+  margin-top: 22px;
+}
+
+.weTalkFragHelpContentTitle {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #ffba00;
+}
+
+.weTalkFragHelpContentOne > span:first-child {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  color: #666666;
+}
+
+.weTalkFragHelpContentOne > span:last-child {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  color: #ffba00;
+}
+
+.weTalkFragHelpContentTwo {
+}
+
+.weTalkFragHelpContentTwo span {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  color: #ffba00;
+}
+
+.weTalkFragHelpContentTwo > div {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  color: #666;
+}
+
+.weTalkFragHelpContentThree {
+  margin-top: 25px;
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  color: #999;
+}
+
+.weTalkFragHelpConfirm {
+  width: 80px;
+  height: 34px;
+  background: #ffba00;
+  border-radius: 17px;
+
+  text-align: center;
+  line-height: 34px;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #ffffff;
+
+  margin: 30px auto 0;
+
+  cursor: pointer;
+}
+
+/* 广播 */
+.weTalkFragRadio {
+  position: absolute;
+  top: 71px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 420px;
+  height: 28px;
+
+  background: url("../images/chip/frag_gg.png");
+
+  text-align: center;
+  line-height: 28px;
+
+  font-size: 12px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #ff7800;
+}
+
+/* 轮播图 */
+.weTalkFragMarquee {
+  position: relative;
+  width: 710px;
+  height: 190px;
+  border-radius: 4px;
+
+  overflow: hidden;
+}
+
+.weTalkFragMarqueeLast {
+  position: absolute;
+  top: 80px;
+  left: 10px;
+  cursor: pointer;
+}
+
+.weTalkFragMarqueeNext {
+  position: absolute;
+  top: 80px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.weTalkFragMarqueeList {
+  position: absolute;
+  left: 0;
+  width: 3550px;
+  height: 190px;
+}
+
+.weTalkFragMarqueeItem {
+  float: left;
+  width: 710px;
+  height: 190px;
+
+  cursor: pointer;
+}
+
+/* 奖品 */
+.weTalkFragList {
+  width: 710px;
+  min-height: 276px;
+  background: #221a13;
+  border-radius: 4px;
+
+  padding: 0 20px 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 10px;
+}
+
+.weTalkFragItem {
+  width: 160px;
+  height: 236px;
+
+  margin-top: 20px;
+}
+
+.weTalkFragItemBlock {
+  width: 160px;
+  margin-top: 20px;
+}
+
+.weTalkFragItemImg {
+  width: 160px;
+  height: 160px;
+
+  cursor: pointer;
+}
+
+.weTalkFragItemTitle {
+  margin-top: 9px;
+  width: 152px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #999999;
+}
+
+.weTalkFragItemTwo {
+  margin-top: 29px;
+  width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.weTalkFragStarArr {
+  width: 76px;
+  height: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.weTalkFragItemBtn {
+  width: 60px;
+  height: 24px;
+  background: #ffba00;
+  border-radius: 12px;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #ffffff;
+
+  text-align: center;
+  line-height: 24px;
+
+  cursor: pointer;
+}
+
+/* 详情 */
+.weTalkFragItemDetails {
+  position: relative;
+  width: 750px;
+  height: 530px;
+
+  padding: 34px 21px;
+  box-sizing: border-box;
+
+  background: url("../images/chip/detail_bg.png");
+
+  display: none;
+}
+
+/* 第一行 */
+.weTalkFragItemDetailsOne {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.weTalkFragItemDetailsOneInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.weTalkFragItemDetailsTitle {
+  max-width: 512px;
+  margin-right: 19px;
+
+  font-size: 20px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #ffba00;
+}
+
+.weTalkFragItemDetailsStars {
+  display: flex;
+  width: 76px;
+  height: 12px;
+  justify-content: space-between;
+}
+
+.weTalkFragItemDetailsBack {
+  cursor: pointer;
+}
+
+.weTalkFragItemDetailsBack > span {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #999999;
+}
+
+/* 有效期 */
+.weTalkFragItemDetailsTwo {
+  margin-top: 20px;
+}
+
+.weTalkFragItemDetailsTwo > span {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #bbbbbb;
+}
+
+/* 横条 */
+.weTalkFragItemDetailsBlock {
+  margin-top: 20px;
+  width: 710px;
+  height: 4px;
+  background: #ffffff;
+  opacity: 0.2;
+}
+
+/* 内容 */
+.weTalkFragItemDetailsContent {
+  position: relative;
+  margin-top: 31px;
+  display: flex;
+}
+
+.weTalkFragItemDetailsContentLeft {
+  position: relative;
+  width: 324px;
+  height: 324px;
+  background: url("../images/chip/picBorder.png");
+}
+
+.weTalkFragItemDetailsContentLeftContainer {
+  position: absolute;
+  width: 288px;
+  height: 288px;
+  top: 18px;
+  left: 19px;
+}
+
+/* 碎片 */
+.fragItem {
+  position: absolute;
+}
+
+/* 查看奖品 */
+.weTalkFragItemDetailsCheck {
+  position: absolute;
+  z-index: 2;
+  top: 35px;
+  left: 35px;
+  width: 246px;
+  height: 215px;
+  text-align: center;
+
+  /* display: none; */
+}
+
+.weTalkFragItemDetailsCheckBtn {
+  position: absolute;
+  bottom: -8px;
+  left: 74px;
+  cursor: pointer;
+}
+
+.weTalkFragItemDetailsCheckClose {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  cursor: pointer;
+}
+
+/* 查看奖品遮罩层  */
+.weTalkFragItemDetailsCheckCover {
+  position: absolute;
+  z-index: 1;
+  top: 9px;
+  left: 9px;
+  width: 310px;
+  height: 310px;
+  background-color: #000;
+  opacity: 0.5;
+
+  /* display: none; */
+}
+
+.weTalkFragItemDetailsContentRight {
+  margin-left: 23px;
+  padding-top: 11px;
+}
+
+.weTalkFragItemExchangeBtn {
+  width: 130px;
+  height: 40px;
+  background: #ffba00;
+  border-radius: 20px;
+
+  text-align: center;
+  line-height: 40px;
+
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+.weTalkFragRule {
+  margin-top: 27px;
+  width: 342px;
+  height: 184px;
+}
+
+.weTalkFragRuleTitle {
+  font-size: 16px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.weTalkFragRuleItem {
+  font-size: 16px;
+  font-family: SourceHanSansCN-Light;
+  font-weight: ExtraLight;
+  color: #ffffff;
+}
+
+.weTalkFragRuleItem + .weTalkFragRuleItem {
+  margin-top: 5px;
+}
+
+.weTalkFragRuleItem > span {
+  font-size: 16px;
+  font-family: SourceHanSansCN-Light;
+  font-weight: ExtraLight;
+  color: #ffba00;
+}
+
+/* 奖品兑换 */
+.weTalkFragExchangeView,
+.weTalkFragExchangeSuc {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+
+  width: 550px;
+  height: 397px;
+  background: #ffffff;
+  border-radius: 4px;
+
+  padding: 30px 20px;
+  box-sizing: border-box;
+
+  display: none;
+}
+
+.weTalkFragReceiverName,
+.weTalkFragReceiverPhone,
+.weTalkFragReceiverAddress {
+  display: flex;
+  margin-top: 20px;
+}
+
+.weTalkFragReceiverName,
+.weTalkFragReceiverPhone {
+  align-items: center;
+}
+
+.weTalkFragReceiverFont {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #666666;
+  white-space: nowrap;
+  margin-right: 19px;
+}
+
+.weTalkFragNameInput,
+.weTalkFragPhoneInput,
+.weTalkFragAddressInput {
+  width: 423px;
+  height: 34px;
+  background: #f5f5f5;
+  border-radius: 4px;
+
+  outline: none;
+  border: none;
+
+  padding: 10px 9px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #999999;
+}
+
+.weTalkFragAddressInput {
+  height: 100px;
+  resize: none;
+}
+
+.weTalkFragExchangeViewTip {
+  margin: 10px 0 0 88px;
+
+  font-size: 12px;
+  font-family: Source Han Sans CN;
+  font-weight: 300;
+  color: #ffba00;
+}
+
+.weTalkFragExchangeViewBtns {
+  margin: 25px auto 0;
+  width: 180px;
+  height: 34px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.weTalkFragExchangeViewBtn1,
+.weTalkFragExchangeViewBtn2 {
+  width: 80px;
+  height: 34px;
+
+  text-align: center;
+  line-height: 34px;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+
+  border-radius: 17px;
+  cursor: pointer;
+}
+
+.weTalkFragExchangeViewBtn1 {
+  color: #ffba00;
+  background-color: #fff;
+  border: 1px solid #ffba00;
+}
+
+.weTalkFragExchangeViewBtn2 {
+  background-color: #ffba00;
+  color: #fff;
+}
+
+/* 兑换成功界面 */
+.weTalkFragExchangeSucContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weTalkFragExchangeSucImg {
+  margin-top: 10px;
+  width: 80px;
+  height: 60px;
+}
+
+.weTalkFragExchangeSucInfo {
+  margin-top: 20px;
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #333333;
+}
+
+.weTalkFragExchangeSucInfo > span {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #ffba00;
+}
+
+.weTalkFragExchangeSucTip {
+  margin-top: 25px;
+  width: 509px;
+  height: 120px;
+  background: #f5f5f5;
+
+  padding: 26px 9px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+}
+
+.weTalkFragExchangeSucTipLeft > div + div {
+  margin-top: 5px;
+}
+.weTalkFragExchangeSucTipLeft > div:first-child {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #666666;
+}
+
+.weTalkFragExchangeSucTipLeft > div:last-child {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #ffba00;
+}
+
+.weTalkFragExchangeSucTipRight {
+  width: 100px;
+  height: 100px;
+  background-color: #000;
+  margin-left: 40px;
+}
+
+/* 兑换失败 */
+.weTalkFragExchangeFail {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+
+  width: 404px;
+  height: 194px;
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+
+  padding: 22px 20px;
+  box-sizing: border-box;
+
+  display: none;
+}
+
+.weTalkFragExchangeFailContent {
+  width: 100%;
+  text-align: center;
+
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #666666;
+
+  margin-top: 30px;
+}
+
+.weTalkFragExchangeFailBtn {
+  width: 80px;
+  height: 34px;
+  background: #ffba00;
+  border-radius: 17px;
+
+  text-align: center;
+  line-height: 34px;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #ffffff;
+
+  cursor: pointer;
+  margin: 28px auto 0;
+}
