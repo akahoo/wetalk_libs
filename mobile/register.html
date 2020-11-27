@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>注册账号- WeTalk.ICU - 寻找志同道合的TA</title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="./js/server.js"></script>
+
+	</head>
+	<body>
+		<div class="box">
+			<div class="header">
+				<p style="display: flex;align-items: center;"><img src="img/icon.png" style="width: .93rem;margin-right: .15rem;"><img
+					 src="img/WeTalk.png" style="width: 1.52rem;"></p>
+				<p class="headerTitle">寻找志同道合的TA</p>
+				<p class="headertext ">每天，都有无数个人和你一样，逛淘宝、刷论坛、看视频，在茫茫</p>
+				<p class="headertext ">人海中，我们为你找到那个兴趣相投的人。</p>
+			</div>
+			<div class="content">
+				<div>
+					<p>昵称</p>
+					<p style="cursor: pointer;" onclick="getRandNickname()"><span>换一个</span> <img src="img/refresh.png"></p>
+				</div>
+				<input type="text" id="nickname" maxlength="15" />
+				<p>账号</p>
+				<input type="text" id="account" placeholder='请输入用户名(5-20个字符)'>
+				<p>密码</p>
+				<input type="password" id="password" placeholder='请输入密码(5-20个字符)' maxlength="20" />
+				<p>确认密码</p>
+				<input type="password" id="confirm" maxlength="20" />
+				<p>性别</p>
+				<p>
+					<button type="button" onclick="changeSex(1)" class="sex" id="btn1" style="margin-right: .4rem;background :#944EEA;color: #FFFFFF;">男</button>
+					<button type="button" onclick="changeSex(2)" class="sex" id="btn2">女</button>
+				</p>
+			</div>
+			<p style="width: 100%;text-align: center;margin-top: .6rem;"><button type="button" class="submit" onclick="submit()">提交注册</button></p>
+			<div class="footer">
+				<p>用户协议 | 隐私政策</p>
+				<p>© 2020 htttps://www.wetalk.icu All Rights Reserved.</p>
+			</div>
+		</div>
+		<div class="loading">
+			<div class="laod">
+				<p class="loadingTitle">注册成功</p>
+				<div class="loadingDiv">
+					<p class="loadingText" style="margin-bottom: .3rem;">
+						WeTalk目前仅支持PC版，请通过电脑浏览器访问官网下载插件，感受不一样的社交体验。
+					</p>
+					<p class="loadingText">寻找志同道合的TA https://www.wetalk.icu</p>
+				</div>
+				<p class="loadingA"><a href="https://www.wetalk.icu/pc">立即下载</a></p>
+			</div>
+		</div>
+		<div style="display:none">
+		<script type="text/javascript" src="https://s4.cnzz.com/z_stat.php?id=1279425279&web_id=1279425279"></script>
+		</div>
+	</body>
+	<style type="text/css">
+		.box {
+			height: 16.22rem;
+			background: url(img/bg.png) center center /cover no-repeat;
+			position: relative;
+		}
+
+		.header {
+			padding-top: .57rem;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.headerTitle {
+
+			font-size: .3rem;
+			font-family: HelloFont;
+			font-weight: normal;
+			color: #FEFEFE;
+			line-height: .36rem;
+			text-shadow: 0 .01rem 0 #E877A1;
+			margin-top: .3rem;
+			margin-bottom: .2rem;
+		}
+
+		.headertext {
+			font-size: .22rem;
+			font-family: PingFang SC;
+			color: #FFFFFF;
+			line-height: .36rem;
+			text-shadow: 0 .01rem 0 #E877A1;
+		}
+
+		.content {
+			height: 10rem;
+			width: 94%;
+			margin-left: 3%;
+			background: #FFFFFF;
+			padding: 0 .3rem;
+			margin-top: .44rem;
+		}
+
+		.content input {
+			width: 100%;
+			height: .8rem;
+			border: none;
+			padding-left: .2rem;
+			background: #F5F5F5;
+			border-radius: .04px;
+			margin-bottom: .3rem;
+		}
+
+		.content>p {
+			font-size: .28rem;
+			font-family: PingFang SC;
+			font-weight: 500;
+			color: #333333;
+			margin-bottom: .2rem;
+		}
+
+		.content div {
+			margin-bottom: .2rem;
+			padding-top: .69rem;
+			display: flex;
+			justify-content: space-between;
+		}
+		.content div span{
+			color: #944eea;
+		}
+		.sex {
+			width: 1.6rem;
+			height: .8rem;
+			background: #FFFFFF;
+			border: 1px solid #944EEA;
+			outline-style: none;
+			color: #944EEA;
+		}
+
+		.submit {
+			width: 6rem;
+			height: .7rem;
+			background: #FFAE00;
+			border-radius: .35rem;
+			outline-style: none;
+			border: none;
+			font-size: .30rem;
+			font-family: PingFang SC;
+			font-weight: bold;
+			color: #FFFEFE;
+			line-height: .36rem;
+		}
+
+		.footer {
+			margin-top: .6rem;
+			font-size: .2rem;
+			font-family: PingFang SC;
+			font-weight: bold;
+			color: #FFFFFF;
+			line-height: .3rem;
+		}
+
+		.footer p {
+			width: 100%;
+			text-align: center;
+		}
+
+		.loading {
+			position: fixed;
+			top: 0;
+			background: rgba(0, 0, 0, .5);
+			height: 100%;
+			width: 100%;
+			display: none;
+		}
+
+		@keyframes btnRotate {
+			0% {
+				-webkit-transform: rotateZ(0deg);
+			}
+
+			100% {
+				-webkit-transform: rotateZ(360deg);
+			}
+		}
+
+		@-webkit-keyframes btnRotate {
+			0% {
+				-webkit-transform: rotateZ(0deg);
+			}
+
+			100% {
+				-webkit-transform: rotateZ(360deg);
+			}
+		}
+
+		.laod {
+			position: fixed;
+			margin: auto;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			width: 5rem;
+			height: 5rem;
+			background: #FFFEFf;
+			border-radius: .08rem;
+		}
+
+		.loadingTitle {
+			width: 100%;
+			text-align: center;
+			font-size: .3rem;
+			font-family: PingFang SC;
+			font-weight: bold;
+			color: #333333;
+			padding-top: .5rem;
+			margin-bottom: .4rem;
+		}
+
+		.loadingDiv {
+			width: 3.6rem;
+			margin-left: .68rem;
+			height: 1.93rem;
+		}
+
+		.loadingText {
+
+			font-size: .24rem;
+			font-family: PingFang SC;
+			font-weight: 400;
+			color: #333333;
+			line-height: .36prem;
+		}
+
+		.loadingA {
+			width: 100%;
+			text-align: center;
+			margin-top: .6rem;
+		}
+
+		.loadingA a {
+			display: inline-block;
+			width: 2.4rem;
+			height: .80rem;
+			background: #934DE9;
+			border-radius: .40rem;
+			line-height: .8rem;
+
+			font-size: .30rem;
+			font-family: PingFang SC;
+			font-weight: 400;
+			color: #FFFFFF;
+		}
+	</style>
+
+	<script type="text/javascript">
+		function getRandNickname() {
+			let nickname = document.getElementById("nickname")
+			getName().then((res) => {
+				let name = res.message
+				nickname.value = name
+			})
+		}
+		getRandNickname()
+		let sex = 1
+
+		function changeSex(key) {
+			let btn1 = document.getElementById("btn1")
+			let btn2 = document.getElementById("btn2")
+			sex = key
+			btn1.style.backgroundColor = "";
+			btn2.style.backgroundColor = "";
+			btn1.style.color = "#944EEA"
+			btn2.style.color = "#944EEA"
+			if (key == 1) {
+				btn1.style.background = "#944EEA"
+				btn1.style.color = "#FFF"
+			} else {
+				btn2.style.background = "#944EEA"
+				btn2.style.color = "#FFF"
+			}
+			console.log(sex)
+		}
+		let accountType = ""
+		account.onchange = function() {
+			var account = this.value;
+			var reg = /^^[a-zA-Z][a-zA-Z0-9_]{4,19}$$/;
+			if (reg.test(account)) {
+				accountType = 1
+			} else {
+				alert("帐号式不正确");
+				accountType = 2
+			}
+		}
+
+		function getQueryVariable(variable) {
+			var query = window.location.search.substring(1);
+			var vars = query.split("&");
+			for (var i = 0; i < vars.length; i++) {
+				var pair = vars[i].split("=");
+				if (pair[0] == variable) {
+					return pair[1];
+				}
+			}
+			return (false);
+		}
+
+		function submit() {
+			let account = document.getElementById("account").value
+			let password = document.getElementById("password").value
+			let confirm = document.getElementById("confirm").value
+			let nickname = document.getElementById("nickname").value
+			let radios = document.getElementsByName("killOrder")
+			let domain = "https://www.wetalk.icu"
+			let promoteUserId = ""
+			if (getQueryVariable("inviteId") == false) {
+				promoteUserId = 0
+			} else {
+				promoteUserId = getQueryVariable("inviteId")
+			}
+			if (password !== confirm) {
+				alert("两次输入的密码不同");
+			} else if (account == "" || password == "" || confirm == "" || nickname == "") {
+				alert("请按照要求填写内容")
+			} else if (password.length < 5) {
+				alert("输入的密码不符合规定")
+			} else if (accountType == 2) {
+				
+				alert("请输入正确的账号格式再进行注册")
+			} else {
+				register(account, nickname, password, sex, domain, promoteUserId).then(res => {
+					console.log(res)
+					if (res.code == 1) {
+						$(".loading").show();
+						stop();
+					} else if (res.code == 10005) {
+						alert("昵称已被占用");
+					} else if (res.code == 10004) {
+						alert("用户账号已存在");
+					}
+				})
+			}
+		}
+
+		// function aa() {
+		// 	move()
+		// 	$(".loading").hide();
+		// }
+		var mo = function(e) {
+			e.preventDefault();
+		};
+
+		function stop() {
+			document.body.style.overflow = 'hidden';
+			document.addEventListener("touchmove", mo, {
+				passive: false
+			}); //禁止页面滑动
+		}
+
+		// function move() {
+		// 	document.body.style.overflow = ''; //出现滚动条
+		// 	document.removeEventListener("touchmove", mo, {
+		// 		passive: false
+		// 	});
+		// }
+	</script>
+	<script>
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'onorientationchange' in window ? 'onorientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if (!clientWidth) return;
+					if (clientWidth >= 750) {
+						docEl.style.fontSize = '100px';
+					} else {
+						docEl.style.fontSize = 100 * (clientWidth / 750) + 'px';
+					}
+				};
+
+			if (!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+</html>

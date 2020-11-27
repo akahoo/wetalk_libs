@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>如何安装 - WeTalk.ICU - 寻找志同道合的TA</title>
+		<link rel="stylesheet" type="text/css" href="./css/reset.css" />
+		<link rel="stylesheet" href="./css/course.css">
+	</head>
+	<body>
+		<div class="header">
+			<div>
+				<img src="img/course.png">
+				<p>
+					<a href="index.html" style="margin-right: 60px;">首页</a>
+					<a href="course.html" style="color:#944EEA ; margin-right: 60px;">帮助</a>
+					<a href="register.html">注册</a>
+				</p>
+			</div>
+		</div>
+		<div class="content">
+			<div class="left">
+				<p class="title">选择浏览器</p>
+				<nav id="nav">
+					<ul>
+						<li class="star" id="act">谷歌浏览器</li>
+						<li class="star">360浏览器</li>
+						<li class="star">QQ浏览器</li>
+						<li class="star">搜狗浏览器</li>	
+					</ul>
+				</nav>
+			</div>
+			<div id="container">
+				<section class="tab">
+					<div style="padding: 20px;">
+						<p>方法/步骤</p>
+						<p class="line" style="padding: 0;"></p>
+						<p><span>1</span>在浏览器中找到管理扩展程序的按钮入口。</p>
+						<img src="img/chrome1.png">
+						<p><span>2</span>进入扩展程序管理界面。</p>
+						<img src="img/chrome2.png">
+						<p><span>3</span>拖动WeTalk.crx插件安装包到浏览器中。</p>
+						<img src="img/chrome3.png">
+						<p><span>4</span>弹出提示中选择“添加扩展程序”。</p>
+						<img src="img/chrome4.png">
+						<p><span>5</span>可以看到插件已成功安装。</p>
+						<img src="img/chrome5.png">
+					</div>
+				</section>
+				<section class="tab">
+					<div style="padding: 20px;">
+						<p>方法/步骤</p>
+						<p class="line" style="padding: 0;"></p>
+						<p><span>1</span>找到浏览器的扩展程序“管理”入口。</p>
+						<img src="img/3601.png">
+						<p><span>2</span>进入到“扩展管理”界面。</p>
+						<img src="img/3602.png">
+						<p><span>3</span>将WeTalk.crxc插件安装包拖动到浏览器中，注意拖动到浏览中稍等2秒再松开鼠标。</p>
+						<img src="img/3603.png">
+						<p><span>4</span>浏览器提示安装插件，选择“添加”。</p>
+						<img src="img/3604.png">
+						<p><span>5</span>可以看到插件已经安装成功。</p>
+						<img src="img/3605.png">
+					</div>
+				</section>
+				<section class="tab">
+					<div style="padding: 20px;">
+						<p>方法/步骤</p>
+						<p class="line" style="padding: 0;"></p>
+						<p><span>1</span>点击QQ浏览器右侧菜单，选择“应用中心”。</p>
+						<img src="img/qq1.png">
+						<p><span>2</span>在“应用中心”页面选择“管理我的应用”。</p>
+						<img src="img/qq2.png">
+						<p><span>3</span>将WeTalk.crx插件安装包，拖动到浏览器中。</p>
+						<img src="img/qq3.png">
+						<p><span>4</span>浏览器的弹出框中，选择“添加扩展程序”。</p>
+						<img src="img/qq4.png">
+						<p><span>5</span>可以看到插件已经成功安装，当你访问任意网站时插件会自动加载。</p>
+						<img src="img/qq5.png">
+					</div>
+				</section>
+				<section class="tab">
+					<div style="padding: 20px;">
+						<p>方法/步骤</p>
+						<p class="line" style="padding: 0;"></p>
+						<p><span>1</span>双击WeTalk.crx插件安装包，在弹出的对话框中选择“信任此插件，继续安装”，并点击“确定安装”。</p>
+						<img src="img/sougou1.png">
+						<p><span>2</span>浏览器提示安装成功。</p>
+						<img src="img/sougou2.png">
+						<p><span>3</span>如果双击插件安装包没有弹出安装的对话框，则右键插件安装包，选择“打开方式”。</p>
+						<img src="img/sougou3.png">
+						<p><span>4</span>选择使用搜狗高速浏览器打开，并点击确定。随后再次双击打开插件安装包，会提示安装插件。</p>
+						<img src="img/sougou4.png">
+					</div>
+				</section>
+			</div>
+		</div>
+		<div class="footer">
+			<p class="footerText">
+				<p  style="text-align: center;padding-top: 5px;">
+					<a href="userAgreement.html" style="color:#666666 ;margin-right: 3px;">用户协议</a>|
+					<a href="privacyPolicy.html" style="color:#666666 ;">隐私政策</a>
+				</p>
+				<p class="footerText">
+					© 2020 htttps://www.wetalk.icu All Rights Reserved.
+				</p>
+			</p>
+		</div>
+		<div style="display:none">
+		<script type="text/javascript" src="https://s4.cnzz.com/z_stat.php?id=1279425279&web_id=1279425279"></script>
+		</div>
+	</body>
+	<script type="text/javascript">
+		window.onload = function() {
+			var nav = document.getElementById('nav');
+			var oNav = nav.getElementsByTagName('li');
+			console.log(oNav)
+			var container = document.getElementById('container');
+			var oDiv = container.getElementsByClassName('tab');
+			for (var i = 0; i < oNav.length; i++) {
+				oNav[i].index = i;
+				oNav[i].onclick = function() {
+					for (var i = 0; i < oNav.length; i++) {
+						oNav[i].id = '';
+						oDiv[i].style.display = "none";
+					}
+					this.id = 'act';
+					oDiv[this.index].style.display = "block"
+				}
+				for (var m = 1; m < oNav.length; m++) {
+					oNav[m].id = '';
+					oDiv[m].style.display = "none";
+				}
+			}
+		};
+	</script>
+</html>

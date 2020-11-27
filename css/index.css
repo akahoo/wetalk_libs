@@ -1,0 +1,172 @@
+html,
+body {
+	min-width: 1200px;
+}
+
+.banner {
+	width: 100%;
+	height: 730px;
+	min-width: 1200px;
+	background: url(../img/bg.png) center center /cover no-repeat;
+	position: relative;
+}
+
+.bannerRight {
+	position: absolute;
+	right: 44px;
+	top: 45px;
+	height: 700px;
+}
+
+.Abtn{
+	display: inline-block;
+	text-align: center;
+	width: 160px;
+	height: 40px;
+	background: #FFFFFF;
+	box-shadow: 0px 6px 24px 0px rgba(57, 125, 49, 0.35);
+	border-radius: 20px;
+	font-size: 14px;
+	font-family: Source Han Sans CN;
+	font-weight: 400;
+	color: #61388D;
+	line-height: 40px;
+}
+
+.center {
+	width: 100%;
+	height: 160px;
+	background: #f7f7f7;
+}
+
+.center ul {
+	margin: 0 auto;
+	padding-top: 20px;
+	width: 1200px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.center ul li {
+	width: 380px;
+	height: 120px;
+	background: #FFFFFF;
+	box-shadow: 0px 3px 8px 0px #DEDEDE;
+	border-radius: 8px;
+
+}
+
+.content {
+	width: 100%;
+	height: 610px;
+	background: #FFFFFF;
+}
+
+.content>div {
+	width: 1200px;
+	margin: 0 auto;
+	padding-top: 70px;
+}
+
+.content div>p {
+	text-align: center;
+	font-size: 30px;
+	font-family: Source Han Sans CN;
+	font-weight: bold;
+	color: #333333;
+}
+
+.contentList {
+	width: 100%;
+	margin-top: 72px;
+	display: flex;
+}
+
+.contentList li {
+	width: 400px;
+	height: 341px;
+	background: #F7F7F7;
+}
+
+.contentList li p {
+	text-align: center;
+}
+
+.one {
+	width: 83px;
+	height: 60px;
+	background: url(../img/lvsezhishu1.png);
+
+	margin: 70px auto 0;
+}
+
+.listOne:hover .one {
+	background: url(../img/lvsezhishu.png);
+}
+
+.listOne:hover .oneTitle {
+	color: #934DE9;
+}
+
+.contentTitle {
+	margin-top: 37px;
+	font-size: 24px;
+	font-family: Source Han Sans CN;
+	font-weight: bold;
+	color: #333333;
+}
+
+.two {
+	width: 64px;
+	height: 88px;
+	background: url(../img/simizhibo1.png);
+	margin: 58px auto 0;
+}
+
+.listTwo:hover .two {
+	background: url(../img/simizhibo.png);
+}
+
+.listTwo:hover .twoTitle {
+	color: #934DE9;
+}
+
+.three {
+	width: 68px;
+	height: 91px;
+	background: url(../img/anquan1.png);
+	margin: 55px auto 0;
+}
+
+.listThree:hover .three {
+	background: url(../img/anquan.png);
+}
+
+.listThree:hover .threeTitle {
+	color: #934DE9;
+}
+
+.contentText {
+	font-size: 14px;
+	font-family: Source Han Sans CN;
+	font-weight: bold;
+	color: #333333;
+	line-height: 24px;
+}
+
+.footer {
+
+	background: #EDEDED;
+	width: 100%;
+
+}
+
+.footerText {
+	width: 100%;
+	text-align: center;
+	line-height: 20px;
+	font-size: 12px;
+	font-family: Source Han Sans CN;
+	font-weight: bold;
+	color: #666666;
+}
