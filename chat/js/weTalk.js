@@ -1761,6 +1761,14 @@ $(function () {
 
         });
 
+        $(".weTalkChatRoom").on("dragover", function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            console.log("pic", e)
+        }).on("drop", function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+        })
         // 双向绑定文本框的值
 
         // 绑定邮箱
@@ -4777,6 +4785,7 @@ $(function () {
             directTurnIntoBase64(currentfile, callback);
         } else {
             try {
+                console.log("压缩乐")
                 // 获取图片的原始大小
                 let picNatW, picNatH;
                 getImageInfo(URL.createObjectURL(currentfile), function (width, height) {
@@ -4788,16 +4797,16 @@ $(function () {
                         let image = $(`<img/>`);
                         image.on('load', function () {
                             if (picNatW > picNatH) {
-                                if (picNatW > 800) {
-                                    var squareW = 800
+                                if (picNatW > 1024) {
+                                    var squareW = 1024
                                         , squareH = picNatH / picNatW * squareW
                                 } else {
                                     var squareW = picNatW
                                         , squareH = picNatH
                                 }
                             } else {
-                                if (picNatH > 800) {
-                                    var squareH = 800
+                                if (picNatH > 1024) {
+                                    var squareH = 1024
                                         , squareW = picNatW / picNatH * squareH
                                 } else {
                                     var squareW = picNatW
@@ -4847,16 +4856,20 @@ $(function () {
         $("#weTalkYsPic").attr({ "src": data.imgBase64 })
         data.squareH = squareH;
         data.squareW = squareW;
-        $("#weTalkYsPic").width(squareW);
-        $("#weTalkYsPic").height(squareH);
+        // $("#weTalkYsPic").width(squareW);
+        // $("#weTalkYsPic").height(squareH);
+        $("#weTalkYsPic").width(300);
+        $("#weTalkYsPic").height(280);
         $(".weTalkYsPic").show();
     }
 
     function checkAva(imgBase64, squareW, squareH) {
+        console.log("imgBase64", imgBase64)
         data.imgBase64 = imgBase64;
         $(".weTalkavatarPreviewImg").attr({ "src": data.imgBase64 })
         // $(".weTalkavatarPreview").show();
         // $(".weTalkAvatarCjView").show();
+        $(".weTalkAvatarCjView").show();
 
 
         // data.upAvatarFile = convertBase64UrlToFile(data.imgBase64, (new Date()).valueOf() + '.png')
@@ -4865,7 +4878,7 @@ $(function () {
             viewMode: 2,
             preview: ".weTalkavatarPreviewCj", // 预览图的class名
         };
-        $(".weTalkavatarPreviewCj").show();
+        // $(".weTalkavatarPreviewCj").show();
         $('.weTalkavatarPreview').children('.weTalkavatarPreviewImg')
             .cropper("destroy")
             .attr("src", imgBase64)
@@ -8320,7 +8333,6 @@ $(function () {
             // console.log(oNav[i].index)
             oNav[i].onclick = function () {
                 for (var i = 0; i < oNav.length; i++) {
-                    console.log("oNav", oNav[i])
                     oNav[i].id = '';
                     oDiv[i].style.display = "none";
                     one[i].style.display = "block";
