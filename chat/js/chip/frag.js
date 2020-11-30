@@ -420,6 +420,8 @@ function fragInit() {
     $(".weTalkFragItemDetailsTwo").children("span").last().html(fragd.startTime + "&nbsp;至&nbsp;" + fragd.endTime);
     $(".weTalkFragExChange").hide();
     $(".weTalkFragItemDetails").show();
+    // 渲染查看奖品
+    $(".weTalkFragItemDetailsCheck").show();
     // 渲染拼图
     getAwardsDetail(id, fragd.token).then(res => {
       let arr = new Array(fragd.standard * fragd.standard).fill(0);

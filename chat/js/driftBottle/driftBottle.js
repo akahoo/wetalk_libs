@@ -19,7 +19,7 @@ function bottleJs() {
         ipList: [],
         provinceList: [],
         imgBase64: "",
-
+        picWeight:0.92,
     }
     $("#driftBottleIndex").remove()
     $(`
@@ -1103,29 +1103,28 @@ function bottleJs() {
             console.log("当前浏览器内核不支持base64图片压缩")
             directTurnIntoBase64(currentfile, callback);
         } else {
-
-
             try {  // 获取图片的原始大小
-                let picNatW, picNatH;
+                let picNatW, picNatH,picWeight;
                 getImageInfo(URL.createObjectURL(currentfile), function (width, height) {
                     // 在这里面使用
                     picNatW = width;    //图片的原始宽度
                     picNatH = height;   //图片的原始高度
+                    picWeight = data.picWeight;
                     var reader = new FileReader();
                     reader.onload = function (event) {
                         let image = $(`<img/>`);
                         image.on('load', function () {
                             if (picNatW > picNatH) {
-                                if (picNatW > 800) {
-                                    var squareW = 800
+                                if (picNatH > 1024) {
+                                    var squareW = 1024
                                         , squareH = picNatH / picNatW * squareW
                                 } else {
                                     var squareW = picNatW
                                         , squareH = picNatH
                                 }
                             } else {
-                                if (picNatH > 800) {
-                                    var squareH = 800
+                                if (picNatW > 1024) {
+                                    var squareH = 1024
                                         , squareW = picNatW / picNatH * squareH
                                 } else {
                                     var squareW = picNatW
