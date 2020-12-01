@@ -1007,6 +1007,12 @@ $(function () {
                       </div>
                       <img class="weTalkGetQdRevenue weTalkPointer"/>
                     </div>
+                    <!-- 公告 -->
+                    <div class="weTalkAnnounce">
+                      <div class="weTalkTitle weTalkBindBorder">系统公告</div>
+                      <img src="./images/closePersonalInfo.png" class="weTalkAnnounceCha weTalkPointer"></img>
+                      <div class="weTalkAnnounceBtn weTalkBtn2">确定</div>
+                    </div>
                     <!-- 功能遮罩层 -->
                     <div class="weTalkFunCover">
                         
@@ -1851,10 +1857,33 @@ $(function () {
         // 判断是否为新用户
         if (data.lastLogin == null) {
             $(`
-                <div class="weTalkBeginer"></div>
-            `).appendTo("body")
+                <div class="weTalkBeginer">
+                    <img class="beginerAward" src="./images/beginer_award.png">
+                    <div class="beginerAwardDes">奖品碎片*1</div>
+                    <img class="getBeginerAward" src="./images/beginGet.png">
+                </div>
+            `).appendTo($(".weTalkChatRoom"))
+            $(".weTalkFunCover").show();
         }
 
+        // 新用户点击领取
+        $(document).on("click", ".getBeginerAward", function () {
+            $(".weTalkBeginer").hide();
+            $(".weTalkFunCover").hide();
+        })
+
+        // 公告
+        // $(".weTalkAnnounce").show();
+        // $(".weTalkFunCover").show();
+        $(document).on("click", ".weTalkAnnounceBtn", function () {
+            $(".weTalkAnnounce").hide();
+            $(".weTalkFunCover").hide();
+        })
+
+        $(document).on("click", ".weTalkAnnounceCha", function () {
+            $(".weTalkAnnounce").hide();
+            $(".weTalkFunCover").hide();
+        })
 
 
         // 获取消息未读条数

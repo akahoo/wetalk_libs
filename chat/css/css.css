@@ -4175,5 +4175,86 @@ body {
 
 /* 新用户礼包 */
 .weTalkBeginer {
-  display: none;
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+
+  width: 591px;
+  height: 399px;
+  z-index: 15;
+  /* display: none; */
+
+  background: url("../images/beginer.png");
+  user-select: none;
+}
+
+.getBeginerAward {
+  position: absolute;
+  bottom: -25px;
+  left: 48%;
+  transform: translateX(-50%);
+
+  cursor: pointer;
+}
+
+.beginerAward {
+  position: absolute;
+  top: 208px;
+  left: 37%;
+}
+
+.beginerAwardDes {
+  position: absolute;
+  top: 332px;
+  left: 249px;
+
+  color: #fff;
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #ffffff;
+}
+
+/* 公告 */
+.weTalkAnnounce {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 15;
+
+  width: 314px;
+  height: 380px;
+  background: #ffffff;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+}
+
+.weTalkAnnounceBtn {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 80px;
+  height: 34px;
+  background: #904ce4;
+  border-radius: 17px;
+
+  text-align: center;
+  line-height: 34px;
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.weTalkAnnounceCha {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
 }

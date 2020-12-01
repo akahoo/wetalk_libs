@@ -12,7 +12,6 @@ function fragInit() {
     moveDisTance: 710,
     marqueeArr: [],
     // 轮播(广播)
-    rIndex: 0,
     rDistance: 420,
     rIntervalId: null,
 
@@ -58,9 +57,9 @@ function fragInit() {
     <div class="weTalkFragExChange weTalkRightItem">
     <div class="weTalkFragTip"></div>
     <!-- 帮助 -->
-    <img class="weTalkFragHelp" src="../images/chip/help.png" />
+    <img class="weTalkFragHelp" src="./images/chip/help.png" />
     <div class="weTalkFragHelpContainer">
-      <img class="weTalkFragHelpClose" src="../images/closePersonalInfo.png" />
+      <img class="weTalkFragHelpClose" src="./images/closePersonalInfo.png" />
       <div class="weTalkFragHelpTitle">帮助</div>
       <div class="weTalkFragHelpContent">
         <div class="weTalkFragHelpContentTitle">关于活动</div>
@@ -104,8 +103,8 @@ function fragInit() {
     <div class="weTalkFragContainer">
       <div class="weTalkFragMarquee">
         <div class="weTalkFragMarqueeList"></div>
-        <img class="weTalkFragMarqueeLast" src="../images/chip/lastPage.png" />
-        <img class="weTalkFragMarqueeNext" src="../images/chip/nextPage.png" />
+        <img class="weTalkFragMarqueeLast" src="./images/chip/lastPage.png" />
+        <img class="weTalkFragMarqueeNext" src="./images/chip/nextPage.png" />
       </div>
       <div class="weTalkFragList"></div>
     </div>
@@ -119,7 +118,7 @@ function fragInit() {
         <div class="weTalkFragItemDetailsStars"></div>
       </div>
       <div class="weTalkFragItemDetailsBack">
-        <img src="../images/chip/back.png" />
+        <img src="./images/chip/back.png" />
         <span>返回主页</span>
       </div>
     </div>
@@ -130,9 +129,9 @@ function fragInit() {
     <div class="weTalkFragItemDetailsBlock"></div>
     <div class="weTalkFragItemDetailsContent">
       <div class="weTalkFragItemDetailsCheck">
-          <img src="../images/chip/close.png" class="weTalkFragItemDetailsCheckClose"></img>
-          <img src="../images/chip/award.png" class="weTalkFragItemDetailsAwardImg"></img>
-          <img src="../images/chip/checkAward.png" class="weTalkFragItemDetailsCheckBtn"></img>
+          <img src="./images/chip/close.png" class="weTalkFragItemDetailsCheckClose"></img>
+          <img src="./images/chip/award.png" class="weTalkFragItemDetailsAwardImg"></img>
+          <img src="./images/chip/checkAward.png" class="weTalkFragItemDetailsCheckBtn"></img>
       </div>
       <div class="weTalkFragItemDetailsCheckCover"></div>
       <div class="weTalkFragItemDetailsContentLeft">
@@ -160,7 +159,7 @@ function fragInit() {
     <!-- 奖品兑换界面 -->
     <div class="weTalkFragExchangeView">
         <div class="weTalkFragExchangeViewTitle">奖品兑换</div>
-        <img class="weTalkFragExchangeViewClose" src="../images/closePersonalInfo.png">
+        <img class="weTalkFragExchangeViewClose" src="./images/closePersonalInfo.png">
         <div class="weTalkFragReceiverName">
           <div class="weTalkFragReceiverFont">收货人姓名</div>
           <input type="text" class="weTalkFragNameInput" placeholder="请输入你的姓名">
@@ -180,21 +179,21 @@ function fragInit() {
     </div>
     <!-- 兑换失败提示 -->
     <div class="weTalkFragExchangeFail">
-      <img class="weTalkFragExchangeFailClose" src="../images/closePersonalInfo.png">
+      <img class="weTalkFragExchangeFailClose" src="./images/closePersonalInfo.png">
       <div class="weTalkFragExchangeFailTitle">提示</div>
       <div class="weTalkFragExchangeFailContent">您还没有集齐所有奖品碎片，还要继续加油哦！</div>
       <div class="weTalkFragExchangeFailBtn">确定</div>
     </div>
     <!-- 兑换成功界面 -->
     <div class="weTalkFragExchangeSuc">
-    <img class="weTalkFragExchangeSucClose" src="../images/closePersonalInfo.png">
+    <img class="weTalkFragExchangeSucClose" src="./images/closePersonalInfo.png">
       <div class="weTalkFragExchangeSucContainer">
         <div class="weTalkFragExchangeSucTitle">兑换成功</div>
-        <img class="weTalkFragExchangeSucImg" src="../images/chip/suc.png">
+        <img class="weTalkFragExchangeSucImg" src="./images/chip/suc.png">
         <div class="weTalkFragExchangeSucInfo">
           奖品兑换成功！兑换凭证为：<span></span>
         </div>
-        <div class="weTalkFragExchangeSucTip" src="../images/chip/suc.png">
+        <div class="weTalkFragExchangeSucTip" src="./images/chip/suc.png">
           <div class="weTalkFragExchangeSucTipLeft">
             <div> 我们将尽快安排发货事宜，为保证领奖顺利，请添加客服</div>
             <div>微信，保持必要的沟通</div>
@@ -324,7 +323,9 @@ function fragInit() {
     $(".weTalkFragRadioContainer").html("");
     if (fragd.radioArr && fragd.radioArr.length > 0) {
       $(".weTalkFragRadio").css("display", "block");
-      $(".weTalkFragRadioContainer").html(`恭喜${fragd.radioArr[fragd.rIndex].username}获得${fragd.radioArr[fragd.rIndex].pieceName}`)
+      fragd.radioArr.forEach(item => {
+        $(".weTalkFragRadioContainer").append(`<div class="weTalkFragRadioItem">恭喜${item.username}获得${item.pieceName}</div>`)
+      })
       if (fragd.radioArr.length > 1) {
         // 自动轮播广播
         autoNextRadio();
@@ -334,12 +335,16 @@ function fragInit() {
 
   // 文字自动滚动
   function nextRadio() {
-    fragd.rIndex++;
-    $(".weTalkFragRadioContainer").html(`恭喜${fragd.radioArr[fragd.rIndex].username}获得${fragd.radioArr[fragd.rIndex].pieceName}`)
+    $(".weTalkFragRadioContainer").animate({ top: "-28px" }, 1000, function () {
+      $(this).css({ top: "0" });
+      let item = $(".weTalkFragRadioContainer").children().first().clone();
+      $(this).children().last().after(item);
+      $(this).children().first().remove();
+    });
   }
 
   function autoNextRadio() {
-    fragd.rIntervalId = setInterval(nextRadio, 5000);
+    setInterval(nextRadio, 5000);
   }
 
 
@@ -375,13 +380,13 @@ function fragInit() {
     starArr.html("")
     for (let j = 0; j < difficult; j++) {
       $(`
-          <img class="weTalkFragStar" src="../images/chip/star2.png" />
+          <img class="weTalkFragStar" src="./images/chip/star2.png" />
 
           `).appendTo(starArr);
     }
     for (let k = 0; k < 5 - difficult; k++) {
       $(`
-          <img class="weTalkFragStar" src="../images/chip/star1.png" />
+          <img class="weTalkFragStar" src="./images/chip/star1.png" />
 
           `).appendTo(starArr);
     }
@@ -476,43 +481,47 @@ function fragInit() {
     getAwardsDetail(id, fragd.token).then(res => {
       let arr = new Array(fragd.standard * fragd.standard).fill(0);
       if (res.code == 1) {
-        // 构造数组
-        res.data.forEach(item => {
-          arr.splice(item.sequence - 1, 1, item)
-        })
-        // console.log("arr", arr)
-        let bulge, top, left, num = 0;
-        switch (fragd.standard) {
-          case 2:
-            bulge = 36;
-            break;
-          case 3:
-            bulge = 24;
-            break;
-          case 4:
-            bulge = 18;
-            break;
-        }
-        let wid = $(".weTalkFragItemDetailsContentLeftContainer").width() / fragd.standard;
-        for (let i = 1; i <= fragd.standard; i++) {
-          for (let j = 1; j <= fragd.standard; j++) {
-            if (arr[num] != 0) {
-              top = i == 2 ? top = (i - 1) * wid - bulge : (i - 1) * wid;
-              left = j == 3 ? (j - 1) * wid - bulge : (j - 1) * wid;
-              $(`
-          <img class="fragItem" src="../images/chip/chipDetails/${fragd.standard}/${num + 1}.png">
+        if (res.data && res.data.length > 0) {
+          // 持有个数
+          $(`<div class="weTalkFragItemHadNum">持有：${res.data.length}</div>`)
+
+          // 构造数组
+          res.data.forEach(item => {
+            arr.splice(item.sequence - 1, 1, item)
+          })
+          // console.log("arr", arr)
+          let bulge, top, left, num = 0;
+          switch (fragd.standard) {
+            case 2:
+              bulge = 36;
+              break;
+            case 3:
+              bulge = 24;
+              break;
+            case 4:
+              bulge = 18;
+              break;
+          }
+          let wid = $(".weTalkFragItemDetailsContentLeftContainer").width() / fragd.standard;
+          for (let i = 1; i <= fragd.standard; i++) {
+            for (let j = 1; j <= fragd.standard; j++) {
+              if (arr[num] != 0) {
+                top = i == 2 ? top = (i - 1) * wid - bulge : (i - 1) * wid;
+                left = j == 3 ? (j - 1) * wid - bulge : (j - 1) * wid;
+                $(`
+          <img class="fragItem" src="./images/chip/chipDetails/${fragd.standard}/${num + 1}.png">
           `).css({
-                "left": left,
-                "top": top,
-              }).appendTo(".weTalkFragItemDetailsContentLeftContainer")
+                  "left": left,
+                  "top": top,
+                }).appendTo(".weTalkFragItemDetailsContentLeftContainer")
+              }
+              num++;
             }
-            num++;
           }
         }
-      } else {
-
       }
     })
+
   }
 
 

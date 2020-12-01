@@ -18,6 +18,7 @@ function bottleJs() {
         LongitudeAndLatitudeList: [],
         ipList: [],
         provinceList: [],
+        upFile: null,
         imgBase64: "",
         picWeight: 0.92,
     }
@@ -263,7 +264,7 @@ function bottleJs() {
         }
         data.maxSize = 1 * 1000 * 1024;
         if (data.throwDriftBottleFile.size > data.maxSize) {
-            console.log(1)
+            console.log("SHANGCHANG")
             // console.log(data.throwDriftBottleFile)
             compress(data.throwDriftBottleFile, check)
         } else {
@@ -1114,23 +1115,8 @@ function bottleJs() {
                     reader.onload = function (event) {
                         let image = $(`<img/>`);
                         image.on('load', function () {
-                            if (picNatW > picNatH) {
-                                if (picNatH > 1024) {
-                                    var squareW = 1024
-                                        , squareH = picNatH / picNatW * squareW
-                                } else {
-                                    var squareW = picNatW
-                                        , squareH = picNatH
-                                }
-                            } else {
-                                if (picNatW > 1024) {
-                                    var squareH = 1024
-                                        , squareW = picNatW / picNatH * squareH
-                                } else {
-                                    var squareW = picNatW
-                                        , squareH = picNatH
-                                }
-                            }
+                            squareW = picNatW;
+                            squareH = picNatH;
                             var canvas = document.createElement('canvas'),
                                 context = canvas.getContext('2d'),
                                 imageWidth = 0, //压缩图片大小
@@ -1151,7 +1137,7 @@ function bottleJs() {
                                 offsetY = Math.round((imageHeight - squareH) / 2)
                             }
                             context.drawImage(this, offsetX, offsetY, imageWidth, imageHeight);
-                            var data = canvas.toDataURL('image/jpeg', data.picWeight)
+                            var data = canvas.toDataURL('image/jpeg', picWeight)
                             console.log(1)
                             callback(data)
                         });
@@ -1168,7 +1154,21 @@ function bottleJs() {
         }
     }
     function check(imgBase64) {
+        console.log("xianshi")
+
+        data.upFile = convertBase64UrlToFile(imgBase64, (new Date()).valueOf() + '.png');
+        if (data.upFile.size > data.maxSize) {
+            data.picWeight -= 0.1;
+            compress(data.upFile, check);
+            return;
+        } else {
+            compress(data.throwDriftBottleFile, checkFin)
+        }
+    }
+
+    function checkFin(imgBase64) {
         data.bottleLocalityPic.push(imgBase64);
+        console.log("jinqu")
         data.throwDriftBottlePicList.push(convertBase64UrlToFile(imgBase64, (new Date()).valueOf() + '.png'))
         shwoBottleLocalityPic()
         let throwDriftBottleUplodeNum = data.throwDriftBottlePicList.length
@@ -1177,6 +1177,7 @@ function bottleJs() {
             $(".throwDriftBottleUplode").hide()
         }
     }
+
     function getImageInfo(url, callback) {
         var img = new Image();
         img.src = url;
