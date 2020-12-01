@@ -859,7 +859,7 @@ body {
 .weTalkNewsRecordsjd {
   position: absolute;
   bottom: 10px;
-  right: 10px;
+  right: 7px;
   width: 18px;
   height: 18px;
   background: #ef3435;
@@ -1083,6 +1083,22 @@ body {
   border-radius: 2em;
 }
 .weTalkChatMain::-webkit-scrollbar-thumb {
+  background-color: rgba(221, 221, 221, 1);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+.weTalkSystemNewsViewContent::-webkit-scrollbar {
+  width: 8px;
+}
+.weTalkSystemNewsViewContent::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+.weTalkSystemNewsViewContent::-webkit-scrollbar-thumb {
   background-color: rgba(221, 221, 221, 1);
   -webkit-border-radius: 2em;
   -moz-border-radius: 2em;
@@ -3937,6 +3953,7 @@ body {
 }
 
 .weTalkLotteryBtn {
+  position: relative;
   width: 278px;
   background: url("../images/lottery/lottery_btn2.png") no-repeat;
   border-radius: 26px;
@@ -3945,6 +3962,15 @@ body {
 
 .weTalkLotteryBtn:active {
   background: url("../images/lottery/lottery_btn1.png") no-repeat;
+}
+
+.weTalklotteryNum {
+  position: absolute;
+  top: 25px;
+  right: 50px;
+  color: #fff;
+  font-size: 14px;
+  font-family: Microsoft YaHei;
 }
 
 .weTalkLotteryTipItem {
@@ -4145,4 +4171,9 @@ body {
   right: 0;
   width: 100%;
   height: 100%;
+}
+
+/* 新用户礼包 */
+.weTalkBeginer {
+  display: none;
 }

@@ -45,15 +45,15 @@ function choujiangInit() {
             </div>
             <div class="weTalkLotteryResView weTalkRightItem"></div>
             <div class="weTalkLotteryRecords weTalkRightItem">
-                <img class="weTalkLotteryRecordsXX" src="../images/closePersonalInfo.png"/>
+                <img class="weTalkLotteryRecordsXX" src="./images/closePersonalInfo.png"/>
                 <div class="weTalkLotteryRecordsTitle">
                     <span>我的奖品</span>
                     <span>最近30天中奖记录</span>
                 </div>
                 <div class="weTalkLotteryRecordsContent"></div>
                 <div class="weTalkLotteryRecordsPages">
-                    <img class="weTalkLotteryRecordsLastP" src="../images/lottery/pbtn1.png">
-                    <img class="weTalkLotteryRecordsNextP" src="../images/lottery/pbtn2.png">
+                    <img class="weTalkLotteryRecordsLastP" src="./images/lottery/pbtn1.png">
+                    <img class="weTalkLotteryRecordsNextP" src="./images/lottery/pbtn2.png">
                 </div>
             </div>
         </div>
@@ -64,7 +64,8 @@ function choujiangInit() {
     $(".weTalkLottery").show();
     $(".weTalkAward").html("");
     awardList(lotD.token).then(res => {
-        lotD.lotteryList = randArr(res.data);
+        // lotD.lotteryList = randArr(res.data);
+        lotD.lotteryList = res.data;
         lotD.lotteryList.splice(5, 0, "1");
         for (let i = 0; i < lotD.lotteryList.length; i++) {
             let weTalkAwardItem = $(`
@@ -81,29 +82,29 @@ function choujiangInit() {
                             <div class="weTalkAwardInfo">${lotD.lotteryList[i].value}积分</div>
                         `)
                         if (lotD.lotteryList[i].value <= 10) {
-                            weTalkAwardItem.children(".weTalkAwardPoint").attr("src", "../images/lottery/award_point_2.png");
+                            weTalkAwardItem.children(".weTalkAwardPoint").attr("src", "./images/lottery/award_point_2.png");
                         } else {
-                            weTalkAwardItem.children(".weTalkAwardPoint").attr("src", "../images/lottery/award_point1.png");
+                            weTalkAwardItem.children(".weTalkAwardPoint").attr("src", "./images/lottery/award_point1.png");
                         }
                         break;
                     case 2:
                         // 会员
                         weTalkAwardItem.html(`
-                        <img class="weTalkAwardPoint" src="../images/lottery/award_vip.png" >
+                        <img class="weTalkAwardPoint" src="./images/lottery/award_vip.png" >
                         <div class="weTalkAwardInfo">${lotD.lotteryList[i].value}天VIP</div>
                     `)
                         break;
                     case 3:
                         // 碎片
                         weTalkAwardItem.html(`
-                        <img class="weTalkAwardPoint" src="../images/lottery/award_frag.png" >
+                        <img class="weTalkAwardPoint" src="./images/lottery/award_frag.png" >
                         <div class="weTalkAwardInfo">碎片*1</div>
                     `)
                         break;
                     case 4:
                         // 谢谢惠顾
                         weTalkAwardItem.html(`
-                        <img class="weTalkAwardPoint" src="../images/lottery/award_none.png" >
+                        <img class="weTalkAwardPoint" src="./images/lottery/award_none.png" >
                         <div class="weTalkAwardInfo">谢谢惠顾</div>
                     `)
                         break;
@@ -111,10 +112,23 @@ function choujiangInit() {
                 weTalkAwardItem.appendTo(".weTalkAward");
             } else {
                 $(`
-                    <div class="weTalkLotteryBtn">
+                    <div class="weTalkLotteryBtn"></div>
         `).appendTo(".weTalkAward");
             }
         }
+        // 获取可抽奖次数
+        getLotteryNum(lotD.token).then(res => {
+            if (res.code == 1) {
+                if (res.data > 0) {
+                    $(".weTalkLotteryBtn").html("");
+                    $(`
+                        <div class="weTalklotteryNum">(${res.data})</div>
+                    `).appendTo($(".weTalkLotteryBtn"))
+                } else {
+                    $(".weTalkLotteryBtn").html("");
+                }
+            }
+        })
         $(".weTalkLottery").show();
         $(".weTalkLotteryBtn").off("click").on("click", getLotteryRes);
     })
@@ -139,13 +153,13 @@ function choujiangInit() {
 
     // 幸运抽奖分页按钮
     $(document).on("mouseenter", ".weTalkLotteryRecordsLastP", function () {
-        $(".weTalkLotteryRecordsLastP").attr("src", "../images/lottery/pbtn3.png")
-        $(".weTalkLotteryRecordsNextP").attr("src", "../images/lottery/pbtn2.png")
+        $(".weTalkLotteryRecordsLastP").attr("src", "./images/lottery/pbtn3.png")
+        $(".weTalkLotteryRecordsNextP").attr("src", "./images/lottery/pbtn2.png")
     })
 
     $(document).on("mouseleave", ".weTalkLotteryRecordsLastP", function () {
-        $(".weTalkLotteryRecordsLastP").attr("src", "../images/lottery/pbtn1.png")
-        // $(".weTalkLotteryRecordsNextP").attr("src","../images/lottery/pbtn2.png")
+        $(".weTalkLotteryRecordsLastP").attr("src", "./images/lottery/pbtn1.png")
+        // $(".weTalkLotteryRecordsNextP").attr("src","./images/lottery/pbtn2.png")
     })
 
     $(document).on("click", ".weTalkLotteryRecordsLastP", function () {
@@ -158,13 +172,13 @@ function choujiangInit() {
     })
 
     $(document).on("mouseenter", ".weTalkLotteryRecordsNextP", function () {
-        $(".weTalkLotteryRecordsLastP").attr("src", "../images/lottery/pbtn1.png")
-        $(".weTalkLotteryRecordsNextP").attr("src", "../images/lottery/pbtn4.png")
+        $(".weTalkLotteryRecordsLastP").attr("src", "./images/lottery/pbtn1.png")
+        $(".weTalkLotteryRecordsNextP").attr("src", "./images/lottery/pbtn4.png")
     })
 
     $(document).on("mouseleave", ".weTalkLotteryRecordsNextP", function () {
-        // $(".weTalkLotteryRecordsLastP").attr("src", "../images/lottery/pbtn1.png")
-        $(".weTalkLotteryRecordsNextP").attr("src", "../images/lottery/pbtn2.png")
+        // $(".weTalkLotteryRecordsLastP").attr("src", "./images/lottery/pbtn1.png")
+        $(".weTalkLotteryRecordsNextP").attr("src", "./images/lottery/pbtn2.png")
     })
 
     $(document).on("click", ".weTalkLotteryRecordsNextP", function () {
@@ -238,7 +252,7 @@ function choujiangInit() {
                         switch (lotD.lotteryList[lotD.lotteryRes].type) {
                             case 1:
                                 $(".weTalkLotteryResView").html(`
-                            <img class="weTalkCloseRes" src="../images/closePersonalInfo.png"/>
+                            <img class="weTalkCloseRes" src="./images/closePersonalInfo.png"/>
                             <div class="weTalkLotteryResViewTitle">中奖啦！</div>
                             <div class="weTalkLotteryResViewTip">
                                 恭喜你获得了<span class="weTalkLotteryAwardFont">${lotD.lotteryList[lotD.lotteryRes].value}积分</span>，积分已经增加到你的个人账户
@@ -250,7 +264,7 @@ function choujiangInit() {
                                 break;
                             case 2:
                                 $(".weTalkLotteryResView").html(`
-                                <img class="weTalkCloseRes" src="../images/closePersonalInfo.png"/>
+                                <img class="weTalkCloseRes" src="./images/closePersonalInfo.png"/>
                             <div class="weTalkLotteryResViewTitle">中奖啦！</div>
                             <div class="weTalkLotteryResViewTip">
                                 恭喜你获得了<span class="weTalkLotteryAwardFont">${lotD.lotteryList[lotD.lotteryRes].value}天VIP</span>的使用资格
@@ -275,7 +289,7 @@ function choujiangInit() {
                                 break;
                             case 3:
                                 $(".weTalkLotteryResView").html(`
-                                <img class="weTalkCloseRes" src="../images/closePersonalInfo.png"/>
+                                <img class="weTalkCloseRes" src="./images/closePersonalInfo.png"/>
                             <div class="weTalkLotteryResViewTitle">中奖啦！</div>
                             <div class="weTalkLotteryResViewTip">
                                 恭喜你获得了<span class="weTalkLotteryAwardFont">DIMOO盲盒碎片*1</span>
@@ -286,7 +300,7 @@ function choujiangInit() {
                                 break;
                             case 4:
                                 $(".weTalkLotteryResView").html(`
-                                <img class="weTalkCloseRes" src="../images/closePersonalInfo.png"/>
+                                <img class="weTalkCloseRes" src="./images/closePersonalInfo.png"/>
                             <div class="weTalkLotteryResViewTitle">未中奖</div>
                             <div class="weTalkLotteryResViewTip">
                             很遗憾，这次没有中奖，继续加油哦！
@@ -297,8 +311,10 @@ function choujiangInit() {
                         }
                         if (lotD.lotteryNum > 0) {
                             $(".weTalkLotteryResViewBtn").html(`再来一次（${lotD.lotteryNum}）`)
+                            $(".weTalklotteryNum").html(`(${lotD.lotteryNum})`)
                         } else {
                             $(".weTalkLotteryResViewBtn").html(`确定`)
+                            $(".weTalkLotteryBtn").html("");
                         }
                         $(".weTalkLotteryResView").css("display", "block");
                         $(".weTalkLotteryCover").show();

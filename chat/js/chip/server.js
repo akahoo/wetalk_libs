@@ -1,5 +1,5 @@
-// let wTurl = localStorage.getItem("wTurl");
-let wTurl = "http://192.168.0.129:8090";
+let wTurl = localStorage.getItem("wTurl");
+// let wTurl = "http://192.168.0.129:8090";
 
 // let wTsocketUrl = localStorage.getItem("wTsocketUrl");
 
@@ -81,6 +81,23 @@ function exchange(pieceId, name, phone, addr, token) {
             url: wTurl + `/piece/exchange?t=${(new Date()).getTime()}`,
             headers: { user_token: token },
             data: { pieceId: pieceId, name: name, phone: phone, addr: addr },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+// 获取兑奖记录
+function allExchangeLog(token) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "get",
+            url: wTurl + `/piece/allExchangeLog?t=${(new Date()).getTime()}`,
+            headers: { user_token: token },
             success: function (res) {
                 resolve(res)
             },

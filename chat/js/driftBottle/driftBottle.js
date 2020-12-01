@@ -19,7 +19,7 @@ function bottleJs() {
         ipList: [],
         provinceList: [],
         imgBase64: "",
-        picWeight:0.92,
+        picWeight: 0.92,
     }
     $("#driftBottleIndex").remove()
     $(`
@@ -422,8 +422,8 @@ function bottleJs() {
         getDriftBottleList()
     }
     function throwBottle() {
-        if ($("#pickNum").text() == 0) {
-            console.log($("#pickNum").text())
+        if ($("#throwNum").text() == 0) {
+            // console.log($("#pickNum").text())
             $(".bottleHint").text("今日扔瓶子的次数已用完")
             $(".bottleHint").show();
             setTimeout(function () {
@@ -1104,7 +1104,7 @@ function bottleJs() {
             directTurnIntoBase64(currentfile, callback);
         } else {
             try {  // 获取图片的原始大小
-                let picNatW, picNatH,picWeight;
+                let picNatW, picNatH, picWeight;
                 getImageInfo(URL.createObjectURL(currentfile), function (width, height) {
                     // 在这里面使用
                     picNatW = width;    //图片的原始宽度

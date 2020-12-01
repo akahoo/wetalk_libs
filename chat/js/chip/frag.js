@@ -4,13 +4,17 @@ function fragInit() {
   let fragd = {
     token: localStorage.getItem("token"),
     cdn: localStorage.getItem("cdn"),
-    //   轮播
+    // 轮播(图)
     imgCount: null,
     index: 1,
     intervalId: null,
     buttonSpan: null,
     moveDisTance: 710,
     marqueeArr: [],
+    // 轮播(广播)
+    rIndex: 0,
+    rDistance: 420,
+    rIntervalId: null,
 
     //  奖品
     awardArr: [
@@ -37,7 +41,14 @@ function fragInit() {
     fragName: null,
     fragId: null,
     fragUrl: null,
+
+    // 广播
+    radioArr: [
+      { username: "蚂蚁线", pieceName: "奖品1" },
+      { username: "嘛嘛嘛", pieceName: "奖品1" },
+      { username: "仙仙仙", pieceName: "奖品1" }],
   };
+
   // 全局变量结束
 
   // html
@@ -87,7 +98,7 @@ function fragInit() {
     <div class="weTalkFragCover"></div>
     <!-- 广播 -->
     <div class="weTalkFragRadio">
-      恭喜 小小白 成功兑换 PUCKY毕奇精灵星座系列盲盒公仔
+      <div class="weTalkFragRadioContainer"></div>
     </div>
     <!-- 内容 -->
     <div class="weTalkFragContainer">
@@ -214,6 +225,8 @@ function fragInit() {
   closeHelpView();
   // 绑定详情页事件
   bindDetailsEve();
+  // 读取获奖广播
+  loadRadios();
 
 
 
@@ -237,7 +250,30 @@ function fragInit() {
     });
   }
 
-  // 轮播功能
+  // 渲染轮播图
+  function showMaquree() {
+    listCarousel(fragd.token).then(res => {
+      if (res.code == 1) {
+        fragd.marqueeArr = res.data;
+        fragd.imgCount = fragd.marqueeArr.length;
+        $(".weTalkFragMarqueeList").html("");
+        fragd.marqueeArr.forEach((item) => {
+          let weTalkFragMarqueeItem = $(`
+                  <img class="weTalkFragMarqueeItem"/>
+                    `);
+          // 渲染图片
+          weTalkFragMarqueeItem.attr("src", fragd.cdn + "/" + item.image);
+          // 自定义属性
+          weTalkFragMarqueeItem.attr("data-url", item.url);
+          weTalkFragMarqueeItem.appendTo($(".weTalkFragMarqueeList"));
+        });
+      }
+    })
+  }
+
+
+
+  // 轮播功能(轮播图)
   function nextPic(next) {
     var targetLeft = 0;
     if (next) {
@@ -267,33 +303,46 @@ function fragInit() {
     }
     $(".weTalkFragMarqueeList").animate({ left: targetLeft + "px" });
   }
-  // 自动轮播
+
+
+  // 自动轮播(图片)
   function autoNextPic() {
     fragd.intervalId = setInterval(() => {
       nextPic(true);
     }, 5000);
   }
 
-  // 渲染轮播图
-  function showMaquree() {
-    listCarousel(fragd.token).then(res => {
-      if (res.code == 1) {
-        fragd.marqueeArr = res.data;
-        fragd.imgCount = fragd.marqueeArr.length;
-        $(".weTalkFragMarqueeList").html("");
-        fragd.marqueeArr.forEach((item) => {
-          let weTalkFragMarqueeItem = $(`
-                <img class="weTalkFragMarqueeItem"/>
-                  `);
-          // 渲染图片
-          weTalkFragMarqueeItem.attr("src", fragd.cdn + "/" + item.image);
-          // 自定义属性
-          weTalkFragMarqueeItem.attr("data-url", item.url);
-          weTalkFragMarqueeItem.appendTo($(".weTalkFragMarqueeList"));
-        });
+
+  // 读取获奖广播
+  function loadRadios() {
+    // allExchangeLog(fragd.token).then(res => {
+    //   if (res.code == 1) {
+    // fragd.radioArr = res.data;
+
+    //   }
+    // })
+    $(".weTalkFragRadioContainer").html("");
+    if (fragd.radioArr && fragd.radioArr.length > 0) {
+      $(".weTalkFragRadio").css("display", "block");
+      $(".weTalkFragRadioContainer").html(`恭喜${fragd.radioArr[fragd.rIndex].username}获得${fragd.radioArr[fragd.rIndex].pieceName}`)
+      if (fragd.radioArr.length > 1) {
+        // 自动轮播广播
+        autoNextRadio();
       }
-    })
+    }
   }
+
+  // 文字自动滚动
+  function nextRadio() {
+    fragd.rIndex++;
+    $(".weTalkFragRadioContainer").html(`恭喜${fragd.radioArr[fragd.rIndex].username}获得${fragd.radioArr[fragd.rIndex].pieceName}`)
+  }
+
+  function autoNextRadio() {
+    fragd.rIntervalId = setInterval(nextRadio, 5000);
+  }
+
+
 
   //  轮播图绑定事件
   function maqureeItemFun() {
@@ -395,6 +444,7 @@ function fragInit() {
       goDetails($(this).attr("data-id"));
     });
   }
+
   // 打开详情页
   function goDetails(id) {
     // 获取当前奖品的信息
@@ -576,4 +626,6 @@ function fragInit() {
       $(".weTalkFragTipDetails").hide();
     }, 3000)
   }
+
+
 }

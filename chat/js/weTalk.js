@@ -63,6 +63,7 @@ $(function () {
         point: null,
         email: null,
         signature: "",
+        lastLogin: null,
 
         // 正在登录
         isLogining: false,
@@ -464,9 +465,7 @@ $(function () {
                                       </li>
                                   </ul>
                                   <ul>
-                                      <li class="activityThree"><img src="images/jingcai.png" class="jingcai">
-                                          <p class="threeText">积分竞猜</p>
-                                      </li>
+
                                       <li class="activityFour"><img src="images/chip/initFrag1.png" class="duihuan">
                                           <p class="fourText">碎片兑奖</p>
                                       </li>
@@ -1112,9 +1111,9 @@ $(function () {
             $('.weTalkSwitchChatRoomTip').hide();
             $(".weTalkFunCover").hide();
             data.isLoadRecords = false;
-            if(data.websiteId == null){
+            if (data.websiteId == null) {
                 changeRoomRequest(data.webDesiteId);
-            }else{
+            } else {
                 // 不是第一次加载默认聊天室
                 loadDeRoomRecords();
             }
@@ -1325,11 +1324,12 @@ $(function () {
         $(".weTalkYsPicbtn2").on("click", function () {
             if (data.sendState) {
                 showTip("正在发送...")
+                $(".weTalkYsPicContent").css("visibility", "hidden")
+                $(".weTalkFunCover").hide();
                 if (data.upFile.size > data.maxSize) {
                     //调用函数,对图片进行压缩
                     compress(data.upFile, check)
                     $(".weTalkYsPicContent").css("visibility", "hidden")
-                    $(".weTalkFunCover").show();
                     return;
                 }
                 uploadFile(2, data.upFile);
@@ -1570,6 +1570,7 @@ $(function () {
             // 清空输入内容
             // $("#data.weTalkMobile").val() = "";
             $(".weTalkFeedBack").hide();
+            $(".weTalkFunCover").hide();
         });
 
         $(".weTalkFeedBackbtn2").click(function () {
@@ -1585,6 +1586,7 @@ $(function () {
                 if (res.code == 1) {
                     showTip("提交成功");
                     $(".weTalkFeedBack").hide();
+                    $(".weTalkFunCover").hide();
                     // 清空意见
                     $("#weTalkMobile").val("");
                     $("#weTalkFeedBackText").val("");
@@ -1827,6 +1829,7 @@ $(function () {
         data.unreadInboxMsg = res.data.unreadInboxMsg;
         data.avatar = res.data.avatar;
         data.ad = res.data.ad;
+        data.lastLogin = res.data.lastLogin;
         data.cdn = localStorage.getItem("cdn");
         data.server = localStorage.getItem("server");
 
@@ -1842,6 +1845,15 @@ $(function () {
 
         localStorage.setItem("token", data.token);
         Gstar();
+
+
+
+        // 判断是否为新用户
+        if (data.lastLogin == null) {
+            $(`
+                <div class="weTalkBeginer"></div>
+            `).appendTo("body")
+        }
 
 
 
@@ -3108,7 +3120,7 @@ $(function () {
                 $(".weTalkChatMainHeadEventP").html("解除好友").off("click").on("click", function () {
                     removeFriendRequestByChat(data.friendId);
                 });
-            }else if(res.code == 10007){
+            } else if (res.code == 10007) {
                 showTip("用户已将您拉黑")
             }
         })
@@ -4742,7 +4754,7 @@ $(function () {
     //对图片进行压缩
     // 从尺寸+系数压缩 改成了系数压缩（可能会对头像压缩造成影响，头像压缩未考虑压缩文件大小问题）
     function compress(currentfile, callback) {
-        console.log("file",currentfile)
+        console.log("file", currentfile)
         if (typeof (FileReader) === 'undefined') {
             console.log("当前浏览器内核不支持base64图片压缩")
             directTurnIntoBase64(currentfile, callback);
@@ -4872,13 +4884,13 @@ $(function () {
                 squareW = picNatW
                 squareH = picNatH
             }
-        } else if(picNatH >= picNatW){
+        } else if (picNatH >= picNatW) {
             // console.log("高大于宽")
             if (picNatW > max || picNatH > max) {
                 squareH = max;
                 squareW = picNatW / picNatH * squareH;
             }
-            else{
+            else {
                 squareW = picNatW
                 squareH = picNatH
             }
@@ -4978,8 +4990,6 @@ $(function () {
                             })
                     }
                     // $('.weTalkYsPic').hide();
-                    $(".weTalkYsPicContent").css("visibility", "hidden")
-                    $(".weTalkFunCover").hide();
                     showTip("发送成功")
                 } else if (type == 1) {
                     // 头像上传
@@ -5000,7 +5010,7 @@ $(function () {
                 }
             } else {
                 if (type == 2) {
-                        showTip("发送失败")
+                    showTip("发送失败")
                 } else {
                     if (type == 1) {
                         showTip("更改失败")
@@ -5708,7 +5718,6 @@ $(function () {
                     // console.log("item.state", item.state)
                     if (item.state == 0) {
                         systemItem.children(".weTalkSystemUnread").css({ "display": "block" })
-                        data.systemUnreadNum += 1;
                     }
                     // 点击加载站内信内容
                     if (item.content != "") {
@@ -5719,12 +5728,12 @@ $(function () {
                                 if (item.state == 0) {
                                     readInboxMessage(item.id, data.token).then(res => {
                                         if (res.code == 1) {
-                                            loadSystemNews();
-                                            info().then(res => {
-                                                if (res.code == 1) {
-                                                    data.unreadInboxMsg = res.data.unreadInboxMsg;
-                                                }
-                                            })
+                                            data.unreadInboxMsg -= 1;
+                                            $(".weTalkSystemNewsNum").html(`${data.unreadInboxMsg}`)
+                                            if (data.unreadInboxMsg == 0) {
+                                                $(".weTalkSystemNewsNum").css({ "visibility": "hidden" })
+                                                $(".weTalkAvatarTip").hide();
+                                            }
                                         }
                                     })
                                 }
@@ -7022,12 +7031,12 @@ $(function () {
 
     // 显示提示
     function showTip(val) {
-        if($(".weTalkCommonTip").css("display") == "none"){
+        if ($(".weTalkCommonTip").css("display") == "none") {
             $(".weTalkCommonTip").html(`${val}`).show();
             setTimeout(function () {
                 $(".weTalkCommonTip").hide().html("");
             }, 3000)
-        }else{
+        } else {
             $(".weTalkCommonTip").html(`${val}`)
         }
     }
@@ -8184,7 +8193,7 @@ $(function () {
                 picNatW = width;    //图片的原始宽度
                 picNatH = height;   //图片的原始高度
                 imgResize(500, picNatW, picNatH)
-                console.log("squareH",squareH,"squareW",squareW)
+                console.log("squareH", squareH, "squareW", squareW)
                 $("#weTalkYsPic").attr({ "src": data.imgBase64 })
                 data.squareH = squareH;
                 data.squareW = squareW;
@@ -8197,7 +8206,7 @@ $(function () {
     }
 
     // 之后点击时加载聊天室(读取本地聊天记录)
-    function loadDeRoomRecords(){
+    function loadDeRoomRecords() {
         if (data.chatPublicRecords) {
             // 之后点击聊天室,不用调接口
             console.log("之后点击聊天室")
@@ -8214,7 +8223,7 @@ $(function () {
     }
 
     // 加载@
-    function loadAt(){
+    function loadAt() {
         $("#weTalkChatFrame").atwho('destroy');
         $("#weTalkChatFrame").atwho({
             at: "@",
@@ -9125,7 +9134,7 @@ $(function () {
     //漂流瓶
     function activityTwo() {
         data.friendId = "发现";
-        data.isPublic = "发现";
+        data.isPublic = 0;
         $(".weTalkRightItem").hide()
         let oneJs = "https://webapi.amap.com/maps?v=1.4.15&key=a56620b1b0ce81cba0140eed46a4ac86&plugin=AMap.PolyEditor"
         let twoJs = "https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"
