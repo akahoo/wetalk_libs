@@ -138,6 +138,7 @@ function choujiangInit() {
         if ($(".weTalkLotteryResViewBtn").html() == "确定") {
             $(".weTalkLotteryResView").hide();
             $(".weTalkLotteryCover").hide();
+            $(".weTalkLotteryBtn").css({ "pointer-events": "auto" })
         } else {
             $(".weTalkLotteryResView").hide();
             $(".weTalkLotteryCover").hide();
@@ -149,6 +150,7 @@ function choujiangInit() {
     $(document).on("click", ".weTalkCloseRes", function () {
         $(".weTalkLotteryResView").hide();
         $(".weTalkLotteryCover").hide();
+        $(".weTalkLotteryBtn").css({ "pointer-events": "auto" })
     })
 
     // 幸运抽奖分页按钮
@@ -210,17 +212,22 @@ function choujiangInit() {
         draw(lotD.token).then(res => {
             if (res.code == 1) {
                 $(".weTalkLotteryCover").show();
+                $(".weTalkLotteryBtn").css({ "pointer-events": "none" })
                 for (let i = 0; i < lotD.lotteryList.length; i++) {
                     if (lotD.lotteryList[i].id && lotD.lotteryList[i].id == res.data.id) {
                         lotD.lotteryRes = i;
-                        console.log("lotD.lotteryRes", lotD.lotteryRes)
+                        // console.log("lotD.lotteryRes", lotD.lotteryRes)
                         break;
                     }
                 }
                 clearInterval(lotD.scrollLi)
                 lotD.scrollLi = setInterval(around, 200);
             } else if (res.code == 44444) {
-                showlTip("抽奖次数已用完")
+                if (res.message == "今日碎片已发完") {
+                    getLotteryRes();
+                    return;
+                }
+                showlTip(res.message)
             }
         })
     }
@@ -260,7 +267,11 @@ function choujiangInit() {
                             <div class="weTalkLotteryResViewBtn"></div>
                         `);
                                 // 渲染个人信息积分
-                                lotD.point = lotD.point + lotD.lotteryList[lotD.lotteryRes].value;
+                                info(lotD.token).then(res => {
+                                    if (res.code == 1) {
+                                        localStorage.setItem("point", res.data.point)
+                                    }
+                                })
                                 break;
                             case 2:
                                 $(".weTalkLotteryResView").html(`
@@ -273,6 +284,7 @@ function choujiangInit() {
                         `);
                                 // 渲染VIP
                                 lotD.vip = true;
+                                localStorage.setItem("vip", true);
                                 $("#weTalkNick").children(".weTalkPersonalInfoJhNick").children(".weTalkPersonalInfoVip").show();
                                 $("#weTalkNick").children(".weTalkPersonalInfoJhNick").children(".weTalkPersonalInfoLow").show();
                                 $("#weTalkNick").children(".weTalkPersonalInfoJhNick").children(".weTalkKthy").hide();

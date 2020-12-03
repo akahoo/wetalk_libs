@@ -16,22 +16,7 @@ function fragInit() {
     rIntervalId: null,
 
     //  奖品
-    awardArr: [
-      { id: "1", img: "", title: "网易游戏一梦江湖盲盒", stars: 5 },
-      {
-        id: "2",
-        img: "",
-        title: "SIMONTOYS 唐雪芙宫庭 佳人系列盲盒摆件",
-        stars: 2,
-      },
-      {
-        id: "3",
-        img: "",
-        title: "贝拉蕾 欧洲宫廷系列盲盒 全家福",
-        stars: 3,
-      },
-      { id: "4", img: "", title: "《逗酱萌鸭》可摇盲盒", stars: 4 },
-    ],
+    awardArr: [],
     // 详情
     difficult: null,
     standard: null,
@@ -198,10 +183,10 @@ function fragInit() {
             <div> 我们将尽快安排发货事宜，为保证领奖顺利，请添加客服</div>
             <div>微信，保持必要的沟通</div>
             <div>
-              Wetalk官方客服 账号ID：XXXXXX
+              Wetalk官方客服 账号ID：wetalkicu
             </div>
           </div>
-          <div class="weTalkFragExchangeSucTipRight"></div>
+          <img class="weTalkFragExchangeSucTipRight" src="./images/chip/erweima.JPG">
         </div>
       </div>
     </div>
@@ -264,6 +249,10 @@ function fragInit() {
           weTalkFragMarqueeItem.attr("src", fragd.cdn + "/" + item.image);
           // 自定义属性
           weTalkFragMarqueeItem.attr("data-url", item.url);
+          weTalkFragMarqueeItem.attr("data-id", item.id);
+          if (item.methodName != " ") {
+            weTalkFragMarqueeItem.addClass(item.methodName);
+          }
           weTalkFragMarqueeItem.appendTo($(".weTalkFragMarqueeList"));
         });
       }
@@ -300,7 +289,7 @@ function fragInit() {
         targetLeft = -fragd.moveDisTance * (fragd.index - 1);
       }
     }
-    $(".weTalkFragMarqueeList").animate({ left: targetLeft + "px" });
+    $(".weTalkFragMarqueeList").animate({ left: targetLeft + "px" }, 300);
   }
 
 
@@ -314,23 +303,22 @@ function fragInit() {
 
   // 读取获奖广播
   function loadRadios() {
-    // allExchangeLog(fragd.token).then(res => {
-    //   if (res.code == 1) {
-    // fragd.radioArr = res.data;
-
-    //   }
-    // })
-    $(".weTalkFragRadioContainer").html("");
-    if (fragd.radioArr && fragd.radioArr.length > 0) {
-      $(".weTalkFragRadio").css("display", "block");
-      fragd.radioArr.forEach(item => {
-        $(".weTalkFragRadioContainer").append(`<div class="weTalkFragRadioItem">恭喜${item.username}获得${item.pieceName}</div>`)
-      })
-      if (fragd.radioArr.length > 1) {
-        // 自动轮播广播
-        autoNextRadio();
+    allExchangeLog(fragd.token).then(res => {
+      if (res.code == 1) {
+        fragd.radioArr = res.data;
+        $(".weTalkFragRadioContainer").html("");
+        if (fragd.radioArr && fragd.radioArr.length > 0) {
+          $(".weTalkFragRadio").css("display", "block");
+          fragd.radioArr.forEach(item => {
+            $(".weTalkFragRadioContainer").append(`<div class="weTalkFragRadioItem">恭喜${item.username}获得${item.pieceName}</div>`)
+          })
+          if (fragd.radioArr.length > 1) {
+            // 自动轮播广播
+            autoNextRadio();
+          }
+        }
       }
-    }
+    })
   }
 
   // 文字自动滚动
@@ -353,10 +341,17 @@ function fragInit() {
   function maqureeItemFun() {
     // 点击加载页面
     $(document).on("click", ".weTalkFragMarqueeItem", function (e) {
-      console.log("轮播图id", $(this).attr("data-url"));
-      window.open($(this).attr("data-url"));
+      console.log("轮播图url", $(this).attr("data-url"));
+      if ($(this).attr("data-url") != "" && $(this).attr("data-url") != null) {
+        window.open($(this).attr("data-url"));
+      }
       e.preventDefault();
     });
+    $(document).on("click", ".marqueeMethod", function (e) {
+      goDetails($(this).attr("data-id"));
+      e.preventDefault();
+    })
+
     // 上一张图片
     $(document).on("click", ".weTalkFragMarqueeLast", function () {
       nextPic(false);
@@ -410,6 +405,9 @@ function fragInit() {
                     </div>
                   </div>
               `);
+
+          // 渲染图片
+          weTalkFragItem.children(".weTalkFragItemImg").attr("src", fragd.cdn + fragd.awardArr[i].image)
 
           // 自定义属性
           // id
@@ -606,7 +604,7 @@ function fragInit() {
     }
     exchange(fragd.fragId, $(".weTalkFragNameInput").val(), $(".weTalkFragPhoneInput").val(), $(".weTalkFragAddressInput").val(), fragd.token).then(res => {
       if (res.code == 1) {
-        $(".weTalkFragExchangeSucInfo").html(res.message);
+        $(".weTalkFragExchangeSucInfo").children("span").html(res.message);
         $(".weTalkFragExchangeView").hide();
         $(".weTalkFragExchangeSuc").show();
       } else if (res.code == 44444) {
@@ -635,6 +633,4 @@ function fragInit() {
       $(".weTalkFragTipDetails").hide();
     }, 3000)
   }
-
-
 }

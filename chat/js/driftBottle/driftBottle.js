@@ -21,6 +21,43 @@ function bottleJs() {
         upFile: null,
         imgBase64: "",
         picWeight: 0.92,
+        dataList: [
+            { name: "南海诸岛", value: 0 },
+            { name: '北京', value: 0 },
+            { name: '天津', value: 0 },
+            { name: '上海', value: 0 },
+            { name: '重庆', value: 0 },
+            { name: '河北', value: 0 },
+            { name: '河南', value: 0 },
+            { name: '云南', value: 0 },
+            { name: '辽宁', value: 0 },
+            { name: '黑龙江', value: 0 },
+            { name: '湖南', value: 0 },
+            { name: '安徽', value: 0 },
+            { name: '山东', value: 0 },
+            { name: '新疆', value: 0 },
+            { name: '江苏', value: 0 },
+            { name: '浙江', value: 0 },
+            { name: '江西', value: 0 },
+            { name: '湖北', value: 0 },
+            { name: '广西', value: 0 },
+            { name: '甘肃', value: 0 },
+            { name: '山西', value: 0 },
+            { name: '内蒙古', value: 0 },
+            { name: '陕西', value: 0 },
+            { name: '吉林', value: 0 },
+            { name: '福建', value: 0 },
+            { name: '贵州', value: 0 },
+            { name: '广东', value: 0 },
+            { name: '青海', value: 0 },
+            { name: '西藏', value: 0 },
+            { name: '四川', value: 0 },
+            { name: '宁夏', value: 0 },
+            { name: '海南', value: 0 },
+            { name: '台湾', value: 0 },
+            { name: '香港', value: 0 },
+            { name: '澳门', value: 0 }
+        ]
     }
     $("#driftBottleIndex").remove()
     $(`
@@ -209,6 +246,9 @@ function bottleJs() {
         $(".driftBottleContentOnePic").attr("src", "")
         $(".driftBottleContentTwoPic").attr("src", "")
         $(".driftBottleContentThreePic").attr("src", "")
+        for(let i=0;i<data.dataList.length;i++){
+            data.dataList[i].value=0
+        }
     })
     $("#closeThrowDriftBottle").on("click", function () {
         $("#throwDriftBottle").hide()
@@ -350,40 +390,65 @@ function bottleJs() {
         $(".bottlePreviewTier").hide()
     })
     $("#driftBottleDetailsMap").on("click", function () {
-        let oneCss = "https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"
-        loadCSS(oneCss)
         $(".driftBottleIndexMasking").show()
         $("#bottleMapOut").show()
-        var map = new AMap.Map("bottleMap", {
-            center: [116.395577, 39.892257],
-            zoom: 14
-        });
-        var path = data.LongitudeAndLatitudeList
-        for (let i = 0; i < path.length; i++) {
-            map.add(new AMap.Marker({
-                position: path[i]
-            }))
-        }
-        var polyline = new AMap.Polyline({
-            path: path,
-            outlineColor: 'red',
-            borderWeight: 3,
-            strokeColor: "red",
-            strokeOpacity: 1,
-            strokeWeight: 5,
-            strokeStyle: "solid",
-            strokeDasharray: [10, 5],
-            lineJoin: 'round',
-            lineCap: 'round',
-            zIndex: 50,
-        })
-        polyline.setMap(map)
-        map.setFitView([polyline])
+        var myChart = echarts.init(document.getElementById('bottleMap'));
+        option = {
+            tooltip: {
+                formatter: function (params, ticket, callback) {
+                    return params.seriesName + '<br />' + params.name + '：' + params.value
+                }//数据格式化
+            },
+            visualMap: {
+                min: 0,
+                max: 5,
+                left: 'left',
+                top: 'bottom',
+                // text: ['高', '低'],//取值范围的文字
+                inRange: {
+                    color: ['#e0ffff', '#006edd']//取值范围的颜色
+                },
+                show: true//图注
+            },
+            geo: {
+                map: 'china',
+                roam: false,//不开启缩放和平移
+                zoom: 1.23,//视角缩放比例
+                label: {
+                    normal: {
+                        show: true,
+                        fontSize: '10',
+                        color: 'rgba(0,0,0,0.7)'
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        borderColor: 'rgba(0, 0, 0, 0.2)'
+                    },
+                    emphasis: {
+                        areaColor: '#F3B329',//鼠标选择区域颜色
+                        shadowOffsetX: 0,
+                        shadowOffsetY: 0,
+                        shadowBlur: 20,
+                        borderWidth: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            },
+            series: [
+                {
+                    name: '足迹',
+                    type: 'map',
+                    geoIndex: 0,
+                    data: data.dataList
+                }
+            ]
+        };
+        myChart.setOption(option);
     })
     $("#closeBottleMap").on("click", function () {
         $("#bottleMapOut").hide()
         $(".driftBottleIndexMasking").hide()
-        removejscssfile("https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css", "css")
     })
 
 
@@ -643,8 +708,18 @@ function bottleJs() {
             $(".driftBottleContentText").text(`${detail.content}`)
             $("#timeRemaining").text(`${detail.remaining_day}`)
             $("#bottleLikeNum").text(`${detail.like_num}`)
+            let addressList = data.dataList
+            console.log(addressList)
+            console.log(detail.province)
+            for (let i = 0; i < addressList.length; i++) {
+                if (detail.province.slice(0, detail.province.length - 1) == addressList[i].name) {
+                    console.log(i)
+                    addressList[i].value += 1
+                    console.log(addressList[i].value)
+                }
+            }
             let address = detail.province
-            getLongitudeAndLatitude(address)
+            // getLongitudeAndLatitude(address)
             if (detail.image1 !== "") {
                 $(".driftBottleContentOnePic").attr("src", data.cdn + `${detail.image1}`)
                 $(".driftBottleContentOnePic").on("click", bottlePreview)
@@ -702,7 +777,15 @@ function bottleJs() {
                     let obj = commentDetils.children(".criticPersonalinFormation").children().children("#endorseNum")
                     isLickComment(list[i].id, obj)
                     let address = list[i].province
-                    getLongitudeAndLatitude(address)
+                    // getLongitudeAndLatitude(address)
+                    console.log(addressList)
+                    for (let i = 0; i < addressList.length; i++) {
+                        if (address.slice(0, detail.province.length - 1) == addressList[i].name) {
+                            console.log(i)
+                            addressList[i].value += 1
+                            console.log(addressList[i].value)
+                        }
+                    }
                 }
             }
             isLikeAvailable(data.bottleId)
@@ -1089,14 +1172,14 @@ function bottleJs() {
     //     })
     // }
     //根据地址获取经纬度
-    function getLongitudeAndLatitude(address) {
-        longitudeAndLatitude(address).then((res) => {
-            let list = []
-            list = res.geocodes[0].location.split(",");
-            data.LongitudeAndLatitudeList.push(list)
-            console.log(data.LongitudeAndLatitudeList)
-        })
-    }
+    // function getLongitudeAndLatitude(address) {
+    //     longitudeAndLatitude(address).then((res) => {
+    //         let list = []
+    //         list = res.geocodes[0].location.split(",");
+    //         data.LongitudeAndLatitudeList.push(list)
+    //         console.log(data.LongitudeAndLatitudeList)
+    //     })
+    // }
 
     //对图片进行压缩
     function compress(currentfile, callback) {
@@ -1200,6 +1283,33 @@ function bottleJs() {
             }
             console.log(i)
         }
+    }
+    function loadJS(url, callback) {
+        var scripts = $("script[src='" + url + "']");
+        if (scripts.length > 0) {
+            console.log(callback)
+            callback();
+            return;
+        }
+        var script = document.createElement('script'),
+            fn = callback || function () { };
+        script.type = 'text/javascript';
+        //IE
+        if (script.readyState) {
+            script.onreadystatechange = function () {
+                if (script.readyState == 'loaded' || script.readyState == 'complete') {
+                    script.onreadystatechange = null;
+                    fn();
+                }
+            };
+        } else {
+            //其他浏览器
+            script.onload = function () {
+                fn();
+            };
+        }
+        script.src = url;
+        document.getElementsByTagName('head')[0].appendChild(script);
     }
     function loadCSS(url) {
         var css = $("link[href='" + url + "']");

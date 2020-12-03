@@ -2574,7 +2574,7 @@ body {
 
 .weTalkCommonTip,
 .weTalkGlobalTip {
-  z-index: 1000;
+  z-index: 100000;
 }
 
 .weTalkBindSuc,
@@ -3346,6 +3346,8 @@ body {
   width: 64px;
   height: 64px;
   border-radius: 50%;
+
+  cursor: pointer;
 }
 
 /* 登录log界面 */
@@ -3844,6 +3846,8 @@ body {
   transform: translate(-50%, -50%);
 
   text-align: center;
+
+  user-select: none;
 }
 
 .weTalkInitialImg {
@@ -4230,6 +4234,8 @@ body {
   padding: 20px;
   box-sizing: border-box;
   border: 1px solid #ddd;
+
+  display: none;
 }
 
 .weTalkAnnounceBtn {

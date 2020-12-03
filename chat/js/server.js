@@ -15,6 +15,7 @@ function serverUrl() {
                 localStorage.setItem("wTsocketUrl", wTsocketUrl)
                 localStorage.setItem("cdn", res.cdn.substring(0, res.cdn.length - 1))
                 localStorage.setItem("server", res.server.substring(0, res.cdn.length - 1))
+                localStorage.setItem("speakInterval", res.speakInterval)
             },
             fail: function (error) {
                 reject(error)
