@@ -1,4 +1,5 @@
 $(function () {
+	var _version=1.0;
     // 全局变量
     let data = {
         // 聊天室聊天记录
