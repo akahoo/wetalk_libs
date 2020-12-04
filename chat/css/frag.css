@@ -462,7 +462,7 @@
   position: absolute;
   left: 20px;
   top: 20px;
-
+  z-index: 1;
   font-size: 14px;
   color: #fff;
   font-family: Microsoft YaHei;

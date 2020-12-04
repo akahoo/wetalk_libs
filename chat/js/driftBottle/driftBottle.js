@@ -79,6 +79,7 @@ function bottleJs() {
             <div class="bottleOnePage">这已经是第一页了</div>
             <div class="bottleEndPage">这已经是最后一页了</div>
             <div class="bottleRemove">销毁成功</div>
+            <div class="removePickBottle">成功扔回海里</div>
             <img src="images/driftbottle/9.png" id="closeMyDriftBottle">
             <p>我的瓶子</p>
             <div class="myDriftBottleOut">
@@ -229,9 +230,7 @@ function bottleJs() {
         <img src="images/driftbottle/08.png" class="driftBottleFooter">
     </div>
     `).appendTo(".weTalkRight")
-    console.log(data.token)
     $("#driftBottleIndex").show()
-    console.log($(".weTalkRight"))
     getDriftBottleNum()
     cleanLikeRecord('LikeRecord')
     cleanLikeRecord('LikeCommentIdRecord')
@@ -246,8 +245,8 @@ function bottleJs() {
         $(".driftBottleContentOnePic").attr("src", "")
         $(".driftBottleContentTwoPic").attr("src", "")
         $(".driftBottleContentThreePic").attr("src", "")
-        for(let i=0;i<data.dataList.length;i++){
-            data.dataList[i].value=0
+        for (let i = 0; i < data.dataList.length; i++) {
+            data.dataList[i].value = 0
         }
     })
     $("#closeThrowDriftBottle").on("click", function () {
@@ -639,7 +638,7 @@ function bottleJs() {
         } else {
             if ($("#driftBottleBottle").attr("src") == "") {
                 driftBottlePick(data.token).then((res) => {
-                    // console.log(res)
+                    console.log(res)
                     if (res.code == 1) {
                         // data.driftBottleDetails = res.data
                         $(".bottleHint").text("一个瓶子缓缓飘来...")
@@ -657,6 +656,12 @@ function bottleJs() {
                         } else if (res.data.type == 3) {
                             $("#driftBottleBottle").attr("src", "images/driftbottle/gainemotion.png")
                         }
+                    } else if (res.code == 40404) {
+                        $(".bottleHint").text("什么也没捞到")
+                        $(".bottleHint").show();
+                        setTimeout(function () {
+                            $(".bottleHint").hide();
+                        }, 3000)
                     }
                 })
             }
@@ -682,113 +687,115 @@ function bottleJs() {
         data.LongitudeAndLatitudeList = []
         driftBottleDetail(data.token, data.bottleId, data.sortType).then((res) => {
             console.log(res)
-            let detail = res.data.main
-            if (detail.type == 1) {
-                $("#driftBottleDetailsType").css({
-                    "background": "#E5B155"
-                })
-                $("#driftBottleDetailsType").text("交友瓶")
-                $("#detailBottletype").attr("src", "images/driftbottle/friend.png")
-            } else if (detail.type == 2) {
-                $("#detailBottletype").attr("src", "images/driftbottle/secret.png")
-                $("#driftBottleDetailsType").css({
-                    "background": "#EB6052"
-                })
-                $("#driftBottleDetailsType").text("秘密瓶")
-            } else if (detail.type == 3) {
-                $("#detailBottletype").attr("src", "images/driftbottle/emotion.png")
-                $("#driftBottleDetailsType").css({
-                    "background": "#7854E8"
-                })
-                $("#driftBottleDetailsType").text("情绪瓶")
-            }
-            // getAddress(detail.ip)
-            $(".detailtopTime").text(`${detail.create_time}`)
-            $(".detailtopProvince").text(`${detail.province}`)
-            $(".driftBottleContentText").text(`${detail.content}`)
-            $("#timeRemaining").text(`${detail.remaining_day}`)
-            $("#bottleLikeNum").text(`${detail.like_num}`)
-            let addressList = data.dataList
-            console.log(addressList)
-            console.log(detail.province)
-            for (let i = 0; i < addressList.length; i++) {
-                if (detail.province.slice(0, detail.province.length - 1) == addressList[i].name) {
-                    console.log(i)
-                    addressList[i].value += 1
-                    console.log(addressList[i].value)
-                }
-            }
-            let address = detail.province
-            // getLongitudeAndLatitude(address)
-            if (detail.image1 !== "") {
-                $(".driftBottleContentOnePic").attr("src", data.cdn + `${detail.image1}`)
-                $(".driftBottleContentOnePic").on("click", bottlePreview)
-            }
-            if (detail.image2 !== "") {
-                $(".driftBottleContentTwoPic").attr("src", data.cdn + `${detail.image2}`)
-                $(".driftBottleContentTwoPic").on("click", bottlePreview)
-            }
-            if (detail.image3 !== "") {
-                $(".driftBottleContentThreePic").attr("src", data.cdn + `${detail.image3}`)
-                $(".driftBottleContentThreePic").on("click", bottlePreview)
-            }
-            data.ipList = res.data.comment
-            let list = res.data.comment
-            $("#driftBottleDetailsTrack").text(`${list.length}`)
-            if (list.length == 0) {
-                $(".driftBottleCommentDetails").hide()
+            if (res.code == 40404) {
+                $("#driftBottleDetails").hide()
+                $(".bottleHint").text("这个瓶子已经被销毁")
+                $(".bottleHint").show();
+                setTimeout(function () {
+                    $(".bottleHint").hide();
+                }, 3000)
             } else {
-                $(".driftBottleCommentDetails").show()
-                if (list.length < 4) {
-                    $("#driftBottleDetailsvViewMore").hide()
+                let detail = res.data.main
+                if (detail.type == 1) {
+                    $("#driftBottleDetailsType").css({
+                        "background": "#E5B155"
+                    })
+                    $("#driftBottleDetailsType").text("交友瓶")
+                    $("#detailBottletype").attr("src", "images/driftbottle/friend.png")
+                } else if (detail.type == 2) {
+                    $("#detailBottletype").attr("src", "images/driftbottle/secret.png")
+                    $("#driftBottleDetailsType").css({
+                        "background": "#EB6052"
+                    })
+                    $("#driftBottleDetailsType").text("秘密瓶")
+                } else if (detail.type == 3) {
+                    $("#detailBottletype").attr("src", "images/driftbottle/emotion.png")
+                    $("#driftBottleDetailsType").css({
+                        "background": "#7854E8"
+                    })
+                    $("#driftBottleDetailsType").text("情绪瓶")
                 }
-                for (let i = 0; i < list.length; i++) {
-                    commentDetils = $(
-                        `
-                    <li class="driftBottleDetailsComment">
-                    <div class="criticPersonalinFormation">
-                        <p>
-                            <span id="criticHeadPortrait">${list[i].nickname.charAt(0)}</span>
-                            <img class="commentDetilsheadPortrait"/>
-                            <span id="criticName">${list[i].nickname}</span>
-                            <span id="criticAdd">${list[i].province}网友</span>
-                        </p>
-                        <p>
-                            <span id="criticTime">${list[i].create_time}</span>
-                            <span id="endorseNum">+<span id="likeCommentNum">${list[i].like_num}</span></span>
-                        </p>
-                    </div>
-                    <div class="commentContent">
-                        ${list[i].content}
-                    </div>
-                </li>
-                `
-                    ).appendTo($("#driftBottleComment"))
-                    commentDetils.attr("commentId", list[i].id)
-                    if (list[i].avatar) {
-                        commentDetils.children(".criticPersonalinFormation").children().children("#criticHeadPortrait").hide();
-                        commentDetils.children(".criticPersonalinFormation").children().children(".commentDetilsheadPortrait").attr({
-                            "src": data.cdn + list[i].avatar
-                        }).show();
-                    } else {
-                        commentDetils.children(".criticPersonalinFormation").children().children("#criticHeadPortrait").show();
-                        commentDetils.children(".criticPersonalinFormation").children().children(".commentDetilsheadPortrait").hide();
+                // getAddress(detail.ip)
+                $(".detailtopTime").text(`${detail.create_time}`)
+                $(".detailtopProvince").text(`${detail.province}`)
+                $(".driftBottleContentText").text(`${detail.content}`)
+                $("#timeRemaining").text(`${detail.remaining_day}`)
+                $("#bottleLikeNum").text(`${detail.like_num}`)
+                let addressList = data.dataList
+                for (let i = 0; i < addressList.length; i++) {
+                    if (detail.province.slice(0, detail.province.length - 1) == addressList[i].name) {
+                        addressList[i].value += 1
                     }
-                    let obj = commentDetils.children(".criticPersonalinFormation").children().children("#endorseNum")
-                    isLickComment(list[i].id, obj)
-                    let address = list[i].province
-                    // getLongitudeAndLatitude(address)
-                    console.log(addressList)
-                    for (let i = 0; i < addressList.length; i++) {
-                        if (address.slice(0, detail.province.length - 1) == addressList[i].name) {
-                            console.log(i)
-                            addressList[i].value += 1
-                            console.log(addressList[i].value)
+                }
+                let address = detail.province
+                // getLongitudeAndLatitude(address)
+                if (detail.image1 !== "") {
+                    $(".driftBottleContentOnePic").attr("src", data.cdn + `${detail.image1}`)
+                    $(".driftBottleContentOnePic").on("click", bottlePreview)
+                }
+                if (detail.image2 !== "") {
+                    $(".driftBottleContentTwoPic").attr("src", data.cdn + `${detail.image2}`)
+                    $(".driftBottleContentTwoPic").on("click", bottlePreview)
+                }
+                if (detail.image3 !== "") {
+                    $(".driftBottleContentThreePic").attr("src", data.cdn + `${detail.image3}`)
+                    $(".driftBottleContentThreePic").on("click", bottlePreview)
+                }
+                data.ipList = res.data.comment
+                let list = res.data.comment
+                $("#driftBottleDetailsTrack").text(`${list.length}`)
+                if (list.length == 0) {
+                    $(".driftBottleCommentDetails").hide()
+                } else {
+                    $(".driftBottleCommentDetails").show()
+                    if (list.length < 4) {
+                        $("#driftBottleDetailsvViewMore").hide()
+                    }
+                    for (let i = 0; i < list.length; i++) {
+                        commentDetils = $(
+                            `
+                        <li class="driftBottleDetailsComment">
+                        <div class="criticPersonalinFormation">
+                            <p>
+                                <span id="criticHeadPortrait">${list[i].nickname.charAt(0)}</span>
+                                <img class="commentDetilsheadPortrait"/>
+                                <span id="criticName">${list[i].nickname}</span>
+                                <span id="criticAdd">${list[i].province}网友</span>
+                            </p>
+                            <p>
+                                <span id="criticTime">${list[i].create_time}</span>
+                                <span id="endorseNum">+<span id="likeCommentNum">${list[i].like_num}</span></span>
+                            </p>
+                        </div>
+                        <div class="commentContent">
+                            ${list[i].content}
+                        </div>
+                    </li>
+                    `
+                        ).appendTo($("#driftBottleComment"))
+                        commentDetils.attr("commentId", list[i].id)
+                        if (list[i].avatar) {
+                            commentDetils.children(".criticPersonalinFormation").children().children("#criticHeadPortrait").hide();
+                            commentDetils.children(".criticPersonalinFormation").children().children(".commentDetilsheadPortrait").attr({
+                                "src": data.cdn + list[i].avatar
+                            }).show();
+                        } else {
+                            commentDetils.children(".criticPersonalinFormation").children().children("#criticHeadPortrait").show();
+                            commentDetils.children(".criticPersonalinFormation").children().children(".commentDetilsheadPortrait").hide();
+                        }
+                        let obj = commentDetils.children(".criticPersonalinFormation").children().children("#endorseNum")
+                        isLickComment(list[i].id, obj)
+                        let address = list[i].province
+                        // getLongitudeAndLatitude(address)
+                        for (let i = 0; i < addressList.length; i++) {
+                            if (address.slice(0, detail.province.length - 1) == addressList[i].name) {
+                                addressList[i].value += 1
+                            }
                         }
                     }
                 }
+                isLikeAvailable(data.bottleId)
             }
-            isLikeAvailable(data.bottleId)
         })
     }
 
@@ -935,49 +942,48 @@ function bottleJs() {
                         `
                     <li id="myBottle">
                     <div class="myBottleLeft">
-                        <p><img src="images/driftbottle/friend.png"></p>
+                        <p><img src=""></p>
                     </div>
                     <div class="myBottleRight">
-                        <div class="myBottleRightTop">
-                            <p>
-                                <span id="myBottleType"></span>
-                                <span id="myBottleTime">${list[i].create_time}</span>
-                            </p>
-                            <p class="myBottleRightTopRight">
-                                <span id="myBottleOpen" class="myBottleTab">打开</span>
-                                <span class="myBottleLine"></span>
-                                <span class="myBottleTab" id="myBottleRemove">销毁</span>
-                            </p>
-                        </div>
-                        <p class="myBottleRightCenter">${list[i].content}</p>
-                        <div class="myBottleRighBottom">
-                            <div class="myBottleRighBottomLeft">
-                                <p><img src="./images/driftbottle/5.png"><span>${list[i].view_num}</span></p>
-                                <p><img src="images/driftbottle/6.png"><span>${list[i].like_num}</span></p>
-                                <p><img src="images/driftbottle/15.png"><span>${list[i].comment_num}</span></p>
-                            </div>
-                            <p><img src="images/driftbottle/16.png"><span>${list[i].remaining_day}天</span></p>
-                        </div>
+                      <p class="myBottleRightCenter">${list[i].content}</p>
+                      <div class="myBottleNum">   
+                        <p id="myBottleView"><img src="./images/driftbottle/5.png"><span>${list[i].view_new_num}</span></p>
+                        <p id="myBottleLike"><img src="images/driftbottle/6.png"><span>${list[i].like_new_num}</span></p>
+                      </div>
+                      <div class="myBottleBtn">
+                        <span class="myBottleTab" id="myBottleOpen" >打开</span>
+                        <span class="myBottleTab" id="myBottleRemove">销毁</span>
+                      </div>
                     </div>
                 </li>
                 `
                     ).appendTo($("#myDriftBottleContent"))
                     if (list[i].type == 1) {
-                        myBottle.children(".myBottleRight").children(".myBottleRightTop").children().children("#myBottleType").css({ "background": "#E5B155" })
-                        myBottle.children(".myBottleRight").children(".myBottleRightTop").children().children("#myBottleType").text("交友瓶")
                         myBottle.children(".myBottleLeft").children().children().attr("src", "images/driftbottle/friend.png");
                     } else if (list[i].type == 2) {
                         myBottle.children(".myBottleLeft").children().children().attr("src", "images/driftbottle/secret.png");
-                        myBottle.children(".myBottleRight").children(".myBottleRightTop").children().children("#myBottleType").css({ "background": "#EB6052" })
-                        myBottle.children(".myBottleRight").children(".myBottleRightTop").children().children("#myBottleType").text("秘密瓶")
                     } else if (list[i].type == 3) {
                         myBottle.children(".myBottleLeft").children().children().attr("src", "images/driftbottle/emotion.png");
-                        myBottle.children(".myBottleRight").children(".myBottleRightTop").children().children("#myBottleType").css({ "background": "#7854E8" })
-                        myBottle.children(".myBottleRight").children(".myBottleRightTop").children().children("#myBottleType").text("情绪瓶")
+                    }
+                    if (list[i].like_new_num !== 0) {
+                        myBottle.children(".myBottleRight").children(".myBottleNum").children("#myBottleLike").show();
+                    } else {
+                        myBottle.children(".myBottleRight").children(".myBottleNum").children("#myBottleLike").hide();
+                    }
+                    if (list[i].view_new_num !== 0) {
+                        myBottle.children(".myBottleRight").children(".myBottleNum").children("#myBottleView").show();
+                    } else {
+                        myBottle.children(".myBottleRight").children(".myBottleNum").children("#myBottleView").hide();
                     }
                     myBottle.attr("bottleId", list[i].id)
-                    myBottle.children(".myBottleRight").children(".myBottleRightTop").children(".myBottleRightTopRight").children("#myBottleOpen").on("click", openBottle)
-                    myBottle.children(".myBottleRight").children(".myBottleRightTop").children(".myBottleRightTopRight").children("#myBottleRemove").on("click", removeBottle)
+                    myBottle.children(".myBottleRight").children(".myBottleBtn").children("#myBottleOpen").on("click", openBottle)
+                    myBottle.children(".myBottleRight").children(".myBottleBtn").children("#myBottleRemove").on("click", removeBottle)
+                    myBottle.on("mouseover", function () {
+                        $(this).children(".myBottleRight").children(".myBottleBtn").show()
+                    })
+                    myBottle.on("mouseleave", function () {
+                        $(this).children(".myBottleRight").children(".myBottleBtn").hide()
+                    })
                 }
             }
 
@@ -985,15 +991,13 @@ function bottleJs() {
     }
     //我的瓶子打开
     function openBottle() {
-        // console.log($(this).parent().parent().parent().parent().attr("bottleId"))
-        data.bottleId = $(this).parent().parent().parent().parent().attr("bottleId")
+        data.bottleId = $(this).parent().parent().parent().attr("bottleId")
         $("#myDriftBottle").hide()
         lookDriftBottleDetail()
         $("#driftBottleDetails").show()
     }
     function removeBottle() {
-        console.log(1)
-        bottleId = $(this).parent().parent().parent().parent().attr("bottleId")
+        bottleId = $(this).parent().parent().parent().attr("bottleId")
         driftBottleRemove(data.token, bottleId).then((res) => {
             console.log(res)
             if (res.code == 1) {
@@ -1003,12 +1007,11 @@ function bottleJs() {
                 }, 3000)
                 getDriftBottleList()
             }
-
         })
     }
     function getDriftBottleListMyComment() {
         $("#myDriftBottleContent").empty()
-        driftBottleListMyComment(data.token, data.bottleCurrent, 4).then((res) => {
+        driftBottlelistPick(data.token, data.bottleCurrent, 4).then((res) => {
             console.log(res)
             let list = res.data.records
             data.bottlePage = parseInt(res.data.current)
@@ -1036,20 +1039,35 @@ function bottleJs() {
                     myFootprint = $(
                         `
                 <li id="myFootprint">
-                <div>
-                    <p>
-                        <span id="myFootprintTime">${list[i].createTime}</span>
-                        <span class="myFootprintText">
-                            <span>${list[i].likeNum}</span>
-                            人赞过你的足迹
-                        </span>
-                    </p>
-                    <p class="myFootprintText" id="myFootprintOpen">打开</p>
-                </div>
-                <p>${list[i].content}</p>
-            </li>
+                    <div class="myBottleLeft">
+                        <p><img src=""></p>
+                    </div>
+                    <div class="myBottleRight">
+                      <p class="myBottleRightCenter">${list[i].content}</p>
+                      <div class="myBottleBtn">
+                        <span  id="myFootprintOpen" >打开</span>
+                        <span  id="myFootprintRemove">扔回海里</span>
+                      </div>
+                    </div>
+                </li>
             `
                     ).appendTo($("#myDriftBottleContent"))
+                    if (list[i].type == 1) {
+                        myFootprint.children(".myBottleLeft").children().children().attr("src", "images/driftbottle/friend.png");
+                    } else if (list[i].type == 2) {
+                        myFootprint.children(".myBottleLeft").children().children().attr("src", "images/driftbottle/secret.png");
+                    } else if (list[i].type == 3) {
+                        myFootprint.children(".myBottleLeft").children().children().attr("src", "images/driftbottle/emotion.png");
+                    }
+                    myFootprint.children(".myBottleRight").children(".myBottleBtn").children("#myFootprintOpen").on("click", myFootprintOpen)
+                    myFootprint.children(".myBottleRight").children(".myBottleBtn").children("#myFootprintRemove").on("click", myFootprintRemove)
+                    myFootprint.on("mouseover", function () {
+                        $(this).children(".myBottleRight").children(".myBottleBtn").show()
+                    })
+                    myFootprint.on("mouseleave", function () {
+                        $(this).children(".myBottleRight").children(".myBottleBtn").hide()
+                    })
+                    myFootprint.attr("data-id", list[i].id)
                     myFootprint.attr("bottleId", list[i].bottleId)
                     myFootprint.children().children("#myFootprintOpen").on("click", myFootprintOpen)
                 }
@@ -1058,10 +1076,25 @@ function bottleJs() {
     }
     //我的足迹打开
     function myFootprintOpen() {
-        data.bottleId = $(this).parent().parent().attr("bottleId")
+        data.bottleId = $(this).parent().parent().parent().attr("bottleId")
         $("#myDriftBottle").hide()
         lookDriftBottleDetail()
         $("#driftBottleDetails").show()
+    }
+    //我的足迹删除
+    function myFootprintRemove() {
+        id = $(this).parent().parent().parent().attr("data-id")
+        console.log(id)
+        removePickBottle(data.token, id).then((res) => {
+            console.log(res)
+            if (res.code == 1) {
+                $(".removePickBottle").show();
+                setTimeout(function () {
+                    $(".removePickBottle").hide();
+                }, 3000)
+                getDriftBottleListMyComment()
+            }
+        })
     }
     //上一页
     function bottleTopPage() {

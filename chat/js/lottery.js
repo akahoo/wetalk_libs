@@ -134,7 +134,7 @@ function choujiangInit() {
     })
 
     // 幸运抽奖再来一次/确定
-    $(document).on("click", ".weTalkLotteryResViewBtn", function () {
+    $(".weTalkLottery").on("click", ".weTalkLotteryResViewBtn", function () {
         if ($(".weTalkLotteryResViewBtn").html() == "确定") {
             $(".weTalkLotteryResView").hide();
             $(".weTalkLotteryCover").hide();
@@ -209,6 +209,7 @@ function choujiangInit() {
 
     // 全局方法
     function getLotteryRes() {
+        console.log(1);
         draw(lotD.token).then(res => {
             if (res.code == 1) {
                 $(".weTalkLotteryCover").show();
@@ -216,7 +217,7 @@ function choujiangInit() {
                 for (let i = 0; i < lotD.lotteryList.length; i++) {
                     if (lotD.lotteryList[i].id && lotD.lotteryList[i].id == res.data.id) {
                         lotD.lotteryRes = i;
-                        // console.log("lotD.lotteryRes", lotD.lotteryRes)
+                        console.log("lotD.lotteryRes", lotD.lotteryRes)
                         break;
                     }
                 }

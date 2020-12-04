@@ -1336,6 +1336,21 @@ $(function () {
             $(".weTalkOverCover").hide();
         })
 
+        // 功能icon变色
+        // $(document).on("mouseenter", ".weTalkChatToolPic", function () {
+        //     $(this).attr("src", "./images/pic1.png")
+        // })
+        // $(document).on("mouseleave", ".weTalkChatToolPic", function () {
+        //     $(this).attr("src", "./images/pic.png")
+        // })
+        // $(document).on("mouseenter", ".weTalkChatFace", function () {
+        //     $(this).attr("src", "./images/face1.png")
+        // })
+        // $(document).on("mouseleave", ".weTalkChatFace", function () {
+        //     $(this).attr("src", "./images/face.png")
+        // })
+
+
 
         // 取消右键默认事件
         $(".weTalkChatRoom").on("contextmenu", function (e) {
@@ -3658,12 +3673,18 @@ $(function () {
             } else {
                 if (type == 2) {
                     showTip("发送失败")
+                    $('#weTalkSendPic').val('');
                 } else {
                     if (type == 1) {
                         showTip("更改失败")
                     }
                 }
             }
+        }).catch(error => {
+            // 5秒以后才可以发送消息
+            setSpeakInterVal();
+            showTip("发送失败" + error);
+            $('#weTalkSendPic').val('');
         })
     }
 
@@ -4542,44 +4563,45 @@ $(function () {
             data.weTalkPerList[myindex].records = res.data;
             // 加载最后一条聊天记录
             if (data.weTalkPerList[myindex].records && data.weTalkPerList[myindex].records.length > 0) {
-                let record = JSON.parse(JSON.stringify(data.weTalkPerList[myindex].records[data.weTalkPerList[myindex].records.length - 1])),
-                    content = record.content,
-                    messageType = record.messageType,
-                    curHour = new Date(record.timestamp * 1).getHours() < 10 ? "0" + new Date(record.timestamp * 1).getHours() : new Date(record.timestamp * 1).getHours(),
-                    curMin = new Date(record.timestamp * 1).getMinutes() < 10 ? "0" + new Date(record.timestamp * 1).getMinutes() : new Date(record.timestamp * 1).getMinutes(),
-                    user;
-                // 判断内容的类型
-                if (messageType == 1) {
-                    content = disposeText(record);
-                }
-                else if (messageType == 2) {
-                    content = "[图片]"
-                } else if (messageType == 4) {
-                    content = "[骰子]"
-                } else if (messageType == 5) {
-                    content = "[硬币]"
-                } else if (messageType == 6) {
-                    content = "[石头剪子布]"
-                }
+                let record = JSON.parse(JSON.stringify(data.weTalkPerList[myindex].records[data.weTalkPerList[myindex].records.length - 1]));
+                loadSessionContent(record, myindex, "调接口");
+                //     content = record.content,
+                //     messageType = record.messageType,
+                //     curHour = new Date(record.timestamp * 1).getHours() < 10 ? "0" + new Date(record.timestamp * 1).getHours() : new Date(record.timestamp * 1).getHours(),
+                //     curMin = new Date(record.timestamp * 1).getMinutes() < 10 ? "0" + new Date(record.timestamp * 1).getMinutes() : new Date(record.timestamp * 1).getMinutes(),
+                //     user;
+                // // 判断内容的类型
+                // if (messageType == 1) {
+                //     content = disposeText(record);
+                // }
+                // else if (messageType == 2) {
+                //     content = "[图片]"
+                // } else if (messageType == 4) {
+                //     content = "[骰子]"
+                // } else if (messageType == 5) {
+                //     content = "[硬币]"
+                // } else if (messageType == 6) {
+                //     content = "[石头剪子布]"
+                // }
 
-                if (record.senderId == data.id) {
-                    user = "我：";
-                } else {
-                    for (let i = 0; i < data.weTalkPerList.length; i++) {
-                        if (record.senderId == data.weTalkPerList[i].userId) {
-                            // user = data.weTalkPerList[i].nickname;
-                            user = "";
-                            break;
-                        }
-                    }
-                }
-                $(".weTalkChatItemList").children().each(function () {
-                    if ($(this).attr("data-index") == myindex) {
-                        $(this).children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordUser").html(user)
-                        $(this).children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordContent").html(content)
-                        $(this).children(".weTalkChatItemOne").children(".weTalkNewsTime").html(curHour + ":" + curMin)
-                    }
-                })
+                // if (record.senderId == data.id) {
+                //     user = "我：";
+                // } else {
+                //     for (let i = 0; i < data.weTalkPerList.length; i++) {
+                //         if (record.senderId == data.weTalkPerList[i].userId) {
+                //             // user = data.weTalkPerList[i].nickname;
+                //             user = "";
+                //             break;
+                //         }
+                //     }
+                // }
+                // $(".weTalkChatItemList").children().each(function () {
+                //     if ($(this).attr("data-index") == myindex) {
+                //         $(this).children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordUser").html(user)
+                //         $(this).children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordContent").html(content)
+                //         $(this).children(".weTalkChatItemOne").children(".weTalkNewsTime").html(curHour + ":" + curMin)
+                //     }
+                // })
             }
             data.weTalkPerList[myindex].records.forEach((item, index) => {
                 item.addFriendType = 2;
@@ -5667,7 +5689,7 @@ $(function () {
                 curHour,
                 curMin,
                 user;
-            if (type == "收到消息") {
+            if (type == "收到消息" || type == "调接口") {
                 curHour = new Date(record.timestamp * 1).getHours() < 10 ? "0" + new Date(record.timestamp * 1).getHours() : new Date(record.timestamp * 1).getHours();
                 curMin = new Date(record.timestamp * 1).getMinutes() < 10 ? "0" + new Date(record.timestamp * 1).getMinutes() : new Date(record.timestamp * 1).getMinutes();
             }
@@ -5722,6 +5744,7 @@ $(function () {
     function lottery() {
         data.friendId = "发现";
         data.isPublic = 0;
+        // removejscssfile('lottery.js', 'js')
         loadJS('./js/lottery.js', function () {
             choujiangInit();
         });
@@ -7458,8 +7481,6 @@ $(function () {
         })
         let fileName1 = "china"
         loadJS('./js/' + fileName1 + '.js', function () { })
-        console.log($("#driftBottleIndex"))
-
     }
     //# sourceURL=dynamicScript.js
     // 启动聊天框
@@ -7579,6 +7600,18 @@ $(function () {
         link.rel = 'stylesheet';
         link.href = url;
         head.appendChild(link);
+    }
+
+    function removejscssfile(filename, filetype) {
+        var targetelement = (filetype == "js") ? "script" : (filetype == "css") ? "link" : "none"
+        var targetattr = (filetype == "js") ? "src" : (filetype == "css") ? "href" : "none"
+        var allsuspects = document.getElementsByTagName(targetelement)
+        for (var i = allsuspects.length; i >= 0; i--) {
+            if (allsuspects[i] && allsuspects[i].getAttribute(targetattr) != null && allsuspects[i].getAttribute(targetattr).indexOf(filename) != -1) {
+                allsuspects[i].parentNode.removeChild(allsuspects[i])
+            }
+            console.log(i)
+        }
     }
     // 启动
     startChatRoom();

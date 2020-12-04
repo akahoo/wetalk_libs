@@ -481,7 +481,7 @@ function fragInit() {
       if (res.code == 1) {
         if (res.data && res.data.length > 0) {
           // 持有个数
-          $(`<div class="weTalkFragItemHadNum">持有：${res.data.length}</div>`)
+          $(`<div class="weTalkFragItemHadNum">持有：${res.data.length}</div>`).appendTo(".weTalkFragItemDetailsContentLeftContainer")
 
           // 构造数组
           res.data.forEach(item => {
@@ -500,6 +500,7 @@ function fragInit() {
               bulge = 18;
               break;
           }
+          console.log("arr", arr)
           let wid = $(".weTalkFragItemDetailsContentLeftContainer").width() / fragd.standard;
           for (let i = 1; i <= fragd.standard; i++) {
             for (let j = 1; j <= fragd.standard; j++) {
@@ -507,7 +508,7 @@ function fragInit() {
                 top = i == 2 ? top = (i - 1) * wid - bulge : (i - 1) * wid;
                 left = j == 3 ? (j - 1) * wid - bulge : (j - 1) * wid;
                 $(`
-          <img class="fragItem" src="./images/chip/chipDetails/${fragd.standard}/${num + 1}.png">
+          <img class="fragItem" src="${fragd.cdn}${arr[num].image}">
           `).css({
                   "left": left,
                   "top": top,

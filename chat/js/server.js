@@ -1309,11 +1309,11 @@ function driftBottleList(token, current, size) {
     })
 }
 //获取我的评论
-function driftBottleListMyComment(token, current, size) {
+function driftBottlelistPick(token, current, size) {
     return new Promise((resolve, reject) => {
         jQuery.ajax({
             type: "POST",
-            url: wTurl + '/driftBottle/listMyComment',
+            url: wTurl + '/driftBottle/listPick',
             data: {
                 current: current,
                 size: size,
@@ -1411,19 +1411,16 @@ function driftBottleRemove(token, bottleId) {
     })
 }
 
-//高德根据ip获取地址
-function address(ip) {
+//销毁瓶子
+function removePickBottle(token, bottleId) {
     return new Promise((resolve, reject) => {
         jQuery.ajax({
-            type: "GET",
-            url: 'https://restapi.amap.com/v3/ip?parameters',
+            type: "POST",
+            url: wTurl + '/driftBottle/removePickBottle',
             data: {
-                ip: ip,
-                output: "JSON",
-                key: "a56620b1b0ce81cba0140eed46a4ac86"
-                // bottleId: bottleId,
+                bottleId: bottleId,
             },
-            // headers: { user_token: token },
+            headers: { user_token: token },
             success: function (res) {
                 resolve(res)
             },
@@ -1434,25 +1431,3 @@ function address(ip) {
     })
 }
 
-//高德根据地址过去经纬度
-function longitudeAndLatitude(address) {
-    return new Promise((resolve, reject) => {
-        jQuery.ajax({
-            type: "GET",
-            url: 'https://restapi.amap.com/v3/geocode/geo',
-            data: {
-                address: address,
-                output: "JSON",
-                key: "a56620b1b0ce81cba0140eed46a4ac86"
-                // bottleId: bottleId,
-            },
-            // headers: { user_token: token },
-            success: function (res) {
-                resolve(res)
-            },
-            fail: function (error) {
-                reject(error)
-            }
-        })
-    })
-}
