@@ -217,18 +217,18 @@ function fragInit() {
   // 全局方法
   // 问号点击事件
   function fragHelp() {
-    $(document).on("click", ".weTalkFragHelp", function () {
+    $(".weTalkFragExChange").on("click", ".weTalkFragHelp", function () {
       $(".weTalkFragCover").show();
       $(".weTalkFragHelpContainer").show();
     });
   }
   // 关闭帮助
   function closeHelpView() {
-    $(document).on("click", ".weTalkFragHelpClose", function () {
+    $(".weTalkFragExChange").on("click", ".weTalkFragHelpClose", function () {
       $(".weTalkFragCover").hide();
       $(".weTalkFragHelpContainer").hide();
     });
-    $(document).on("click", ".weTalkFragHelpConfirm", function () {
+    $(".weTalkFragExChange").on("click", ".weTalkFragHelpConfirm", function () {
       $(".weTalkFragCover").hide();
       $(".weTalkFragHelpContainer").hide();
     });
@@ -249,7 +249,7 @@ function fragInit() {
           weTalkFragMarqueeItem.attr("src", fragd.cdn + "/" + item.image);
           // 自定义属性
           weTalkFragMarqueeItem.attr("data-url", item.url);
-          weTalkFragMarqueeItem.attr("data-id", item.id);
+          weTalkFragMarqueeItem.attr("data-id", item.param);
           if (item.methodName != " ") {
             weTalkFragMarqueeItem.addClass(item.methodName);
           }
@@ -340,32 +340,32 @@ function fragInit() {
   //  轮播图绑定事件
   function maqureeItemFun() {
     // 点击加载页面
-    $(document).on("click", ".weTalkFragMarqueeItem", function (e) {
+    $(".weTalkFragExChange").on("click", ".weTalkFragMarqueeItem", function (e) {
       console.log("轮播图url", $(this).attr("data-url"));
       if ($(this).attr("data-url") != "" && $(this).attr("data-url") != null) {
         window.open($(this).attr("data-url"));
       }
       e.preventDefault();
     });
-    $(document).on("click", ".marqueeMethod", function (e) {
+    $(".weTalkFragExChange").on("click", ".marqueeMethod", function (e) {
       goDetails($(this).attr("data-id"));
       e.preventDefault();
     })
 
     // 上一张图片
-    $(document).on("click", ".weTalkFragMarqueeLast", function () {
+    $(".weTalkFragExChange").on("click", ".weTalkFragMarqueeLast", function () {
       nextPic(false);
     });
     // 下一张图片
-    $(document).on("click", ".weTalkFragMarqueeNext", function () {
+    $(".weTalkFragExChange").on("click", ".weTalkFragMarqueeNext", function () {
       nextPic(true);
     });
     //  当鼠标移入 停止轮播
-    $(document).on("mouseenter", ".weTalkFragMarquee", function () {
+    $(".weTalkFragExChange").on("mouseenter", ".weTalkFragMarquee", function () {
       clearInterval(fragd.intervalId);
     });
     //  当鼠标移出，开始轮播
-    $(document).on("mouseleave", ".weTalkFragMarquee", function () {
+    $(".weTalkFragExChange").on("mouseleave", ".weTalkFragMarquee", function () {
       autoNextPic();
     });
   }
@@ -438,11 +438,11 @@ function fragInit() {
 
   // 奖品列表事件
   function awardItemFun() {
-    $(document).on("click", ".weTalkFragItemBtn", function () {
+    $(".weTalkFragExChange").on("click", ".weTalkFragItemBtn", function () {
       // console.log("奖品id", $(this).attr("data-id"));
       goDetails($(this).attr("data-id"));
     });
-    $(document).on("click", ".weTalkFragItemImg", function () {
+    $(".weTalkFragExChange").on("click", ".weTalkFragItemImg", function () {
       // console.log("奖品id", $(this).attr("data-id"));
       goDetails($(this).attr("data-id"));
     });
@@ -529,23 +529,23 @@ function fragInit() {
   // 绑定详情页事件
   function bindDetailsEve() {
     // 回到主页
-    $(document).on("click", ".weTalkFragItemDetailsBack", goBackIndex)
+    $(".weTalkFragItemDetails").on("click", ".weTalkFragItemDetailsBack", goBackIndex)
     // 关闭查看奖品界面
-    $(document).on("click", ".weTalkFragItemDetailsCheckClose", closeCheckView)
+    $(".weTalkFragItemDetails").on("click", ".weTalkFragItemDetailsCheckClose", closeCheckView)
     // 查看奖品
-    $(document).on("click", ".weTalkFragItemDetailsCheckBtn", checkAward)
+    $(".weTalkFragItemDetails").on("click", ".weTalkFragItemDetailsCheckBtn", checkAward)
     // 立即兑换
-    $(document).on("click", ".weTalkFragItemExchangeBtn", exchangeAward)
+    $(".weTalkFragItemDetails").on("click", ".weTalkFragItemExchangeBtn", exchangeAward)
     // 取消兑换/关闭兑换界面
-    $(document).on("click", ".weTalkFragExchangeViewBtn1", cancelExchange)
-    $(document).on("click", ".weTalkFragExchangeViewClose", cancelExchange)
+    $(".weTalkFragItemDetails").on("click", ".weTalkFragExchangeViewBtn1", cancelExchange)
+    $(".weTalkFragItemDetails").on("click", ".weTalkFragExchangeViewClose", cancelExchange)
     // 确认兑换
-    $(document).on("click", ".weTalkFragExchangeViewBtn2", confirmExchange)
+    $(".weTalkFragItemDetails").on("click", ".weTalkFragExchangeViewBtn2", confirmExchange)
     // 关闭兑换成功页面
-    $(document).on("click", ".weTalkFragExchangeSucClose", closeEchangeSuc)
+    $(".weTalkFragItemDetails").on("click", ".weTalkFragExchangeSucClose", closeEchangeSuc)
     // 关闭兑换失败页面
-    $(document).on("click", ".weTalkFragExchangeFailClose", closeExchangeFail)
-    $(document).on("click", ".weTalkFragExchangeFailBtn", closeExchangeFail)
+    $(".weTalkFragItemDetails").on("click", ".weTalkFragExchangeFailClose", closeExchangeFail)
+    $(".weTalkFragItemDetails").on("click", ".weTalkFragExchangeFailBtn", closeExchangeFail)
   }
 
   // 回到主页

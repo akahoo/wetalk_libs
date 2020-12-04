@@ -85,8 +85,8 @@ function bottleJs() {
             <p>我的瓶子</p>
             <div class="myDriftBottleOut">
                 <div class="myDriftBottleTab">
-                    <p id="myBottleOption">我的瓶子</p>
-                    <p id="myFootprintOption">我的足迹</p>
+                    <p id="myBottleOption">扔的瓶子</p>
+                    <p id="myFootprintOption">捞的瓶子</p>
                 </div>
                 <ul id="myDriftBottleContent">
                 </ul>
@@ -179,10 +179,10 @@ function bottleJs() {
         </div>
         <!-- 扔个瓶子 -->
 		<div id="throwDriftBottle">
-			<div class="throwDriftBottleHint">请输入漂流瓶内容</div>
+			<div class="throwDriftBottleHint"></div>
 			<p>新瓶子</p>
 			<img src="images/driftbottle/9.png" id="closeThrowDriftBottle">
-			<div>
+			<div class="throwDriftBottleContent">
 				<div class="throwDriftBottleAllBtn">
 					<p>
 						<img src="images/driftbottle/friend.png">
@@ -301,7 +301,11 @@ function bottleJs() {
         // let imgBase64 = ''; //存储图片的base64
         let fileFormat = filePath.substring(filePath.lastIndexOf('.')).toLowerCase();
         if (!fileFormat.match(/.png|.jpg|.jpeg|.bmp/)) {
-            showTip('上传错误,文件格式必须为：png/jpg/jpeg/bmp');
+            $(".throwDriftBottleHint").text("格式错误,只能上传图片");
+            $(".throwDriftBottleHint").show();
+            setTimeout(function () {
+                $(".throwDriftBottleHint").hide();
+            }, 3000)
             return;
         }
         data.maxSize = 1 * 1000 * 1024;
@@ -520,6 +524,7 @@ function bottleJs() {
         let content = $("#throwDriftBottleIpt").html()
         //在这里调用上传图片的函数  不这样的写的请求接口是异步获取不到list list为空
         if (content == "") {
+            $(".throwDriftBottleHint").text("请输入漂流瓶内容");
             $(".throwDriftBottleHint").show();
             setTimeout(function () {
                 $(".throwDriftBottleHint").hide();
@@ -1049,7 +1054,7 @@ function bottleJs() {
             }
             if (list.length == 0) {
                 $(`<li class="myBottleNull">
-                     <p>你还没有给漂流瓶瓶子留言过哦</p>
+                     <p>你还没有捞过漂流瓶，赶快试试吧！</p>
                    </li>`).appendTo($("#myDriftBottleContent"))
             } else {
                 for (let i = 0; i < list.length; i++) {

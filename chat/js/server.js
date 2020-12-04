@@ -5,7 +5,7 @@ function serverUrl() {
     return new Promise((resolve, reject) => {
         $.ajax({
             type: "get",
-            url: 'https://server.wetalk.icu/config.json',
+            url: 'https://cdn.jsdelivr.net/gh/akahoo/wetalk_libs/server/config.json',
             async: false,
             success: function (res) {
                 resolve(res)

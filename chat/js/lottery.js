@@ -305,7 +305,7 @@ function choujiangInit() {
                                 <img class="weTalkCloseRes" src="./images/closePersonalInfo.png"/>
                             <div class="weTalkLotteryResViewTitle">中奖啦！</div>
                             <div class="weTalkLotteryResViewTip">
-                                恭喜你获得了<span class="weTalkLotteryAwardFont">DIMOO盲盒碎片*1</span>
+                                恭喜你获得了<span class="weTalkLotteryAwardFont">奖品碎片*1</span>
                             ，凑齐完整碎片可获得实物奖励哦！
                             </div>
                             <div class="weTalkLotteryResViewBtn"></div>
@@ -384,7 +384,7 @@ function choujiangInit() {
                             $(`
                         <div>
                             <div>${item.create_time.substring(0, 10)}获得</div>
-                            <div>（已使用）${item.value}天VIP</div>
+                            <div>${item.value}天VIP</div>
                         </div>
                         `).prependTo($(".weTalkLotteryRecordsContent"))
                             break;
@@ -393,7 +393,7 @@ function choujiangInit() {
                             $(`
                         <div>
                             <div>${item.create_time.substring(0, 10)}获得</div>
-                            <div>DIMOO盲盒碎片*1</div>
+                            <div>奖品碎片*1</div>
                         </div>
                         `).prependTo($(".weTalkLotteryRecordsContent"))
                             break;

@@ -1449,7 +1449,7 @@
   color: #a0711b;
 }
 
-#throwDriftBottle > div {
+.throwDriftBottleContent {
   border-top: 2px solid #a0711b;
 }
 
