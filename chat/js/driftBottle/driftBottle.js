@@ -21,6 +21,7 @@ function bottleJs() {
         upFile: null,
         imgBase64: "",
         picWeight: 0.92,
+        isMine: "",
         dataList: [
             { name: "南海诸岛", value: 0 },
             { name: '北京', value: 0 },
@@ -120,13 +121,16 @@ function bottleJs() {
                     <img class="driftBottleContentThreePic">
                 </p>
                 <div class="driftBottleContentFooter">
+                    <p class="bottleContentLeft">
+                        <span>浏览数：<span id="viewNum"></span></span>
+                        <span class="bottleContentLine"></span>
+                        <span>倒计时：<span id="timeRemaining"></span>天</span>
+                    </p>
                     <p class="driftBottleContentPraise">
                         <img src="images/driftbottle/7.png" id="bottleGiveLike">
                         <img src="images/driftbottle/8.png" id="bottleAlreadyLike">
                         <span id="bottleLikeNum"></span>
-                    </p>
-                    <p>
-                        <span>剩余时间：<span id="timeRemaining"></span>天</span>
+                        
                     </p>
                 </div>
             </div>
@@ -293,7 +297,6 @@ function bottleJs() {
     $("#throwDriftBottleUplode").on("change", function (event) {
         data.throwDriftBottleFile = event.currentTarget.files[0]
         $("#throwDriftBottleUplode").val("")
-        console.log(data.throwDriftBottleFile)
         let filePath = data.throwDriftBottleFile.name;
         // let imgBase64 = ''; //存储图片的base64
         let fileFormat = filePath.substring(filePath.lastIndexOf('.')).toLowerCase();
@@ -303,15 +306,12 @@ function bottleJs() {
         }
         data.maxSize = 1 * 1000 * 1024;
         if (data.throwDriftBottleFile.size > data.maxSize) {
-            console.log("SHANGCHANG")
             // console.log(data.throwDriftBottleFile)
             compress(data.throwDriftBottleFile, check)
         } else {
-            console.log(2)
             directTurnIntoBase64(data.throwDriftBottleFile, function (imgBase64) {
                 data.bottleLocalityPic.push(imgBase64)
                 data.throwDriftBottlePicList.push(convertBase64UrlToFile(imgBase64, (new Date()).valueOf()))
-                console.log(data.throwDriftBottlePicList)
                 shwoBottleLocalityPic()
                 let throwDriftBottleUplodeNum = data.throwDriftBottlePicList.length
                 $("#throwDriftBottleUplodeNum").text(`${throwDriftBottleUplodeNum}`)
@@ -506,7 +506,6 @@ function bottleJs() {
         data.bottleLocalityPic = []
         data.throwDriftBottlePicList = []
         data.throwDriftBottleFile = ""
-        console.log(data.throwDriftBottleFile)
     }
 
     //可使用次数
@@ -529,7 +528,6 @@ function bottleJs() {
             await bottleUpload()
             //用到服务器返回的值然后再进行请求发送服务返回的值
             let list = data.bottleUploadImgList
-            console.log(list)
             let image1 = ""
             let image2 = ""
             let image3 = ""
@@ -548,11 +546,14 @@ function bottleJs() {
                     getDriftBottleNum()
                     data.throwDriftBottlePicList = []
                     data.bottleUploadImgList = []
-                    console.log(data.bottleUploadImgList)
                     $("#throwDriftBottleIpt").html("")
                     $(".throwDriftBottleUplodeImg").remove()
                     $("#throwDriftBottleUplodeNum").text("0")
-                    $(".bottleHint").text("瓶子已经成功扔到海里")
+                    if (res.data.gotPiece == false) {
+                        $(".bottleHint").text("瓶子已经扔到海里，等待有缘人捡起")
+                    } else if (res.data.gotPiece == true) {
+                        $(".bottleHint").text("瓶子已经扔到海里，幸运的获得了奖品碎片")
+                    }
                     $(".bottleHint").show();
                     setTimeout(function () {
                         $(".bottleHint").hide();
@@ -566,7 +567,6 @@ function bottleJs() {
     async function bottleUpload() {
         //本地拉取的三张图片在一个数组
         let list = data.throwDriftBottlePicList
-        console.log(list)
         for (let i = 0; i < list.length; i++) {
             let params = new FormData();
             params.append("file", list[i], list[i].name);
@@ -582,7 +582,6 @@ function bottleJs() {
     //遍历显示从本地拉取的图片
     function shwoBottleLocalityPic() {
         $("#bottleLocalityPic").empty()
-        console.log(data.bottleLocalityPic)
         let list = data.bottleLocalityPic
         for (let i = 0; i < list.length; i++) {
             bottleLocalityPic = $(
@@ -600,18 +599,15 @@ function bottleJs() {
 
     }
     function showbottleLocalityPic() {
-        console.log($(this))
         $(this).children("#throwBottleMasking").show()
         $(this).children("#removeBottleLocalityPic").show()
     }
     function hidbottleLocalityPic() {
-        console.log($(this))
         $(this).children("#throwBottleMasking").hide()
         $(this).children("#removeBottleLocalityPic").hide()
     }
 
     function removeBottleLocalityPic() {
-        console.log($(this).parent().attr("index"))
         data.bottleLocalityPic.splice($(this).parent().attr("index"), 1)
         shwoBottleLocalityPic()
         data.throwDriftBottlePicList.splice($(this).parent().attr("index"), 1)
@@ -623,13 +619,10 @@ function bottleJs() {
         if (data.throwDriftBottlePicList.length < 3) {
             $(".throwDriftBottleUplode").show()
         }
-        console.log(data.bottleLocalityPic)
-        console.log(data.throwDriftBottlePicList)
     }
     //捞瓶子
     function fishForBottle() {
         if ($("#pickNum").text() == 0) {
-            console.log($("#pickNum").text())
             $(".bottleHint").text("今日捞瓶子的次数已用完")
             $(".bottleHint").show();
             setTimeout(function () {
@@ -638,10 +631,13 @@ function bottleJs() {
         } else {
             if ($("#driftBottleBottle").attr("src") == "") {
                 driftBottlePick(data.token).then((res) => {
-                    console.log(res)
                     if (res.code == 1) {
                         // data.driftBottleDetails = res.data
-                        $(".bottleHint").text("一个瓶子缓缓飘来...")
+                        if (res.data.gotPiece == false) {
+                            $(".bottleHint").text("正在努力的捞瓶子...")
+                        } else if (res.data.gotPiece == true) {
+                            $(".bottleHint").text("恭喜你幸运的获得了奖品碎片")
+                        }
                         $(".bottleHint").show();
                         setTimeout(function () {
                             $(".bottleHint").hide();
@@ -657,7 +653,7 @@ function bottleJs() {
                             $("#driftBottleBottle").attr("src", "images/driftbottle/gainemotion.png")
                         }
                     } else if (res.code == 40404) {
-                        $(".bottleHint").text("什么也没捞到")
+                        $(".bottleHint").text("此时风浪太大，捡不到瓶子，T_T。")
                         $(".bottleHint").show();
                         setTimeout(function () {
                             $(".bottleHint").hide();
@@ -686,7 +682,6 @@ function bottleJs() {
         $("#driftBottleComment").empty()
         data.LongitudeAndLatitudeList = []
         driftBottleDetail(data.token, data.bottleId, data.sortType).then((res) => {
-            console.log(res)
             if (res.code == 40404) {
                 $("#driftBottleDetails").hide()
                 $(".bottleHint").text("这个瓶子已经被销毁")
@@ -720,6 +715,7 @@ function bottleJs() {
                 $(".detailtopProvince").text(`${detail.province}`)
                 $(".driftBottleContentText").text(`${detail.content}`)
                 $("#timeRemaining").text(`${detail.remaining_day}`)
+                $("#viewNum").text(`${detail.view_num}`)
                 $("#bottleLikeNum").text(`${detail.like_num}`)
                 let addressList = data.dataList
                 for (let i = 0; i < addressList.length; i++) {
@@ -759,8 +755,9 @@ function bottleJs() {
                             <p>
                                 <span id="criticHeadPortrait">${list[i].nickname.charAt(0)}</span>
                                 <img class="commentDetilsheadPortrait"/>
-                                <span id="criticName">${list[i].nickname}</span>
+                                <span id="criticName">${i + 1}L</span>
                                 <span id="criticAdd">${list[i].province}网友</span>
+                                <button id="commentAddFriend">加好友</button>
                             </p>
                             <p>
                                 <span id="criticTime">${list[i].create_time}</span>
@@ -783,10 +780,31 @@ function bottleJs() {
                             commentDetils.children(".criticPersonalinFormation").children().children("#criticHeadPortrait").show();
                             commentDetils.children(".criticPersonalinFormation").children().children(".commentDetilsheadPortrait").hide();
                         }
+                        if (res.data.isMine == true && detail.user_id !== list[i].user_id) {
+                            commentDetils.children(".criticPersonalinFormation").children().children("#commentAddFriend").show();
+                        } else if (res.data.isMine == false) {
+                            commentDetils.children(".criticPersonalinFormation").children().children("#commentAddFriend").hide()
+                        }
+                        commentDetils.children(".criticPersonalinFormation").children().children("#commentAddFriend").on("click", function () {
+                            addFriend(list[i].user_id, data.token).then((res) => {
+                                if (res.code == 1) {
+                                    $(".driftBottleDetailsHint").text("成功加为好友")
+                                    $(".driftBottleDetailsHint").show();
+                                    setTimeout(function () {
+                                        $(".driftBottleDetailsHint").hide();
+                                    }, 3000)
+                                } else {
+                                    $(".driftBottleDetailsHint").text(res.code)
+                                    $(".driftBottleDetailsHint").show();
+                                    setTimeout(function () {
+                                        $(".driftBottleDetailsHint").hide();
+                                    }, 3000)
+                                }
+                            })
+                        })
                         let obj = commentDetils.children(".criticPersonalinFormation").children().children("#endorseNum")
                         isLickComment(list[i].id, obj)
                         let address = list[i].province
-                        // getLongitudeAndLatitude(address)
                         for (let i = 0; i < addressList.length; i++) {
                             if (address.slice(0, detail.province.length - 1) == addressList[i].name) {
                                 addressList[i].value += 1
@@ -844,7 +862,6 @@ function bottleJs() {
             for (var i = 0; i < list.length; i++) {
                 var cols = list[i].split(",");
                 if (parseFloat(cols[0]) < lastMonth) {
-                    console.log(i)
                     list.splice(i, 1)
                 }
             }
@@ -854,7 +871,6 @@ function bottleJs() {
     //点赞
     function bottleGiveLike() {
         driftBottleLike(data.token, data.bottleId).then((res) => {
-            console.log(res)
             if (res.code == 1) {
                 let num = parseInt($("#bottleLikeNum").text()) + 1
                 $("#bottleLikeNum").text(`${num}`)
@@ -864,7 +880,6 @@ function bottleJs() {
                 }
                 var item = new Date().getTime() + "," + data.bottleId;
                 list.push(item)
-                console.log("save like:" + item);
                 window.localStorage.setItem('LikeRecord', JSON.stringify(list))
                 $("#bottleGiveLike").hide()
                 $("#bottleAlreadyLike").show()
@@ -875,9 +890,8 @@ function bottleJs() {
     //评论漂流瓶
     function driftBottleCommentStay() {
         let content = $(".driftBottleComment").html()
-        console.log(1)
         if (content == "") {
-            console.log(1)
+            $(".driftBottleDetailsHint").text("请输入评论内容")
             $(".driftBottleDetailsHint").show();
             setTimeout(function () {
                 $(".driftBottleDetailsHint").hide();
@@ -885,6 +899,13 @@ function bottleJs() {
         } else {
             driftBottleComment(data.token, data.bottleId, content).then((res) => {
                 if (res.code == 1) {
+                    $("#driftBottleDetailsHot").css({
+                        "color": "#C0A676",
+                    })
+                    $("#driftBottleDetailsNew").css({
+                        "color": "#A0711B",
+                    })
+                    data.sortType = 2
                     lookDriftBottleDetail()
                 }
             })
@@ -894,7 +915,6 @@ function bottleJs() {
     //点赞评论
     function endorseNum() {
         let commentId = $(this).parent().parent().parent().attr("commentId")
-        console.log(commentId)
         driftBottleLikeComment(data.token, commentId).then((res) => {
             if (res.code == 1) {
                 let list = []
@@ -914,8 +934,7 @@ function bottleJs() {
     //获取我的瓶子
     function getDriftBottleList() {
         $("#myDriftBottleContent").empty()
-        driftBottleList(data.token, data.bottleCurrent, 3).then((res) => {
-            console.log(res)
+        driftBottleList(data.token, data.bottleCurrent, 5).then((res) => {
             let list = res.data.records
             data.bottlePage = parseInt(res.data.current)
             data.bottlePages = parseInt(res.data.pages)
@@ -999,7 +1018,7 @@ function bottleJs() {
     function removeBottle() {
         bottleId = $(this).parent().parent().parent().attr("bottleId")
         driftBottleRemove(data.token, bottleId).then((res) => {
-            console.log(res)
+
             if (res.code == 1) {
                 $(".bottleRemove").show();
                 setTimeout(function () {
@@ -1011,8 +1030,7 @@ function bottleJs() {
     }
     function getDriftBottleListMyComment() {
         $("#myDriftBottleContent").empty()
-        driftBottlelistPick(data.token, data.bottleCurrent, 4).then((res) => {
-            console.log(res)
+        driftBottlelistPick(data.token, data.bottleCurrent, 5).then((res) => {
             let list = res.data.records
             data.bottlePage = parseInt(res.data.current)
             data.bottlePages = parseInt(res.data.pages)
@@ -1020,7 +1038,6 @@ function bottleJs() {
                 $("#bottleTopPage").attr("src", "images/driftbottle/1.png")
                 $("#bottleBottomPage").attr("src", "images/driftbottle/3.png")
             } else if (data.bottlePage == 1 && data.bottlePages > data.bottlePage) {
-                console.log(1)
                 $("#bottleTopPage").attr("src", "images/driftbottle/1.png")
                 $("#bottleBottomPage").attr("src", "images/driftbottle/4.png")
             } else if (data.bottlePages == data.bottlePage && data.bottlePages > 1) {
@@ -1084,9 +1101,7 @@ function bottleJs() {
     //我的足迹删除
     function myFootprintRemove() {
         id = $(this).parent().parent().parent().attr("data-id")
-        console.log(id)
         removePickBottle(data.token, id).then((res) => {
-            console.log(res)
             if (res.code == 1) {
                 $(".removePickBottle").show();
                 setTimeout(function () {
@@ -1123,13 +1138,8 @@ function bottleJs() {
     }
     //下一页
     function bottleBottomPage() {
-        console.log(1)
         if (data.myType == 1) {
-            console.log(3)
-            console.log(data.bottlePage)
-            console.log(data.bottlePages)
             if (data.bottlePage == data.bottlePages || data.bottlePage > data.bottlePages) {
-                console.log(2)
                 $(".bottleEndPage").show();
                 setTimeout(function () {
                     $(".bottleEndPage").hide();
@@ -1155,10 +1165,8 @@ function bottleJs() {
         let img = new Image()
         img.src = src
         if (img.height > 442) {
-            console.log(1)
             img.width = img.width * (442 / img.height)
             img.height = 442
-            console.log(img.width,)
             if (img.width > 910) {
                 img.height = img.height * (910 / img.width)
                 img.width = 910
@@ -1217,7 +1225,6 @@ function bottleJs() {
     //对图片进行压缩
     function compress(currentfile, callback) {
         if (typeof (FileReader) === 'undefined') {
-            console.log("当前浏览器内核不支持base64图片压缩")
             directTurnIntoBase64(currentfile, callback);
         } else {
             try {  // 获取图片的原始大小
@@ -1254,7 +1261,6 @@ function bottleJs() {
                             }
                             context.drawImage(this, offsetX, offsetY, imageWidth, imageHeight);
                             var data = canvas.toDataURL('image/jpeg', picWeight)
-                            console.log(1)
                             callback(data)
                         });
                         image.attr('src', event.target.result)
@@ -1270,7 +1276,6 @@ function bottleJs() {
         }
     }
     function check(imgBase64) {
-        console.log("xianshi")
 
         data.upFile = convertBase64UrlToFile(imgBase64, (new Date()).valueOf() + '.png');
         if (data.upFile.size > data.maxSize) {
@@ -1284,7 +1289,6 @@ function bottleJs() {
 
     function checkFin(imgBase64) {
         data.bottleLocalityPic.push(imgBase64);
-        console.log("jinqu")
         data.throwDriftBottlePicList.push(convertBase64UrlToFile(imgBase64, (new Date()).valueOf() + '.png'))
         shwoBottleLocalityPic()
         let throwDriftBottleUplodeNum = data.throwDriftBottlePicList.length
@@ -1314,13 +1318,11 @@ function bottleJs() {
             if (allsuspects[i] && allsuspects[i].getAttribute(targetattr) != null && allsuspects[i].getAttribute(targetattr).indexOf(filename) != -1) {
                 allsuspects[i].parentNode.removeChild(allsuspects[i])
             }
-            console.log(i)
         }
     }
     function loadJS(url, callback) {
         var scripts = $("script[src='" + url + "']");
         if (scripts.length > 0) {
-            console.log(callback)
             callback();
             return;
         }

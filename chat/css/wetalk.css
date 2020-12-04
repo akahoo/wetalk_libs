@@ -1685,18 +1685,31 @@
   max-height: 80px;
   margin-right: 20px;
 }
+.bottleContentLeft{
+  color: #c0a676;
+  display: flex;
+  align-items: center;
+}
 .driftBottleContentFooter {
   display: flex;
   font-size: 14px;
   font-family: Microsoft YaHei;
   font-weight: 400;
-  color: #a0711b;
+  
+  justify-content: space-between;
 }
-
+.bottleContentLine{
+  display: inline-block;
+  height: 16px;
+  width: 1px;
+  background: #C0A676;
+  margin:  0 10px;
+}
 .driftBottleContentPraise {
   display: flex;
   align-items: center;
   margin-right: 28px;
+  color: #a0711b;
 }
 
 .driftBottleContentPraise img {
@@ -1742,14 +1755,17 @@
 #driftBottleCommentStay {
   width: 80px;
   height: 30px;
-  background: #a0711b;
+  background: #d0c3ab;
   border-radius: 15px;
   cursor: pointer;
   border: none;
   outline-style: none;
+  color: #a0711b;
+}
+#driftBottleCommentStay:hover{
+  background: #a0711b;
   color: #ffffff;
 }
-
 #driftBottleCommentThrow {
   width: 80px;
   height: 30px;
@@ -1761,7 +1777,10 @@
   color: #a0711b;
   margin-right: 10px;
 }
-
+#driftBottleCommentThrow:hover{
+  background: #a0711b;
+  color: #ffffff;
+}
 .driftBottleDetailsBottomTitle {
   display: flex;
   justify-content: space-between;
@@ -1837,7 +1856,22 @@
   font-family: Microsoft YaHei;
   color: #a0711b;
 }
-
+#commentAddFriend{
+  width: 60px;
+ height: 28px;
+  background: #d0c3ab;
+  border-radius: 14px;
+  cursor: pointer;
+  border: none;
+  outline-style: none;
+  color: #a0711b;
+  margin-left: 20px;
+  display: none;
+}
+#commentAddFriend:hover{
+  background: #A0711B;
+  color: #ffffff;
+}
 #criticTime {
   margin-right: 20px;
   font-size: 14px;
