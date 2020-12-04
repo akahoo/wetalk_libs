@@ -147,24 +147,24 @@ function choujiangInit() {
     })
 
     // 幸运抽奖关闭weTalkLotteryResViewBtn
-    $(document).on("click", ".weTalkCloseRes", function () {
+    $(".weTalkLottery").on("click", ".weTalkCloseRes", function () {
         $(".weTalkLotteryResView").hide();
         $(".weTalkLotteryCover").hide();
         $(".weTalkLotteryBtn").css({ "pointer-events": "auto" })
     })
 
     // 幸运抽奖分页按钮
-    $(document).on("mouseenter", ".weTalkLotteryRecordsLastP", function () {
+    $(".weTalkLottery").on("mouseenter", ".weTalkLotteryRecordsLastP", function () {
         $(".weTalkLotteryRecordsLastP").attr("src", "./images/lottery/pbtn3.png")
         $(".weTalkLotteryRecordsNextP").attr("src", "./images/lottery/pbtn2.png")
     })
 
-    $(document).on("mouseleave", ".weTalkLotteryRecordsLastP", function () {
+    $(".weTalkLottery").on("mouseleave", ".weTalkLotteryRecordsLastP", function () {
         $(".weTalkLotteryRecordsLastP").attr("src", "./images/lottery/pbtn1.png")
         // $(".weTalkLotteryRecordsNextP").attr("src","./images/lottery/pbtn2.png")
     })
 
-    $(document).on("click", ".weTalkLotteryRecordsLastP", function () {
+    $(".weTalkLottery").on("click", ".weTalkLotteryRecordsLastP", function () {
         if (lotD.lotCur > 1) {
             lotD.lotCur -= 1;
             awardLogRequest();
@@ -173,17 +173,17 @@ function choujiangInit() {
         }
     })
 
-    $(document).on("mouseenter", ".weTalkLotteryRecordsNextP", function () {
+    $(".weTalkLottery").on("mouseenter", ".weTalkLotteryRecordsNextP", function () {
         $(".weTalkLotteryRecordsLastP").attr("src", "./images/lottery/pbtn1.png")
         $(".weTalkLotteryRecordsNextP").attr("src", "./images/lottery/pbtn4.png")
     })
 
-    $(document).on("mouseleave", ".weTalkLotteryRecordsNextP", function () {
+    $(".weTalkLottery").on("mouseleave", ".weTalkLotteryRecordsNextP", function () {
         // $(".weTalkLotteryRecordsLastP").attr("src", "./images/lottery/pbtn1.png")
         $(".weTalkLotteryRecordsNextP").attr("src", "./images/lottery/pbtn2.png")
     })
 
-    $(document).on("click", ".weTalkLotteryRecordsNextP", function () {
+    $(".weTalkLottery").on("click", ".weTalkLotteryRecordsNextP", function () {
         if (lotD.lotCur < lotD.lotPages) {
             lotD.lotCur += 1;
             awardLogRequest();
@@ -193,7 +193,7 @@ function choujiangInit() {
     })
 
     // 获取我的奖品记录
-    $(document).on("click", ".weTalkLotteryHistory", function () {
+    $(".weTalkLottery").on("click", ".weTalkLotteryHistory", function () {
         lotD.lotCur = 1;
         awardLogRequest();
         $(".weTalkLotteryRecords").show();
@@ -201,7 +201,7 @@ function choujiangInit() {
     })
 
     // 关闭我的奖品记录
-    $(document).on("click", ".weTalkLotteryRecordsXX", function () {
+    $(".weTalkLottery").on("click", ".weTalkLotteryRecordsXX", function () {
         $(".weTalkLotteryRecords").hide();
         $(".weTalkLotteryCover").hide();
     })

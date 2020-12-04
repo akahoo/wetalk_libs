@@ -1,5 +1,4 @@
 $(function () {
-	var _version=1.0;
     // 全局变量
     let data = {
         // 聊天室聊天记录
@@ -1796,7 +1795,6 @@ $(function () {
             data.chatPublicPeople = [];
             $(".weTalkChatRoom").hide();
             $(".weTalkChatRoom").remove();
-            $(document).off("keyup");
             $("#weTalkChatFrame").off("keydown");
             loadLoginView();
         })
@@ -3776,11 +3774,10 @@ $(function () {
                                         if (obj.targetId == data.weTalkPerList[j].userId) {
                                             data.weTalkPerList[j].records.push(obj);
                                             let record = JSON.parse(JSON.stringify(obj));
-                                            loadSessionContent(record, j, "发图片")
+                                            loadSessionContent(record, j, "发语音")
                                             break;
                                         }
                                     }
-                                    // obj.content = disposeText(obj);
                                     loadByFriendOne();
                                     obj = {};
                                 }
@@ -4478,9 +4475,9 @@ $(function () {
                 // 图片
                 case 2:
                     return `<img class="weTalkRecordsImg" src="${data.cdn}${msg.content.replace(/\\/g, "/")}">`;
-                // 表情
+                // 语音
                 case 3:
-                    break;
+                    return `<audio class="weTalkAudioItem" src="${data.cdn}${msg.content.replace(/\\/g, "/")}" style="display:none">`
                 // 骰子
                 case 4:
                     break;
@@ -5809,6 +5806,7 @@ $(function () {
             if (type == "收到消息" || type == "调接口") {
                 // curHour = new Date(record.sendTime * 1).getHours() < 10 ? "0" + new Date(record.sendTime * 1).getHours() : new Date(record.sendTime * 1).getHours();
                 // curMin = new Date(record.sendTime * 1).getMinutes() < 10 ? "0" + new Date(record.sendTime * 1).getMinutes() : new Date(record.sendTime * 1).getMinutes();
+
                 if (record.sendTime) {
                     curHour = record.sendTime.substring(11, 13)
                     curMin = record.sendTime.substring(14, 16)
@@ -5817,7 +5815,7 @@ $(function () {
                     curMin = "未知"
                 }
             }
-            if (type == "转发" || type == "发图片" || type == "私聊" || type == "游戏" || type == "") {
+            if (type == "转发" || type == "发图片" || type == "私聊" || type == "游戏" || type == "发语音") {
                 curHour = getMyHour().h;
                 curMin = getMyHour().m;
                 user = "我：";
@@ -5996,6 +5994,13 @@ $(function () {
                             $(".weTalkOverCover").show();
                         })
                     })
+                    break;
+                case 3:
+                    // 语音
+                    weTalkChatOtherContent.html(`
+                        ${item.content}
+                        <div class="weTalkItem"></div>
+                    `)
                     break;
                 case 4:
                     weTalkChatOtherContent.html(`
@@ -7274,6 +7279,15 @@ $(function () {
     }
     //搜索聊天室
     function discover() {
+        //回车搜索聊天室
+        $(document).off("keyup").on("keyup", ".searchChatroom", function (event) {
+            console.log(1)
+            if ($(".searchChatroom").css("display") == "block") {
+                if (event.keyCode == 13) {
+                    searchChatroomFind()
+                }
+            }
+        });
         $("#lifeRecommendDetails").empty()
         $("#playRecommendDetails").empty()
         $("#musicRecommendDetails").empty()
@@ -7519,15 +7533,7 @@ $(function () {
             })
         }
     }
-    //回车搜索聊天室
-    $(document).keyup(function (event) {
-        // console.log(1)
-        if ($(".searchChatroom").css("display") == "block") {
-            if (event.keyCode == 13) {
-                searchChatroomFind()
-            }
-        }
-    });
+
     //点击收藏收藏聊天室
     function collectChatroomResultDetils() {
         console.log($(this).parent().attr("websiteId"))
