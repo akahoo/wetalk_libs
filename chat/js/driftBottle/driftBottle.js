@@ -533,6 +533,7 @@ function bottleJs() {
             await bottleUpload()
             //用到服务器返回的值然后再进行请求发送服务返回的值
             let list = data.bottleUploadImgList
+            console.log(list)
             let image1 = ""
             let image2 = ""
             let image3 = ""
@@ -576,11 +577,36 @@ function bottleJs() {
             let params = new FormData();
             params.append("file", list[i], list[i].name);
             //遍历本地图片数组依次请求上传的服务器
-            await upload(4, params, data.token).then((res) => {
-                if (res.code == 1) {
-                    //存储到服务器服务器返回值然后把每个返回值存到另一个数组
-                    data.bottleUploadImgList.push(res.message)
-                }
+            // await upload(4, params, data.token).then((res) => {
+            //     if (res.code == 1) {
+            //         //存储到服务器服务器返回值然后把每个返回值存到另一个数组
+            //         data.bottleUploadImgList.push(res.message)
+            //     }
+            // })
+            await preUpload(4, data.token).then((res) => {
+                var result = res.data;
+                var params = new FormData();
+                let fileName = result.dir + "/" + result.filename + "." + list[i].type.split("/")[1];
+                params.append("name", result.filename);
+                params.append("key", fileName);
+                params.append("success_action_status", "200");
+                params.append("OSSAccessKeyId", result.accessid);
+                params.append("policy", result.policy);
+                params.append("signature", result.signature);
+                params.append("file", list[i], result.filename);
+                jQuery.ajax({
+                    type: "post",
+                    url: result.host,
+                    data: params,
+                    processData: false,
+                    contentType: false,
+                    async: false,
+                    success: function () {
+                        data.bottleUploadImgList.push(fileName)
+                    },
+                    fail: function (error) {
+                    }
+                })
             })
         }
     }

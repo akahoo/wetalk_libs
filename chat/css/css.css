@@ -351,14 +351,25 @@ body {
 }
 
 .weTalkBroadcast {
+  width: 400px;
+  height: 50px;
+  overflow: hidden;
   position: absolute;
   top: 14px;
   left: 200px;
-
-  display: flex;
   align-items: center;
 
   display: none;
+}
+
+.weTalkBroadContainer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  word-break: keep-all;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .weTalkBroadContent {
@@ -1445,7 +1456,7 @@ body {
   top: 8px;
 
   cursor: pointer;
-  display: none;
+  /* display: none; */
 }
 
 .weTalkSendPic {
@@ -3911,6 +3922,18 @@ body {
   z-index: 14;
 }
 
+.weTalkDarkCover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: none;
+  z-index: 14;
+  background-color: #000;
+  opacity: 0.3;
+}
+
 /* 切换聊天室提醒 */
 .weTalkSwitchChatRoomTip {
   position: absolute;
@@ -4209,7 +4232,7 @@ body {
 .weTalkBeginer {
   position: absolute;
   top: 50%;
-  left: 60%;
+  left: 50%;
   transform: translate(-50%, -50%);
 
   width: 591px;
@@ -4263,7 +4286,26 @@ body {
   box-sizing: border-box;
   border: 1px solid #ddd;
 
+  user-select: none;
   display: none;
+}
+
+.weTalkAnnounceDate {
+  margin-top: 9px;
+
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #999999;
+}
+
+.weTalkAnnounceContent {
+  margin-top: 22px;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #666666;
 }
 
 .weTalkAnnounceBtn {
@@ -4439,8 +4481,16 @@ body {
 }
 
 .weTalkRadioDuration {
+  margin-left: 10px;
+
   font-size: 14px;
   font-family: Microsoft YaHei;
   font-weight: 400;
   color: #8e4be0;
+}
+
+.weTalkRecordItem {
+  width: 130px;
+  text-align: left;
+  cursor: pointer;
 }

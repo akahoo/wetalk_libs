@@ -475,6 +475,7 @@ function fragInit() {
     $(".weTalkFragItemDetails").show();
     // 渲染查看奖品
     $(".weTalkFragItemDetailsCheck").show();
+    $(".weTalkFragItemDetailsCheckCover").show();
     // 渲染拼图
     getAwardsDetail(id, fragd.token).then(res => {
       let arr = new Array(fragd.standard * fragd.standard).fill(0);
@@ -500,7 +501,7 @@ function fragInit() {
               bulge = 18;
               break;
           }
-          console.log("arr", arr)
+          // console.log("arr", arr)
           let wid = $(".weTalkFragItemDetailsContentLeftContainer").width() / fragd.standard;
           for (let i = 1; i <= fragd.standard; i++) {
             for (let j = 1; j <= fragd.standard; j++) {

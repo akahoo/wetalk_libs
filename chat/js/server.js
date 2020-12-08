@@ -13,7 +13,8 @@ function serverUrl() {
                 wTsocketUrl = res.socket;
                 localStorage.setItem("wTurl", wTurl)
                 localStorage.setItem("wTsocketUrl", wTsocketUrl)
-                localStorage.setItem("cdn", res.cdn.substring(0, res.cdn.length - 1))
+                // localStorage.setItem("cdn", res.cdn.substring(0, res.cdn.length - 1))
+                localStorage.setItem("cdn", res.cdn)
                 localStorage.setItem("server", res.server.substring(0, res.cdn.length - 1))
                 localStorage.setItem("speakInterval", res.speakInterval)
             },
@@ -647,6 +648,43 @@ function upload(type, file, token) {
             data: file,
             processData: false,
             contentType: false,
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+// ali获取签名
+function preUpload(type, token) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "post",
+            url: wTurl + `/common/preUpload`,
+            data: { type: type },
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+
+// 文件上传接口获取签名数据 type:1头像 2聊天 3系统 4漂流瓶 5语音
+function uploadFinish(type, fileName, token) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "post",
+            url: wTurl + `/common/uploadFinish`,
+            data: { type: type, fileName: fileName },
             headers: { user_token: token },
             success: function (res) {
                 resolve(res)

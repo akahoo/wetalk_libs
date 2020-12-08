@@ -206,6 +206,14 @@ $(function () {
         otherInfo: null,
         otherUserId: null,
 
+        // 公告
+        announce: null,
+        announceDate: null,
+
+        // 广播
+        broadCastArr: [],
+        isBroading: false,
+
         // 录音
         recorder: null,
         recordRes: null,
@@ -378,8 +386,10 @@ $(function () {
                     <div class="weTalkMain">
                       <div class="weTalkHead">
                         <div class="weTalkBroadcast">
-                            <img class="weTalkBroadImg" src="./images/broadCast.png">
-                            <div class="weTalkBroadContent">【广播】：恭喜 <span>小小白</span> 成功兑换一个奖品！！！</div>
+                            <div class="weTalkBroadContainer">
+                                <img class="weTalkBroadImg" src="./images/broadCast.png">
+                                <div class="weTalkBroadContent"></div>
+                            </div>
                         </div>
                         <div class="weTalkLogoArr">
                             <img class="weTalkLogo" src="./images/logo.png"/>
@@ -1023,6 +1033,8 @@ $(function () {
                     <div class="weTalkAnnounce">
                       <div class="weTalkTitle weTalkBindBorder">系统公告</div>
                       <img src="./images/closePersonalInfo.png" class="weTalkAnnounceCha weTalkPointer"></img>
+                      <div class="weTalkAnnounceDate"></div>
+                      <div class="weTalkAnnounceContent"></div>
                       <div class="weTalkAnnounceBtn weTalkBtn2">确定</div>
                     </div>
                     <!-- 录音· -->
@@ -1036,7 +1048,7 @@ $(function () {
                         <div class="weTalkRadioToolKe">
                             <img src="./images/yuyin4.png" class="weTalkRadioToolKeImg1" />
                             <div class="weTalkRadioToolKeOne">
-                                <img src="./images/yuyin7.png" class="weTalkRadioToolKeImg2" />
+                                <img src="./images/purpler.png" class="weTalkRadioToolKeImg2" />
                                 <span class="weTalkRadioDuration"></span>
                             </div>
                             <audio class="weTalkRadioTool"></audio>
@@ -1046,8 +1058,12 @@ $(function () {
                         <div class="weTalkBtn2 weTalkRadiobtn2">发送</div>
                     </div>
                     </div>
-                    <!-- 功能遮罩层 -->
+                    <!-- 功能透明遮罩层 -->
                     <div class="weTalkFunCover">
+                        
+                    </div>
+                    <!-- 功能深色遮罩层 -->
+                    <div class="weTalkDarkCover">
                         
                     </div>
                     <!-- 切换遮罩层 -->
@@ -1057,31 +1073,6 @@ $(function () {
                         <div class="weTalkSwitchRoomTipBtn1 weTalkBtn1">取消</div>
                         <div class="weTalkSwitchRoomTipBtn2 weTalkBtn2">确定</div>
                        </div>
-                    </div>
-                    <!-- 右键用户信息 -->
-                    <div class="weTalkyjInfo">
-                      <div class="weTalkyjAvatar"></div>
-                      <div class="weTalkyjNick">哈哈</div>
-                      <div class="weTalkyjPerSign"></div>
-                      <div class="weTalkyjTzk">
-                        <div class="weTalkTzkMain">Ta在看</div>
-                        <div class="weTalkTzkSub">百度一下你就吼吼</div>
-                      </div>
-                      <div class="weTalkyjbtn weTalkPointer weTalkyjSl">私聊</div>
-                      <div class="weTalkyjbtn weTalkPointer weTalkyjAddFriend">加为好友</div>
-                      <div class="weTalkyjbtn weTalkPointer weTalkyjAddLh">拉黑</div>
-                      <div class="amendName">
-                        <div class="weTalkAmendName">修改成功</div>
-                        <p class="amendTitle">修改备注</p>
-                        <input id="amendInput" />
-                        <p>
-                            <button type="button" class="amendNameCancel" id="amendNameCancel">取消</button>
-                            <button type="button" class="amendNameSub" id="amendNameSub">确定</button>
-                        </p>
-                    </div>
-                    <div class="weTalkRemoveFriend">解除成功</div>
-                    <div class="weTalkaddBlacklist">拉黑成功</div>
-                    <div class="weTalkcancelCollection">取消成功</div>
                     </div>
                   </div>
                         `
@@ -1329,8 +1320,9 @@ $(function () {
             }).toDataURL('image/png');
             // $(".weTalkCjRes").children("img").attr("src", imgUrl);
             // $(".weTalkCjRes").show();
-            data.upAvatarFile = convertBase64UrlToFile(imgUrl, (new Date()).valueOf())
-            uploadFile(1, data.upAvatarFile);
+            data.upFile = convertBase64UrlToFile(imgUrl, (new Date()).valueOf())
+            // uploadFile(1, data.upAvatarFile);
+            aliUpload(1);
             $(".weTalkAvatarCjView").hide()
             // $('.weTalkavatarPreview').hide();
             // $('.weTalkavatarPreviewCj').hide();
@@ -1431,12 +1423,62 @@ $(function () {
 
         $(document).on("click", ".weTalkRadiobtn2", function () {
             if ($(".weTalkRadioToolKe").css("display") != "none") {
-                $(".weTalkRadio").hide();
-                uploadFile(5, data.record);
+                if (data.sendState) {
+                    showTip("正在发送...")
+                    $(".weTalkRadio").hide();
+                    aliUpload(5);
+                } else {
+                    showGlobalTip("请" + localStorage.getItem("speakInterval") + "秒以后再发送")
+                }
             } else {
                 showTip("请先录音");
             }
         })
+
+        $(document).on("click", ".weTalkRecordItem", function () {
+            let radio = $(this).children(".weTalkAudioItem")[0];
+            console.log("paused状态", radio.paused)
+            if (radio.paused) {
+                // console.log("播放")
+                // 点击播放时先暂停所有中audio
+                $(".weTalkAudioItem").each(function () {
+                    // console.log("this", $(this)[0])
+                    $(this)[0].pause();
+                    // console.log("data-self", $(this).parent()[0])
+                    if ($(this).parent().attr("data-self") == "true") {
+                        // console.log("进自己")
+                        // 自己
+                        $(this).next(".weTalkRecordItemImg").attr("src", "./images/whiter.png")
+                    } else {
+                        // console.log("进他人")
+                        // 他人
+                        $(this).next(".weTalkRecordItemImg").attr("src", "./images/blackr.png")
+                    }
+                })
+                if ($(this).attr("data-self") == "true") {
+                    console.log("进自己")
+                    $(this).children(".weTalkRecordItemImg").attr("src", "./images/whiter.gif")
+                } else {
+                    console.log("进他人")
+                    $(this).children(".weTalkRecordItemImg").attr("src", "./images/blackr.gif")
+                }
+                radio.play();
+            } else {
+                // console.log("暂停")
+                if ($(this).attr("data-self") == "true") {
+                    $(this).children(".weTalkRecordItemImg").attr("src", "./images/whiter.png")
+                } else {
+                    $(this).children(".weTalkRecordItemImg").attr("src", "./images/blackr.png")
+                }
+                radio.pause();
+            }
+        })
+
+
+        // 语音播放完成时
+        $(".weTalkRadioTool")[0].onended = function () {
+            $(".weTalkRadioToolKeImg2").attr("src", "./images/purpler.png")
+        }
 
         // 发送游戏
         $(".weTalkChatFace1").on("click", sendGame)
@@ -1513,7 +1555,8 @@ $(function () {
                     $(".weTalkYsPicContent").css("visibility", "hidden")
                     return;
                 }
-                uploadFile(2, data.upFile);
+                // uploadFile(2, data.upFile);
+                aliUpload(2)
             } else {
                 showGlobalTip("请" + localStorage.getItem("speakInterval") + "秒以后再发送")
             }
@@ -1697,7 +1740,7 @@ $(function () {
             range.selectNode(textbox);
             sel.removeAllRanges();
             sel.addRange(range);
-            // document.execCommand("copy");
+            document.execCommand("copy");
             $(".weTalkCopySuc").show();
             window.setTimeout(function () {
                 $(".weTalkCopySuc").hide();
@@ -2020,8 +2063,11 @@ $(function () {
         data.avatar = res.data.avatar;
         data.ad = res.data.ad;
         data.lastLogin = res.data.lastLogin;
+        data.announce = res.data.announcement;
+        data.announceDate = res.data.announcementTime;
         data.cdn = localStorage.getItem("cdn");
         data.server = localStorage.getItem("server");
+
 
         localStorage.setItem("point", res.data.point)
         data.email = res.data.email;
@@ -2048,18 +2094,23 @@ $(function () {
                     <img class="getBeginerAward" src="./images/beginGet.png">
                 </div>
             `).appendTo($(".weTalkChatRoom"))
-            $(".weTalkFunCover").show();
+            $(".weTalkDarkCover").show();
         }
 
         // 新用户点击领取
         $(document).on("click", ".getBeginerAward", function () {
             $(".weTalkBeginer").hide();
-            $(".weTalkFunCover").hide();
+            $(".weTalkDarkCover").hide();
         })
 
         // 公告
-        // $(".weTalkAnnounce").show();
-        // $(".weTalkFunCover").show();
+
+        if (data.announce && data.announce != null) {
+            $(".weTalkAnnounce").show();
+            $(".weTalkFunCover").show();
+            $(".weTalkAnnounceContent").html(data.announce);
+            $(".weTalkAnnounceDate").html("发布日期：" + data.announceDate)
+        }
         $(document).on("click", ".weTalkAnnounceBtn", function () {
             $(".weTalkAnnounce").hide();
             $(".weTalkFunCover").hide();
@@ -2167,7 +2218,7 @@ $(function () {
                 }
             }
 
-            if (pubmsg.messageType == 1 || pubmsg.messageType == 2) {
+            if (pubmsg.messageType == 1 || pubmsg.messageType == 2 || pubmsg.messageType == 3) {
                 if (pubmsg.messageType == 2) {
                     pubmsg.img = pubmsg.content;
                 }
@@ -2278,7 +2329,7 @@ $(function () {
                 primsg.isPublic = 0;
             }
             // 判断接收类型
-            if (primsg.messageType == 1 || primsg.messageType == 2) {
+            if (primsg.messageType == 1 || primsg.messageType == 2 || primsg.messageType == 3) {
                 primsg.content = disposeText(primsg);
             }
 
@@ -2366,7 +2417,7 @@ $(function () {
             }
         })
         data.socket.on('SYSTEM', function (sysmsg) {
-            // console.log("sysmsg", sysmsg)
+            console.log("sysmsg", sysmsg)
             // 用户上线
             if (sysmsg.type == 1) {
                 let isHas = false;
@@ -2433,6 +2484,14 @@ $(function () {
                 }
             }
             // 广播
+            if (sysmsg.type == 4) {
+                // 如果正在播放广播的时候收到了新的广播，先存到数组里去
+                data.broadCastArr.push(sysmsg.content);
+                // 如果没有播放广播，那么就从数组中拿出第一条播放
+                if (!data.isBroading) {
+                    broadCastMaq(data.broadCastArr[0]);
+                }
+            }
         })
 
         // 获取用户列表和数量
@@ -3579,7 +3638,8 @@ $(function () {
         // $("#weTalkYsPic").height(squareH);
         // $(".weTalkYsPicContent").css("visibility", "visible")
         // $(".weTalkFunCover").hide();
-        uploadFile(2, data.upFile);
+        // uploadFile(2, data.upFile);
+        aliUpload(2);
     }
 
     // 头像压缩回调函数
@@ -3657,6 +3717,9 @@ $(function () {
     function uploadFile(type, upFile) {
         let params = new FormData();
         params.append("file", upFile);
+        if (type == 5) {
+            params.append("duration", data.recordDuration)
+        }
         upload(type, params, data.token).then(res => {
             if (res.code == 1) {
                 $('#weTalkSendPic').val('');
@@ -3782,6 +3845,28 @@ $(function () {
                                     obj = {};
                                 }
                             });
+                    } else {
+                        console.log("聊天室语音")
+                        let avatar;
+                        if (data.avatar == null) {
+                            avatar = "";
+                        } else {
+                            avatar = data.avatar;
+                        }
+                        data.socket.emit('PUBLIC',
+                            {
+                                targetId: data.roomId,
+                                senderId: data.id,
+                                messageType: 3,
+                                content: data.filePath,
+                                senderNickname: data.nickname,
+                                avatar: avatar,
+                                sex: data.sex,
+                                vip: localStorage.getItem("vip") == "true" ? 1 : 0
+                            }, function (response) {
+                                console.log("response.public", response)
+                            })
+
                     }
                     showTip("发送成功");
                 }
@@ -4477,7 +4562,7 @@ $(function () {
                     return `<img class="weTalkRecordsImg" src="${data.cdn}${msg.content.replace(/\\/g, "/")}">`;
                 // 语音
                 case 3:
-                    return `<audio class="weTalkAudioItem" src="${data.cdn}${msg.content.replace(/\\/g, "/")}" style="display:none">`
+                    return `<audio class="weTalkAudioItem" src="${data.cdn}${msg.content.replace(/\\/g, "/")}" style="display:none"></audio>`
                 // 骰子
                 case 4:
                     break;
@@ -4723,7 +4808,7 @@ $(function () {
             data.weTalkPerList[myindex].records.forEach((item, index) => {
                 item.addFriendType = 2;
 
-                if (item.messageType == 1 || item.messageType == 2) {
+                if (item.messageType == 1 || item.messageType == 2 || item.messageType == 3) {
                     item.content = disposeText(item)
                 }
 
@@ -4762,6 +4847,7 @@ $(function () {
 
     // 在会话列表渲染默认聊天室最后一条聊天记录
     function showDePublicLastRecord(obj, isLoad) {
+        // console.log("聊天记录", obj)
         // console.log("obj", obj);
         if (obj) {
             let record = JSON.parse(JSON.stringify(obj)),
@@ -4770,8 +4856,10 @@ $(function () {
                 splitBr;
             // 判断内容的类型
             if (messageType == 1) {
-                content = disposeText(record);
-                content = content.replace(/\[at\]/, `<a>`).replace(/\[\/at\]/, `</a>`);
+                if (record.content) {
+                    content = disposeText(record);
+                    content = content.replace(/\[at\]/, `<a>`).replace(/\[\/at\]/, `</a>`);
+                }
                 if (isLoad == false) {
                     $(`<span>${content}</span>`).children("a").each(function () {
                         // console.log("某个@", $(this)[0], $(this).html().substring(1))
@@ -4785,7 +4873,10 @@ $(function () {
             }
             else if (messageType == 2) {
                 content = "[图片]"
-            } else if (messageType == 4) {
+            } else if (messageType == 3) {
+                content = "[语音]"
+            }
+            else if (messageType == 4) {
                 content = "[骰子]"
             } else if (messageType == 5) {
                 content = "[硬币]"
@@ -4838,7 +4929,7 @@ $(function () {
                         $(".weTalkChatMain").html("");
                         // console.log(data.chatPublicRecords)
                         data.chatPublicRecords.forEach((item, index) => {
-                            if (item.messageType == 1 || item.messageType == 2) {
+                            if (item.messageType == 1 || item.messageType == 2 || item.messageType == 3) {
                                 if (item.messageType == 2) {
                                     item.img = item.content;
                                 }
@@ -5402,7 +5493,7 @@ $(function () {
                     }, 3000);
                     return;
                 }
-                if (!(/^[A-Za-z0-9]+$/.test(data.weTalkAccountPswd)) && data.data.weTalkAccountPswd.length > 5 && data.data.weTalkAccountPswd < 21) {
+                if (!(/^[A-Za-z0-9]+$/.test(data.weTalkAccountPswd)) && data.weTalkAccountPswd.length > 5 && data.weTalkAccountPswd < 21) {
                     $(".weTalkRegCommon").html(`密码不能包含特殊字符`).show();
                     setTimeout(function () {
                         $(".weTalkRegCommon").hide();
@@ -5888,6 +5979,7 @@ $(function () {
 
     // 加载聊天记录（合并）
     function loadRecordFin(item, index, isSocketIo) {
+        // console.log("messageType", item.messageType)
         // sockeio加载时需要判断滚动条的位置
         if (isSocketIo && item.messageType != 2) {
             // 滚动条位于最底部
@@ -5997,12 +6089,25 @@ $(function () {
                     break;
                 case 3:
                     // 语音
+                    let src = $(item.content).attr("src");
+                    let duration = src.substring(src.indexOf("?duration") + 10);
                     weTalkChatOtherContent.html(`
-                        ${item.content}
-                        <div class="weTalkItem"></div>
+                        <div class="weTalkRecordItem">
+                            ${item.content}
+                            <img class="weTalkRecordItemImg" src="./images/blackr.png">
+                            <span class="weTalkRecordDuration">${duration}"</span>
+                        </div>
                     `)
+                    weTalkChatOtherContent.attr("data-duration", duration)
+                    weTalkChatOtherContent.children(".weTalkRecordItem").children("audio").attr("src", src.substring(0, src.indexOf("?duration")))
+                    weTalkChatOtherContent.children(".weTalkRecordItem").attr("data-self", false)
+                    weTalkChatOtherContent.children(".weTalkRecordItem").children(".weTalkAudioItem")[0]
+                        .removeEventListener("ended", switchPng)
+                    weTalkChatOtherContent.children(".weTalkRecordItem").children(".weTalkAudioItem")[0]
+                        .addEventListener("ended", switchPng)
                     break;
                 case 4:
+                    // 骰子
                     weTalkChatOtherContent.html(`
                 <img class="weTalkGameGif">
                 <img class="weTalkGameRes">
@@ -6168,6 +6273,25 @@ $(function () {
                         })
                     })
                     break;
+                case 3:
+                    // 语音
+                    let src = $(item.content).attr("src");
+                    let duration = src.substring(src.indexOf("?duration") + 10);
+                    weTalkChatSelfContent.html(`
+                        <div class="weTalkRecordItem">
+                            ${item.content}
+                            <img class="weTalkRecordItemImg" src="./images/whiter.png">
+                            <span class="weTalkRecordDuration">${duration}"</span>
+                        </div>
+                    `)
+                    weTalkChatSelfContent.attr("data-duration", duration)
+                    weTalkChatSelfContent.children(".weTalkRecordItem").children("audio").attr("src", src.substring(0, src.indexOf("?duration")))
+                    weTalkChatSelfContent.children(".weTalkRecordItem").attr("data-self", true)
+                    weTalkChatSelfContent.children(".weTalkRecordItem").children(".weTalkAudioItem")[0]
+                        .removeEventListener("ended", switchPng)
+                    weTalkChatSelfContent.children(".weTalkRecordItem").children(".weTalkAudioItem")[0]
+                        .addEventListener("ended", switchPng)
+                    break;
                 case 4:
                     weTalkChatSelfContent.html(`
                         <img class="weTalkGameGif">
@@ -6183,9 +6307,9 @@ $(function () {
                     break;
                 case 6:
                     weTalkChatSelfContent.html(`
-              <img class="weTalkGameGif">
-              <img class="weTalkGameRes">
-            `)
+                  <img class="weTalkGameGif">
+                  <img class="weTalkGameRes">
+                `)
                     weTalkChatSelfContent.children(".weTalkGameGif").attr({ "src": "./images/hd/paoyingbi.gif" })
                     weTalkChatSelfContent.children(".weTalkGameRes").attr({ "src": `./images/hd/${item.content == 1 ? 'zheng' : 'fan'}.png` })
                     weTalkChatSelfContent.css("background", "#fff")
@@ -6196,9 +6320,9 @@ $(function () {
                     break;
                 case 5:
                     weTalkChatSelfContent.html(`
-                <img class="weTalkGameGif">
-                <img class="weTalkGameRes">
-              `)
+                    <img class="weTalkGameGif">
+                    <img class="weTalkGameRes">
+                  `)
                     weTalkChatSelfContent.children(".weTalkGameGif").attr({ "src": "./images/hd/shitoujiandaobu.gif" })
                     weTalkChatSelfContent.children(".weTalkGameRes").attr({ "src": `./images/hd/${item.content == 1 ? 'jiandao' : item.content == 2 ? 'shitou' : 'bu'}.png` })
                     weTalkChatSelfContent.css("background", "#fff")
@@ -6272,9 +6396,6 @@ $(function () {
             // 获取需要转发的对话
             data.transmitSetence = $(this).children(".weTalkChatOtherRight").children(".weTalkChatOtherContent").html();
             data.messageType = $(this).children(".weTalkChatOtherRight").children(".weTalkChatOtherContent").attr("data_messageType");
-            // 获取需要转发的对话
-            data.transmitSetence = $(this).children(".weTalkChatOtherRight").children(".weTalkChatOtherContent").html();
-            data.messageType = $(this).children(".weTalkChatOtherRight").children(".weTalkChatOtherContent").attr("data_messageType");
             if (data.messageType == 1) {
                 if (isSocketIo) {
                     if ($(this).attr("data-at")) {
@@ -6313,6 +6434,12 @@ $(function () {
             if (data.messageType == 2) {
                 data.transferImg = $(this).attr("data_index");
             }
+            if (data.messageType == 3) {
+                let src = $(data.transmitSetence).children("audio").attr("src");
+                let duration = $(this).children(".weTalkChatOtherRight").children(".weTalkChatOtherContent").attr("data-duration");
+                data.transmitSetence = src.substring(src.indexOf("chat/")) + "?duration=" + duration + '"';
+            }
+
             // 获取转发按钮节点
             let thatzf = $(this).children(".weTalkChatOtherRight").children(".weTalkChatOtherRightTransmit");
             let thatjb = $(this).children(".weTalkChatOtherRight").children(".weTalkChatOtherRightReport");
@@ -6355,7 +6482,6 @@ $(function () {
             data.transmitSetence = $(this).children(".weTalkChatSelfLeft").children(".weTalkChatSelfContent").html();
             data.messageType = $(this).children(".weTalkChatSelfLeft").children(".weTalkChatSelfContent").attr("data_messageType");
             if (data.messageType == 1) {
-                // console.log("转发的话", data.transmitSetence)
                 if (isSocketIo) {
                     if ($(this).attr("data-at")) {
                         if ($(data.transmitSetence).children("a").length > 0) {
@@ -6388,10 +6514,14 @@ $(function () {
                     })
                 }
             }
-
             if (data.messageType == 2) {
                 // console.log("赋值时", $(this)[0], $(this).attr("data_img"))
                 data.transferImg = $(this).attr("data_index");
+            }
+            if (data.messageType == 3) {
+                let src = $(data.transmitSetence).children("audio").attr("src");
+                let duration = $(this).children(".weTalkChatSelfLeft").children(".weTalkChatSelfContent").attr("data-duration");
+                data.transmitSetence = src.substring(src.indexOf("chat/")) + "?duration=" + duration + '"';
             }
 
             if (data.messageType == 4 || data.messageType == 5 || data.messageType == 6) {
@@ -6467,7 +6597,7 @@ $(function () {
                             data.emojzfArr.forEach(item => {
                                 transmitSetence = transmitSetence.replace(/<img.*?src=[\"|\']?(.*?)[\"|\']?\s.*?>/, `[emoj]${item}[/emoj]`);
                             })
-                            // console.log("表情", transmitSetence)
+                            data.transmitSetence = transmitSetence;
                             data.emojzfArr = [];
                         }
                         if (data.messageType == 2) {
@@ -6484,6 +6614,9 @@ $(function () {
                                 }
                             }
                         }
+                        if (data.messageType == 3) {
+                            transmitSetence = data.transmitSetence;
+                        }
 
                         if (item.type == 1) {
                             let avatar;
@@ -6491,6 +6624,9 @@ $(function () {
                                 avatar = "";
                             } else {
                                 avatar = data.avatar;
+                            }
+                            if (data.messageType == 1) {
+                                transmitSetence = data.transmitSetence;
                             }
                             data.socket.emit('PUBLIC',
                                 {
@@ -6504,7 +6640,6 @@ $(function () {
                                     vip: vip
                                 },
                                 function (response) {
-                                    console.log("response", response)
                                     if (response != 1) {
                                         console.log("发送异常")
                                         $(".weTalkChatMgc").show();
@@ -6750,31 +6885,230 @@ $(function () {
         });
         $(".weTalkRadiobtn1").css({ "background": "e2e2e2", "color": "#999" });
         $(".weTalkRadiobtn2").css({ "background": "#999" });
-        // $(".weTalkRadioAnimate").css("animation", "myrecord 2s infinite")
+        $(".weTalkRadioAnimate").css("animation", "myrecord 2s infinite")
     }
 
     function endRecord() {
         $(".weTalkRadiobtn1").css({ "background": "#ede7ff", "color": "#8E4AE0" });
         $(".weTalkRadiobtn2").css({ "background": "#8E4BE0" });
         data.recorder.stop();
-        data.record = data.recorder.getBlob();
-        $(".weTalkRadioTool").attr("src", URL.createObjectURL(data.record));
+        data.upFile = data.recorder.getBlob();
+        $(".weTalkRadioTool").attr("src", URL.createObjectURL(data.upFile));
         $(".weTalkRadioTool").off("canplay").on("canplay", function () {
             $(".weTalkRadioDuration").html($(this)[0].duration.toFixed(1) + ' "');
+            data.recordDuration = $(this)[0].duration.toFixed(1) + ' "';
+            if ($(this)[0].duration == 'Infinity') {
+                showTip("录音时间过短");
+            } else {
+                $(".weTalkRadioContent").hide();
+                $(".weTalkRadioToolKe").show();
+            }
+            $(".weTalkRadioAnimate").css("animationPlayState", "paused")
         })
-        $(".weTalkRadioContent").hide();
-        $(".weTalkRadioToolKe").show();
+
     }
 
     function palyRecord() {
         let audioPlayer = $('.weTalkRadioTool')[0]
         if (audioPlayer.paused) {
             console.log("播放")
+            $(".weTalkRadioToolKeImg2").attr("src", "./images/purpler.gif")
             audioPlayer.play();
         } else {
             console.log("暂停")
+            $(".weTalkRadioToolKeImg2").attr("src", "./images/purpler.png")
             audioPlayer.pause();
         }
+    }
+
+    function switchPng() {
+        if ($(this).parent().attr("data-self") == "true") {
+            $(this).next(".weTalkRecordItemImg").attr("src", "./images/whiter.png")
+        } else {
+            $(this).next(".weTalkRecordItemImg").attr("src", "./images/blackr.png")
+        }
+    }
+
+    // 阿里云上传
+    function aliUpload(type) {
+        preUpload(type, data.token).then(res => {
+            var result = res.data;
+            var params = new FormData();
+            let fileName = result.dir + "/" + result.filename + "." + data.upFile.type.split("/")[1];
+            params.append("name", result.filename);
+            params.append("key", fileName);
+            params.append("success_action_status", "200");
+            params.append("OSSAccessKeyId", result.accessid);
+            params.append("policy", result.policy);
+            params.append("signature", result.signature);
+            params.append("file", data.upFile, result.filename);
+            // 上传至ali
+            jQuery.ajax({
+                type: "post",
+                url: result.host,
+                data: params,
+                processData: false,
+                contentType: false,
+                success: function () {
+                    if (type == 2) {
+                        // 5秒以后才可以发送消息
+                        setSpeakInterVal();
+                        // 图片路径
+                        if (data.isPublic == 0) {
+                            // 如果是私聊，自己发的消息需要处理
+                            data.socket.emit('PRIVATE',
+                                {
+                                    targetId: data.friendId,
+                                    senderId: data.id,
+                                    messageType: 2,
+                                    content: fileName
+                                }, function (response) {
+                                    if (response == 1) {
+                                        let obj = {
+                                            targetId: data.friendId,
+                                            senderId: data.id,
+                                            messageType: 2,
+                                            content: fileName
+                                        };
+                                        obj.content = disposeText(obj);
+                                        for (let j = 0; j < data.weTalkPerList.length; j++) {
+                                            if (obj.targetId == data.weTalkPerList[j].userId) {
+                                                data.weTalkPerList[j].records.push(obj);
+                                                let record = JSON.parse(JSON.stringify(obj));
+                                                loadSessionContent(record, j, "发图片")
+                                                break;
+                                            }
+                                        }
+                                        loadByFriendOne();
+                                        obj = {};
+                                    }
+                                });
+                        } else {
+                            let avatar;
+                            if (data.avatar == null) {
+                                avatar = "";
+                            } else {
+                                avatar = data.avatar;
+                            }
+                            data.socket.emit('PUBLIC',
+                                {
+                                    targetId: data.roomId,
+                                    senderId: data.id,
+                                    messageType: 2,
+                                    content: fileName,
+                                    senderNickname: data.nickname,
+                                    avatar: avatar,
+                                    sex: data.sex,
+                                    vip: localStorage.getItem("vip") == "true" ? 1 : 0
+                                })
+                        }
+                        // $('.weTalkYsPic').hide();
+                        showTip("发送成功")
+                    } else if (type == 1) {
+                        // 头像上传
+                        data.avatarPath = JSON.parse(JSON.stringify(res)).message.replace(/\\/g, "/");
+                        updateAvatar(fileName, data.roomId, data.token).then(res1 => {
+                            if (res1.code == 1) {
+                                showTip("修改成功");
+                                info(data.token).then(res2 => {
+                                    $(".weTalkPersonalInfoContent").children(".weTalkChangeAvatar").children(".weTalkCurAvater").attr("src", data.cdn + fileName).show();
+                                    $(".weTalkPersonalInfoContent").children(".weTalkChangeAvatar").children(".weTalkDeInfoAvatar").hide();
+                                    $(".weTalkAvatarImg").attr("src", data.cdn + fileName).show();
+                                    $(".weTalkDefaultAvatar").hide();
+                                    // console.log($(".weTalkPersonalInfoContent").children(".weTalkChangeAvatar").children(".weTalkCurAvater").attr("src"), $(".weTalkAvatarImg").attr("src"))
+                                })
+                            }
+                        })
+                    } else if (type == 5) {
+                        // 5秒以后才可以发送消息
+                        setSpeakInterVal();
+                        if (data.isPublic == 0) {
+                            // 如果是私聊，自己发的消息需要处理
+                            data.socket.emit('PRIVATE',
+                                {
+                                    targetId: data.friendId,
+                                    senderId: data.id,
+                                    messageType: 3,
+                                    content: fileName + "?duration=" + data.recordDuration.substring(0, data.recordDuration.length - 1)
+                                }, function (response) {
+                                    if (response == 1) {
+                                        let obj = {
+                                            targetId: data.friendId,
+                                            senderId: data.id,
+                                            messageType: 3,
+                                            content: fileName + "?duration=" + data.recordDuration.substring(0, data.recordDuration.length - 1)
+                                        };
+                                        obj.content = disposeText(obj);
+                                        for (let j = 0; j < data.weTalkPerList.length; j++) {
+                                            if (obj.targetId == data.weTalkPerList[j].userId) {
+                                                data.weTalkPerList[j].records.push(obj);
+                                                let record = JSON.parse(JSON.stringify(obj));
+                                                loadSessionContent(record, j, "发语音")
+                                                break;
+                                            }
+                                        }
+                                        loadByFriendOne();
+                                        obj = {};
+                                    }
+                                });
+                        } else {
+                            console.log("聊天室语音")
+                            let avatar;
+                            if (data.avatar == null) {
+                                avatar = "";
+                            } else {
+                                avatar = data.avatar;
+                            }
+                            data.socket.emit('PUBLIC',
+                                {
+                                    targetId: data.roomId,
+                                    senderId: data.id,
+                                    messageType: 3,
+                                    content: fileName + "?duration=" + data.recordDuration.substring(0, data.recordDuration.length - 1),
+                                    senderNickname: data.nickname,
+                                    avatar: avatar,
+                                    sex: data.sex,
+                                    vip: localStorage.getItem("vip") == "true" ? 1 : 0
+                                }, function (response) {
+                                    console.log("response.public", response)
+                                })
+
+                        }
+                        showTip("发送成功");
+                    }
+                },
+                fail: function (error) {
+                }
+            })
+        })
+
+    }
+
+    // 广播
+    function broadCastMaq(content) {
+        // 播放时将变量置为true不让后面的广播播放
+        data.isBroading = true
+        $(".weTalkBroadContent").html("【广播】：" + content)
+        $(".weTalkBroadcast").show();
+        let distance = $(".weTalkBroadcast").width();
+        let boradInterval = setInterval(function () {
+            distance--;
+            $(".weTalkBroadContainer").css({ "left": distance + "px" })
+            // 播放完毕
+            if (distance == 0) {
+                // 清空计时器
+                clearInterval(boradInterval);
+                $(".weTalkBroadcast").hide();
+                // 删除数组中播放过的广播
+                data.broadCastArr.splice(0, 1);
+                // 判断数组中是否还有未播放的广播，有就重新调用该函数播放广播，没有就将变量置为false
+                if (data.broadCastArr.length > 0) {
+                    broadCastMaq(data.broadCastArr[0]);
+                } else {
+                    data.isBroading = false;
+                }
+            }
+        }, 20);
     }
 
     // grp star

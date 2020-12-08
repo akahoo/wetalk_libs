@@ -209,7 +209,6 @@ function choujiangInit() {
 
     // 全局方法
     function getLotteryRes() {
-        console.log(1);
         draw(lotD.token).then(res => {
             if (res.code == 1) {
                 $(".weTalkLotteryCover").show();
@@ -369,13 +368,13 @@ function choujiangInit() {
                 lotD.lotPages = res.data.pages;
                 let list = res.data.records;
                 list.forEach(item => {
-                    switch (item.type) {
+                    switch (item.lottery_type) {
                         case 1:
                             // 积分
                             $(`
                         <div>
                             <div>${item.create_time.substring(0, 10)}获得</div>
-                            <div>${item.value}积分</div>
+                            <div>${item.lottery_value}积分</div>
                         </div>
                         `).prependTo($(".weTalkLotteryRecordsContent"))
                             break;
@@ -384,7 +383,7 @@ function choujiangInit() {
                             $(`
                         <div>
                             <div>${item.create_time.substring(0, 10)}获得</div>
-                            <div>${item.value}天VIP</div>
+                            <div>${item.lottery_value}天VIP</div>
                         </div>
                         `).prependTo($(".weTalkLotteryRecordsContent"))
                             break;
