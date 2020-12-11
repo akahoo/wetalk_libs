@@ -9,7 +9,7 @@
 
   padding-top: 111px;
   box-sizing: border-box;
-
+  user-select: none;
   /* display: none; */
 }
 
@@ -369,7 +369,7 @@
   box-sizing: border-box;
 
   background: url("../images/chip/detail_bg.png");
-
+  user-select: none;
   display: none;
 }
 

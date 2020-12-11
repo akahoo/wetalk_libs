@@ -1270,13 +1270,13 @@ body {
   left: -1px;
 }
 
-.weTalkChatOtherRightReport {
+.weTalkChatOtherRightRecall {
   position: absolute;
   top: -10px;
   left: 66px;
 }
 
-.weTalkChatOtherRightReport,
+.weTalkChatOtherRightRecall,
 .weTalkChatOtherRightTransmit {
   width: 60px;
   height: 30px;
@@ -1318,7 +1318,7 @@ body {
 
   margin-left: auto;
   display: flex;
-  user-select: none;
+  /* user-select: none; */
 }
 
 .weTalkChatSelfLeft {
@@ -1369,7 +1369,7 @@ body {
   margin-top: 10px;
 }
 
-.weTalkChatSelfLeftTransmit {
+.weTalkChatSelfLeftTransmit,.weTalkChatSelfLeftRecall {
   position: absolute;
   top: 0px;
   left: -66px;
@@ -1388,6 +1388,10 @@ body {
   color: #ffffff;
 
   display: none;
+}
+
+.weTalkChatSelfLeftRecall{
+  left:0;
 }
 
 .weTalkChatTool {
@@ -2791,9 +2795,30 @@ body {
 }
 
 .weTalkTransmitList {
+  position: relative;
   width: 100%;
   height: 278px;
   overflow-y: auto;
+}
+
+.weTalkTransmitListEmpty{
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.weTalkTransmitListEmpty > div{
+    margin-top:12px;
+    font-size: 12px;
+    font-family: Microsoft YaHei;
+    font-weight: 300;
+    color: #999999;
 }
 
 .weTalkZfSwitch {
@@ -3966,7 +3991,7 @@ body {
   background-image: url("../images/lottery/lottery_bg.png");
   padding: 99px 44px 0;
   box-sizing: border-box;
-
+  user-select: none;
   display: none;
 }
 .weTalkAward {
@@ -4528,3 +4553,14 @@ body {
   text-align: left;
   cursor: pointer;
 }
+
+/* 撤回消息 */
+.weTalkRecallView{
+  margin:10px auto 0;
+  font-size:12px;
+  color: #999999;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+}
+
+/* 小组头部 */

@@ -8,6 +8,8 @@
 .tab {
   height: 462px;
   width: 100%;
+
+  user-select: none;
 }
 #nav {
   border-bottom: 2px solid #f4f4f4;

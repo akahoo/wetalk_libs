@@ -15,7 +15,7 @@ function serverUrl() {
                 localStorage.setItem("wTsocketUrl", wTsocketUrl)
                 // localStorage.setItem("cdn", res.cdn.substring(0, res.cdn.length - 1))
                 localStorage.setItem("cdn", res.cdn)
-                localStorage.setItem("server", res.server.substring(0, res.cdn.length - 1))
+                localStorage.setItem("server", res.server.substring(0, res.server.length - 1))
                 localStorage.setItem("speakInterval", res.speakInterval)
             },
             fail: function (error) {
@@ -44,7 +44,31 @@ function loginRequest(domain, title, token) {
             },
             statusCode: {
                 500: function () {
+                    reject(error)
                     localStorage.setItem("token", "");
+                }
+            }
+        })
+    })
+}
+
+// 撤回消息
+function recall(type, messageId, token) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "post",
+            url: wTurl + `/chat/recall`,
+            data:{type : type, messageId : messageId},
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            },
+            statusCode: {
+                500: function () {
+                    reject(error)
                 }
             }
         })
@@ -87,11 +111,11 @@ function getImageSignature(token) {
 }
 
 // 获取私聊聊天记录
-function getPrivateLog(targetId, token) {
+function getPrivateLog(targetId, current,token) {
     return new Promise((resolve, reject) => {
         jQuery.ajax({
             type: "get",
-            url: wTurl + `/chat/private/log?targetId=${targetId}`,
+            url: wTurl + `/chat/private/log?targetId=${targetId}&current=${current}`,
             headers: { user_token: token },
             success: function (res) {
                 resolve(res)
@@ -104,11 +128,11 @@ function getPrivateLog(targetId, token) {
 }
 
 // 获取聊天室聊天记录 roomId
-function getPublicLog(roomId, token) {
+function getPublicLog(roomId,current,token) {
     return new Promise((resolve, reject) => {
         jQuery.ajax({
             type: "get",
-            url: wTurl + `/chat/public/log?roomId=${roomId}`,
+            url: wTurl + `/chat/public/log?roomId=${roomId}&current=${current}&t=${new Date().getTime()}`,
             headers: { user_token: token },
             success: function (res) {
                 resolve(res)
@@ -240,6 +264,11 @@ function loginByAccount(account, password, domain, title) {
             },
             fail: function (error) {
                 reject(error)
+            },
+            statusCode: {
+                500: function () {
+                    reject(error)
+                },
             }
         })
     })
@@ -709,6 +738,11 @@ function updateAvatar(path, roomId, token) {
             },
             fail: function (error) {
                 reject(error)
+            },
+            statusCode:{
+                500:function(error){
+                    reject(error)
+                }
             }
         })
     })
