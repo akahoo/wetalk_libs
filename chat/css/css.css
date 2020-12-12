@@ -712,7 +712,7 @@ body {
   justify-content: space-between;
 }
 
-.weTalkItemRecord {
+.weTalkItemRecord{
   width: 110px;
   height: 11px;
 
@@ -770,7 +770,7 @@ body {
   color: #666666;
 }
 
-.weTalkChatItemAvatar {
+.weTalkChatItemAvatar,.weTalkGroupItemAvatar{
   margin-left: 0;
   position: relative;
   width: 30px;
@@ -783,13 +783,13 @@ body {
   height: 30px;
 }
 
-.weTalkUserAvatar {
+.weTalkUserAvatar,.weTalkGroupItemAvatarImg{
   width: 30px;
   height: 30px;
   border-radius: 50%;
 }
 
-.weTalkItemDeAvatar {
+.weTalkItemDeAvatar,.weTalkGroupItemDeAvatar {
   width: 30px;
   height: 30px;
   border-radius: 15px;
@@ -813,7 +813,7 @@ body {
   left: 0;
 }
 
-.weTalkItemNick {
+.weTalkItemNick,.weTalkGroupItemNick {
   font-size: 12px;
   font-family: Microsoft YaHei;
   font-weight: 400;
@@ -823,16 +823,11 @@ body {
   margin-left: 4px;
 }
 
-.weTalkItemNickVip {
+.weTalkItemNickVip{
   font-size: 12px;
   font-family: Microsoft YaHei;
   font-weight: 400;
   color: #ec5455;
-  /* font-weight: bold;
-  background:-webkit-linear-gradient(-90deg, #FFB400 0%, #FFADD0 100%);-moz-linear-gradient(-90deg, #FFB400 0%, #FFADD0 100%);-ms-linear-gradient(-90deg, #FFB400 0%, #FFADD0 100%);
-  -webkit-background-clip: text;
-  color: transparent; */
-
   margin-left: 4px;
 }
 
@@ -1475,7 +1470,7 @@ body {
   margin: 0 30px 5px 0;
 }
 
-.weTalkOnlineCount {
+.weTalkOnlineCount{
   width: 100%;
   height: 40px;
 
@@ -1543,7 +1538,7 @@ body {
   line-height: 50px;
 }
 
-.weTalkUsersItem {
+.weTalkUsersItem,.weTalkGroupItem {
   position: relative;
 
   width: 150px;
@@ -4564,3 +4559,127 @@ body {
 }
 
 /* 小组头部 */
+.weTalkGroupHead{
+  position: absolute;
+  width: 589px;
+  height: 45px;
+  padding:13px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+  display:none;
+}
+
+.weTalkGroupHeadLeft{
+  display: flex;
+  align-items: center;
+}
+
+.weTalkGroupName,.weTalkGroupId{  
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+}
+
+.weTalkGroupName{
+  font-size: 16px;
+  margin-right:8px;
+}
+
+.weTalkGroupId{
+  font-size: 12px;
+}
+
+.weTalkGroupOpe{
+  display: flex;
+  align-items: center;
+}
+
+.weTalkGroupChat,.weTalkGroupMoment,.weTalkGroupManage{
+  display: flex;
+  align-items: center;
+}
+
+.weTalkGroupChatBtn,.weTalkGroupMomentBtn,.weTalkGroupManageBtn{
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #999999;
+}
+
+.weTalkGroupShu{
+  margin:0 20px;
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #666666;
+}
+
+/* 小组成员及公告 */
+.weTalkGroupUsers{
+  width: 150px;
+  height: 530px;
+  background: #ffffff;
+  border: 2px solid #f4f4f4;
+  user-select: none;
+  display:none;
+}
+
+.weTalkGroupAnnounce{
+  width: 150px;
+  height: 191px;
+  border-bottom: 1px solid #eee;
+}
+
+.weTalkGroupAnnounceTitle{
+  width:150px;
+  height: 40px;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  padding:0 8px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #eee;
+}
+
+.weTalkGroupAnnounceTitle > div{
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+}
+
+.weTalkGroupAnnounceContent{
+  width: 150px;
+  height:150px;
+
+  font-size: 13px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #666666;
+
+  padding:10px 14px 0 10px;
+  box-sizing: border-box;
+}
+
+.weTalkGroupMembers{
+  width:150px;
+  height:338px;
+}
+
+.weTalkGroupMembersNum{
+  width:150px;
+  height:31px;
+
+  padding: 6px 10px;
+  box-sizing: border-box;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+  border-bottom: 1px solid #eee;
+}

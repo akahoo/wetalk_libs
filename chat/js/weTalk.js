@@ -102,9 +102,6 @@ $(function () {
         transmitType:null,
 
 
-        // 私聊列表中是否有新消息的id
-        isHasThisFriend: false,
-
         // 未读消息总条数(socketIo)
         // unReadTipNum: 0,
 
@@ -228,7 +225,51 @@ $(function () {
         
         Scurrent:1,
         Spages:null,
-        
+
+        // 小组
+        weTalkGroup:[
+        {
+            id:123456,
+            avatar:"",
+            num:2,
+            name:"你是风儿小组",
+            unreadNum:1,
+            records:[
+                {
+                    avatar: null,
+                    content: "1122",
+                    id: "786954324235255808",
+                    messageType: 1,
+                    recall: 1,
+                    sendTime: "2020-12-11 13:55:31",
+                    senderId: "776144121575243776",
+                    senderNickname: "小明",
+                    sex: 1,
+                    targetId: "786198163131203584",
+                },
+                {
+                    avatar: null,
+                    content: "1",
+                    id: "786953779776847872",
+                    messageType: 1,
+                    recall: 1,
+                    sendTime: "2020-12-11 13:53:21",
+                    senderId: "780433401340493824",
+                    senderNickname: "聊昌勋",
+                    sex: 1,
+                    targetId: "786198163131203584",
+                }
+            ],
+            announce:"你是傻子还是你是疯子",
+            members:[
+                    {userId:1,nick:"小明",avatar:"",vip:1,sex:1},
+                    {userId:1,nick:"大明",avatar:"",vip:1,sex:1}
+                    ],
+        }
+    ],
+        groupId:null,
+        groupIndex:null,
+
 
         //修改备注
         noteId: "",
@@ -616,7 +657,47 @@ $(function () {
                                 <div class="weTalkChatMainHeadEventP"></div>
                             </div>
                           </div>
-
+                          <!-- 小组聊天框头部 --!>
+                          <div class="weTalkGroupHead weTalkRightItem">
+                            <div class="weTalkGroupHeadLeft">
+                                <div class="weTalkGroupName">
+                                    B站生活区  
+                                </div>
+                                <div class="weTalkGroupId">
+                                    ID256356
+                                </div>
+                            </div>
+                            <div class="weTalkGroupOpe">
+                                <div class="weTalkGroupChat">
+                                    <img src="./images/1liaotian.png">
+                                    <div class="weTalkGroupChatBtn">聊天</div>
+                                    <div class="weTalkGroupShu">|</div>
+                                </div>
+                                <div class="weTalkGroupMoment">
+                                    <img src="./images/1dongtailan.png">
+                                    <div class="weTalkGroupMomentBtn">动态</div>
+                                    <div class="weTalkGroupShu">|</div>
+                                </div>
+                                <div class="weTalkGroupManage">
+                                    <img src="./images/1guanli.png">
+                                    <div class="weTalkGroupManageBtn">管理</div>
+                                </div>
+                              </div>
+                            </div>
+                          <!-- 小组成员及公告 -->
+                          <div class="weTalkGroupUsers weTalkRightItem">
+                            <div class="weTalkGroupAnnounce">
+                               <div class="weTalkGroupAnnounceTitle">
+                                  <div>【公告】</div>
+                                  <img src="./images/xiugai.png" class="weTalkGroupAnnounceEdit">
+                               </div>
+                               <div class="weTalkGroupAnnounceContent"></div>
+                             </div>
+                             <div class="weTalkGroupMembers">
+                                <div class="weTalkGroupMembersNum">成员：5/10</div>
+                                <div class="weTalkGroupMembersList"></div>
+                             </div>
+                            </div>
                           <!-- 搜索群聊 -->
                           <div class="weTalkUsers weTalkRightItem">
                             <div class="weTalkOnlineCount"></div>
@@ -1306,6 +1387,7 @@ $(function () {
         });
         $(".weTalkChatRoom").on("click", ".weTalkSessionRemove", openRemoveDiag);
 
+        $(".weTalkChatItemList").on("click",".weTalkGroupItem",showChoosedGroup)
 
         // 加为好友/解除好友
         $(".weTalkOtherInfo").on("click", "#friendBtn", function () {
@@ -2298,11 +2380,9 @@ $(function () {
                         // 渲染会话列表
                         $(".weTalkChatItemList").children().each(function () {
                             if ($(this).attr("data-index") == j) {
-                                // console.log("看看这是啥", $(this).children(".weTalkNewsRecords")[0])
                                 $(this).children(".weTalkNewsRecords").html(`${data.weTalkPerList[j].UnReadNum}`).show();
                             }
                         });
-                        // showPersonalList();
                         break;
                     }
                 }
@@ -2437,6 +2517,7 @@ $(function () {
             }
 
             // 判断会话中是否已有该用户，如果已有
+            let isHas = false;
             for (let j = 0; j < data.weTalkPerList.length; j++) {
                 if (primsg.senderId == data.weTalkPerList[j].userId) {
                     let obj = JSON.parse(JSON.stringify(primsg));
@@ -2466,10 +2547,8 @@ $(function () {
                             if ($(this).attr("data-index") == 0) {
                                 $(this).children(".weTalkChatItemOne").children(".weTalkNewsRecords").html(`${data.weTalkPerList[0].UnReadNum}`).show();
                                 $(this).children(".weTalkChatItemOne").children(".weTalkNewsRecordsjd").hide();
-                                // console.log("未读消息", $(this), $(this).children(".weTalkChatItemOne").children(".weTalkNewsRecords")[0])
                             }
                         })
-                        // showPersonalList();
                     } else {
                         $(".weTalkChatItemList").children().each(function () {
                             if ($(this).attr("data-index") == 0) {
@@ -2495,14 +2574,13 @@ $(function () {
                     }
 
 
-
-                    data.isHasThisFriend = true;
+                    isHas = true
                     break;
                 }
             }
 
             // 判断会话中是否已有该用户，如果没有
-            if (data.isHasThisFriend == false) {
+            if (!isHas) {
                 // console.log(1, primsg.senderId, data.id)
                 if (primsg.senderId != data.id) {
                     // 添加该用户
@@ -3230,13 +3308,12 @@ $(function () {
                     } else {
                         obj.UnReadNum = 1;
                         obj.ispassive = true;
-                        data.isHasThisFriend = false;
                     }
                     data.weTalkPerList.unshift(obj);
                     // console.log(obj);
                     obj = {};
                     // 渲染会话列表
-                    showPersonalList();
+                    showPersonalList(true,true);
                     loadSessionContent(data.passiveChatContent, 0, "收到消息");
                 } else if (res.code == 10007) {
                     showTip("用户已将您拉黑")
@@ -3987,7 +4064,6 @@ $(function () {
     }
 
     // 点击私人用户
-    // 左键
     function showChoosedUser() {
         // console.log("this", $(this)[0])
         let user = $(this);
@@ -4002,7 +4078,58 @@ $(function () {
         launchPersonalChat(user, userId, userIndex, username, associateId);
     }
 
-    // 好友添加到会话列表时，会话列表已存在，此时设置此人为选中状态
+    // 点击小组
+    function showChoosedGroup(){
+        let id = $(this).attr("data_id")
+        data.isPublic = 2;
+        // @功能
+        $("#weTalkChatFrame").atwho('destroy');
+
+        // 隐藏右边区域并显示小组内容
+        $(".weTalkRightItem").hide();
+        $(".weTalkRightMain").show();
+        $(".weTalkGroupHead").css("display","flex");
+        $(".weTalkGroupUsers").show();
+        // 点击时告知后端已读
+        if (data.haveSend == false) {
+            console.log("在切换用户时已经告知后端了")
+            clearTimeout(data.sendTimer);
+            data.socket.emit('SYSTEM', {
+                type: 1,
+                targetUserId: data.friendId
+            })
+            data.haveSend = true;
+        }
+        // 根据id查找对应的字段
+        let index,name,announce,members
+        for(let i = 0;i < data.weTalkGroup.length;i++){
+            if(data.weTalkGroup[i].id == id){
+                index = i;
+                name = data.weTalkGroup[i].name;
+                announce = data.weTalkGroup[i].announce;
+                members = data.weTalkGroup[i].members;
+                break;
+            }
+        }
+        // 记录当前点击的小组id以及小组在小组列表中的索引
+        data.friendId = id;
+        data.groupId = id;
+        data.groupIndex = index;
+        // 加载小组头部
+        $(".weTalkGroupName").html(name)
+        $(".weTalkGroupId").html("ID" + id)
+        // 加载公告栏
+        $(".weTalkGroupAnnounceContent").html(announce)
+        // 加载成员列表
+        $(".weTalkGroupMembersNum").html("成员：" + "2/10")
+        $(".weTalkGroupMembersList").html("")
+        for(let j = 0;j < members.length;j++){
+            loadGroupMember(members[j],j)
+        }
+
+    }
+
+    // 默认选中状态
     function setSessionItem(obj) {
         obj.attr("data-ischoosed", "b");
         obj.css({ background: "#e5ddff" });
@@ -4138,7 +4265,7 @@ $(function () {
                     })
                     data.weTalkPerList = weTalkPerList;
                     // 重新渲染私聊列表
-                    showPersonalList();
+                    showPersonalList(true,true);
                 }
             }
         })
@@ -4235,175 +4362,219 @@ $(function () {
     };
 
     // 渲染会话列表
-    function showPersonalList() {
-        let weTalkChatItem;
+    function showPersonalList(isUser,isGroup) {
+        let weTalkChatItem,weTalkGroupItem;
         $(".weTalkChatItemList").html("");
-        for (let j = 0; j < data.weTalkPerList.length; j++) {
-            if (data.weTalkPerList[j].isUsers) {
-                // 用户
-                weTalkChatItem = $(
-                    `
-                                        <div class="weTalkChatItem">
-                                            <div class="weTalkChatItemOne">
-                                                <div class="weTalkChatItemAvatar">
-                                                    <img class="weTalkBoy"></img>
-                                                    <div class="weTalkItemDeAvatar">${data.weTalkPerList[j].avatarDefault}</div>
-                                                    <img class="weTalkUserAvatar">
-                                                </div>
-                                                <div class="weTalkItemRecordView">
-                                                    <div class="weTalkItemNick weTalkTextDis">${data.weTalkPerList[j].nickname}</div>
-                                                    <div class="weTalkItemNickVip weTalkTextDis">${data.weTalkPerList[j].nickname}</div>
-                                                    <div class="weTalkItemRecord">
-                                                        <div class="weTalkItemRecordUser"></div>
-                                                        <div class="weTalkItemRecordContent weTalkTextDis"></div>
+        // 渲染私人用户
+        // console.log("isUser",isUser,"isGroup",isGroup)
+        if(isUser == true){
+            for (let j = 0; j < data.weTalkPerList.length; j++) {
+                if (data.weTalkPerList[j].isUsers) {
+                    weTalkChatItem = $(
+                        `
+                                            <div class="weTalkChatItem">
+                                                <div class="weTalkChatItemOne">
+                                                    <div class="weTalkChatItemAvatar">
+                                                        <img class="weTalkBoy"></img>
+                                                        <div class="weTalkItemDeAvatar">${data.weTalkPerList[j].avatarDefault}</div>
+                                                        <img class="weTalkUserAvatar">
                                                     </div>
+                                                    <div class="weTalkItemRecordView">
+                                                        <div class="weTalkItemNick weTalkTextDis">${data.weTalkPerList[j].nickname}</div>
+                                                        <div class="weTalkItemNickVip weTalkTextDis">${data.weTalkPerList[j].nickname}</div>
+                                                        <div class="weTalkItemRecord">
+                                                            <div class="weTalkItemRecordUser"></div>
+                                                            <div class="weTalkItemRecordContent weTalkTextDis"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="weTalkNewsRecords">${data.weTalkPerList[j].UnReadNum}</div>
+                                                    <div class="weTalkNewsRecordsjd">${data.weTalkPerList[j].UnReadNum}</div>
+                                                    <div class="weTalkNewsTime"></div>
+                                                    <img class="weTalkRemoveUser1 weTalkRemoveUser weTalkSessionRemove" src="./images/close.png" />
                                                 </div>
-                                                <div class="weTalkNewsRecords">${data.weTalkPerList[j].UnReadNum}</div>
-                                                <div class="weTalkNewsRecordsjd">${data.weTalkPerList[j].UnReadNum}</div>
-                                                <div class="weTalkNewsTime"></div>
-                                                <img class="weTalkRemoveUser1 weTalkRemoveUser weTalkSessionRemove" src="./images/close.png" />
+                                                <div class="weTalkYjOptions">
+                                                    <div class="weTalkYjOptionsItem">加为好友</div>
+                                                    <div class="weTalkYjOptionsItem">移除会话</div>
+                                                    <div class="weTalkYjOptionsItem">加入黑名单</div>
+                                                </div>
                                             </div>
-                                            <div class="weTalkYjOptions">
-                                                <div class="weTalkYjOptionsItem">加为好友</div>
-                                                <div class="weTalkYjOptionsItem">移除会话</div>
-                                                <div class="weTalkYjOptionsItem">加入黑名单</div>
-                                            </div>
-                                        </div>
-                                      `
-                );
-
-                if (data.weTalkPerList[j].avatar) {
-                    weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkChatItemAvatar").children(".weTalkItemDeAvatar").hide();
-                    weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkChatItemAvatar").children(".weTalkUserAvatar").attr("src", data.cdn + data.weTalkPerList[j].avatar.replace(/\\/g, '/')).show();
-                } else {
-                    weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkChatItemAvatar").children(".weTalkItemDeAvatar").show();
-                    weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkChatItemAvatar").children(".weTalkUserAvatar").hide();
-                }
-
-                if (data.weTalkPerList[j].UnReadNum == 0) {
-                    weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkNewsRecords").hide();
-                    weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkNewsRecordsjd").hide();
-                } else {
-                    if (data.weTalkPerList[j].ispassive) {
-                        weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkNewsRecords").css("display", "block");
-                        weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkNewsRecordsjd").hide();
+                                          `
+                    );
+    
+                    if (data.weTalkPerList[j].avatar) {
+                        weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkChatItemAvatar").children(".weTalkItemDeAvatar").hide();
+                        weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkChatItemAvatar").children(".weTalkUserAvatar").attr("src", data.cdn + data.weTalkPerList[j].avatar.replace(/\\/g, '/')).show();
                     } else {
-                        weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkNewsRecordsjd").show();
+                        weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkChatItemAvatar").children(".weTalkItemDeAvatar").show();
+                        weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkChatItemAvatar").children(".weTalkUserAvatar").hide();
                     }
-                }
-
-                if (data.weTalkPerList[j].vip == "1") {
-                    weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemNick").hide();
-                    weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemNickVip").show();
-                } else {
-                    weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemNick").show();
-                    weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemNickVip").hide();
-                }
-
-                if (data.weTalkPerList[j].sex == "1") {
-                    weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkChatItemAvatar").children(".weTalkBoy").attr({ "src": './images/boy.png' })
-                } else if (data.weTalkPerList[j].sex == "2") {
-                    weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkChatItemAvatar").children(".weTalkBoy").attr({ "src": './images/girl.png' })
-                } else {
-                    weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkChatItemAvatar").children(".weTalkBoy").hide();
-                }
-
-                // 加载最后一条聊天记录
-                // console.log("records", data.weTalkPerList[j], data.weTalkPerList[j].records)
-                if (data.weTalkPerList[j].records && data.weTalkPerList[j].records.length > 0) {
-                    let record = data.weTalkPerList[j].records[data.weTalkPerList[j].records.length - 1],
-                        content = record.content,
-                        messageType = record.messageType,
-                        user;
-
-                    // 判断内容的类型
-                    if (messageType == 2) {
-                        content = "[图片]"
-                    } else if (messageType == 4) {
-                        content = "[骰子]"
-                    } else if (messageType == 5) {
-                        content = "[硬币]"
-                    } else if (messageType == 6) {
-                        content = "[石头剪子布]"
-                    }
-
-                    if (record.senderId == data.id) {
-                        user = "我：";
-                    } else {
-                        user = ""
-                    }
-                    weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordUser").html(user)
-                    weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordContent").html(content)
-                }
-
-                // 初始化自定义属性
-                weTalkChatItem.attr("data-ischoosed", "a");
-                weTalkChatItem.attr("data-index", j);
-                weTalkChatItem.attr("data-id", data.weTalkPerList[j].userId)
-                weTalkChatItem.attr("data-associateId", data.weTalkPerList[j].id)
-                weTalkChatItem.attr("data-name", data.weTalkPerList[j].nickname)
-
-
-                if (data.weTalkPerList[j].addFriendType == 2) {
-                    // 输入框为私人
-                    data.isPublic = 0;
-                    // 销毁@
-                    $("#weTalkChatFrame").atwho('destroy');
-                    // 隐藏
-                    $(".weTalkRightItem").hide();
-                    $(".weTalkRightMain").show();
-                    $(".weTalkChatMainHeadP").show();
-                    // 初始化
-                    data.friendId = weTalkChatItem.attr("data-id");
-                    data.friendIndex = weTalkChatItem.attr("data-index")
-                    // 加载聊天框头部
-                    $(".weTalkChatMainHeadNameP").html(weTalkChatItem.attr("data-name"))
-                    $(".weTalkChatMainHeadP").attr("data-id", weTalkChatItem.attr("data-associateId"));
-                    friendAndBlock(data.friendId, data.token).then(res => {
-                        if (res.data.isFriend) {
-                            // console.log("是好友")
-                            $(".weTalkChatMainHeadEventP").html("解除好友").off("click").on("click", function () {
-                                removeFriendFin(data.friendId, 1);
-                            });
-                        } else {
-                            // console.log("不是好友")
-                            $(".weTalkChatMainHeadEventP").html("添加好友").off("click").on("click", function () {
-                                addFriendFin(data.friendId, 1);
-                            });
-
-                        }
-                    })
-                    // 默认选中状态
-                    weTalkChatItem.attr("data-ischoosed", "b");
-                    data.weTalkPerList[j].addFriendType = 1;
-                    weTalkChatItem.css({ background: "#e5ddff" });
-                    // 清空未读标识
-                    if (data.weTalkPerList[data.friendIndex].UnReadNum > 0) {
-                        console.log("查看新消息时，告知后端已读")
+    
+                    // 离线时的未读消息
+                    if (data.weTalkPerList[j].UnReadNum == 0) {
                         weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkNewsRecords").hide();
                         weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkNewsRecordsjd").hide();
-                        // weTalkChatItem.children(".weTalkNewsRecords").html("");
-                        data.weTalkPerList[data.friendIndex].UnReadNum = 0;
-                        // 告诉客户端已读
-                        data.socket.emit('SYSTEM', {
-                            type: 1,
-                            targetUserId: data.friendId
-                        })
+                    } else {
+                        // （离线状态时）某用户给你发消息时，好友列表中没有该用户，被动添加到会话列表。
+                        if (data.weTalkPerList[j].ispassive) {
+                            weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkNewsRecords").css("display", "block");
+                            weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkNewsRecordsjd").hide();
+                        } else {
+                            weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkNewsRecordsjd").show();
+                        }
                     }
-                    // weTalkChatItem.children(".weTalkChatItemOne").children('.weTalkRemoveUser2').hide();
-                    weTalkChatItem.children(".weTalkChatItemOne").children('.weTalkRemoveUser1').hide();
-
-                    weTalkChatItem.siblings().attr("data-ischoosed", "a");
-                    weTalkChatItem.siblings().css({ background: "#fff" });
-                    // weTalkChatItem.siblings().children(".weTalkChatItemOne").children('.weTalkRemoveUser2').hide();
-                    weTalkChatItem.siblings().children(".weTalkChatItemOne").children('.weTalkRemoveUser1').hide();
-
-                    // 加载聊天记录
-                    loadByFriend(data.friendId, j);
+    
+                    if (data.weTalkPerList[j].vip == "1") {
+                        weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemNick").hide();
+                        weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemNickVip").show();
+                    } else {
+                        weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemNick").show();
+                        weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemNickVip").hide();
+                    }
+    
+                    if (data.weTalkPerList[j].sex == "1") {
+                        weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkChatItemAvatar").children(".weTalkBoy").attr({ "src": './images/boy.png' })
+                    } else if (data.weTalkPerList[j].sex == "2") {
+                        weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkChatItemAvatar").children(".weTalkBoy").attr({ "src": './images/girl.png' })
+                    } else {
+                        weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkChatItemAvatar").children(".weTalkBoy").hide();
+                    }    
+                    // 初始化自定义属性
+                    weTalkChatItem.attr("data-ischoosed", "a");
+                    weTalkChatItem.attr("data-index", j);
+                    weTalkChatItem.attr("data-id", data.weTalkPerList[j].userId)
+                    weTalkChatItem.attr("data-associateId", data.weTalkPerList[j].id)
+                    weTalkChatItem.attr("data-name", data.weTalkPerList[j].nickname)
+    
+    
+                    if (data.weTalkPerList[j].addFriendType == 2) {
+                        // 输入框为私人
+                        data.isPublic = 0;
+                        // 销毁@
+                        $("#weTalkChatFrame").atwho('destroy');
+                        // 隐藏
+                        $(".weTalkRightItem").hide();
+                        $(".weTalkRightMain").show();
+                        $(".weTalkChatMainHeadP").show();
+                        // 初始化
+                        data.friendId = weTalkChatItem.attr("data-id");
+                        data.friendIndex = weTalkChatItem.attr("data-index")
+                        // 加载聊天框头部
+                        $(".weTalkChatMainHeadNameP").html(weTalkChatItem.attr("data-name"))
+                        $(".weTalkChatMainHeadP").attr("data-id", weTalkChatItem.attr("data-associateId"));
+                        friendAndBlock(data.friendId, data.token).then(res => {
+                            if (res.data.isFriend) {
+                                // console.log("是好友")
+                                $(".weTalkChatMainHeadEventP").html("解除好友").off("click").on("click", function () {
+                                    removeFriendFin(data.friendId, 1);
+                                });
+                            } else {
+                                // console.log("不是好友")
+                                $(".weTalkChatMainHeadEventP").html("添加好友").off("click").on("click", function () {
+                                    addFriendFin(data.friendId, 1);
+                                });
+    
+                            }
+                        })
+                        // 默认选中状态
+                        weTalkChatItem.attr("data-ischoosed", "b");
+                        data.weTalkPerList[j].addFriendType = 1;
+                        weTalkChatItem.css({ background: "#e5ddff" });
+                        // 清空未读标识
+                        if (data.weTalkPerList[data.friendIndex].UnReadNum > 0) {
+                            console.log("查看新消息时，告知后端已读")
+                            weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkNewsRecords").hide();
+                            weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkNewsRecordsjd").hide();
+                            // weTalkChatItem.children(".weTalkNewsRecords").html("");
+                            data.weTalkPerList[data.friendIndex].UnReadNum = 0;
+                            // 告诉客户端已读
+                            data.socket.emit('SYSTEM', {
+                                type: 1,
+                                targetUserId: data.friendId
+                            })
+                        }
+                        // weTalkChatItem.children(".weTalkChatItemOne").children('.weTalkRemoveUser2').hide();
+                        weTalkChatItem.children(".weTalkChatItemOne").children('.weTalkRemoveUser1').hide();
+    
+                        weTalkChatItem.siblings().attr("data-ischoosed", "a");
+                        weTalkChatItem.siblings().css({ background: "#fff" });
+                        // weTalkChatItem.siblings().children(".weTalkChatItemOne").children('.weTalkRemoveUser2').hide();
+                        weTalkChatItem.siblings().children(".weTalkChatItemOne").children('.weTalkRemoveUser1').hide();
+    
+                        // 加载聊天记录
+                        loadByFriend(data.friendId, j);
+                    }
+                    weTalkChatItem.appendTo($(".weTalkChatItemList"))
+                     // 加载最后一条聊天记录
+                    if (data.weTalkPerList[j].records && data.weTalkPerList[j].records.length > 0) {
+                        let record = JSON.parse(JSON.stringify(data.weTalkPerList[j].records[0]))
+                        loadSessionContent(record,j,"调接口");
+                        //     content = record.content,
+                        //     messageType = record.messageType,
+                        //     user;
+                        // // 判断内容的类型
+                        // if (messageType == 2) {
+                        //     content = "[图片]"
+                        // } else if (messageType == 4) {
+                        //     content = "[骰子]"
+                        // } else if (messageType == 5) {
+                        //     content = "[硬币]"
+                        // } else if (messageType == 6) {
+                        //     content = "[石头剪子布]"
+                        // }
+                        // if (record.senderId == data.id) {
+                        //     user = "我：";
+                        // } else {
+                        //     user = ""
+                        // }
+                        // weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordUser").html(user)
+                        // weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordContent").html(content)
+                    }
                 }
-                weTalkChatItem.appendTo($(".weTalkChatItemList"))
             }
         }
+        // // 渲染小组
+        // if(isGroup == true){
+        //     for(let k = 0; k < data.weTalkGroup.length; k++){
+        //         weTalkGroupItem = $(`
+        //             <div class="weTalkGroupItem">
+        //                 <div class="weTalkGroupItemAvatar">
+        //                     <div class="weTalkGroupItemDeAvatar">${data.weTalkGroup[k].name.substring(0,1)}</div>
+        //                     <img class="weTalkGroupItemAvatarImg">
+        //                 </div>
+
+        //                 <div class="weTalkItemRecordView">
+        //                     <div class="weTalkGroupItemNick weTalkTextDis">${data.weTalkGroup[k].name}</div>
+        //                     <div class="weTalkItemRecord">
+        //                         <div class="weTalkItemRecordUser"></div>
+        //                         <div class="weTalkItemRecordContent weTalkTextDis"></div>
+        //                     </div>
+        //                 </div>
+        //                 <div class="weTalkNewsRecords">${data.weTalkGroup[k].unreadNum}</div>
+        //                 <div class="weTalkNewsTime"></div>
+        //             </div>
+        //         `)
+
+        //         // 自定义属性
+        //         weTalkGroupItem.attr("data_id",data.weTalkGroup[k].id);
+
+        //         if (data.weTalkGroup[k].avatar) {
+        //             weTalkGroupItem.children(".weTalkGroupItemAvatar").children(".weTalkGroupItemAvatarImg").attr('src',data.cdn + data.weTalkGroup[j].avatar.replace(/\\/g, '/')).show();
+        //             weTalkGroupItem.children(".weTalkGroupItemAvatar").children(".weTalkGroupItemDeAvatar").hide();
+        //         } else {
+        //             weTalkGroupItem.children(".weTalkGroupItemAvatar").children(".weTalkGroupItemAvatarImg").hide().attr('src',"");
+        //             weTalkGroupItem.children(".weTalkGroupItemAvatar").children(".weTalkGroupItemDeAvatar").show();
+        //         }
+
+        //         // 离线时的未读消息
+        //         if (data.weTalkGroup[k].UnReadNum == 0) {
+        //             weTalkGroupItem.children(".weTalkNewsRecords").hide();
+        //         } else {
+        //             weTalkGroupItem.children(".weTalkNewsRecords").show();
+        //         }
+        //         weTalkGroupItem.appendTo(".weTalkChatItemList")
+        //     }
+        // }
+
     };
 
     // 加载站内信
@@ -4491,7 +4662,7 @@ $(function () {
 
 
 
-    // 点击用户列表将用户添加到私聊列表中
+    // 点击聊天室列表用户触发事件
     function addUsersToPer() {
         $(".weTalkUsersItemList")
             .children()
@@ -4511,7 +4682,6 @@ $(function () {
                 })
             });
     }
-
 
 
     // 判断浏览器类型
@@ -4717,7 +4887,6 @@ $(function () {
                                         content: weTalkMsg
                                     },
                                     function (response) {
-                                        console.log("response",response)
                                         // 处理自己发的私聊消息
                                         if (response.state == 1) {
                                             let obj = {
@@ -4726,6 +4895,7 @@ $(function () {
                                                 messageType: 1,
                                                 content: weTalkMsg,
                                                 id:response.messageId,
+                                                recall:0,
                                             };
                                             for (let j = 0; j < data.weTalkPerList.length; j++) {
                                                 if (obj.targetId == data.weTalkPerList[j].userId) {
@@ -4942,7 +5112,7 @@ $(function () {
                 window.setTimeout(function () {
                     $(".weTalkRemove").hide();
                 }, 3000)
-                console.log("id比较", $(".weTalkChatMainHeadP").attr("data-id"), data.removeFriendId)
+                // console.log("id比较", $(".weTalkChatMainHeadP").attr("data-id"), data.removeFriendId)
                 if ($(".weTalkChatMainHeadP").attr("data-id") == associateId) {
                     $(".weTalkChatMain").html("");
                     $(".weTalkRightItem").hide();
@@ -4950,11 +5120,10 @@ $(function () {
                 }
                 data.weTalkPerList.splice(data.removeIndex, 1)
                 // 判断添加到会话列表的依据之一
-                data.isHasThisFriend = false;
                 data.friendId = "";
                 data.friendIndex = "";
                 // 重新渲染私聊列表
-                showPersonalList();
+                showPersonalList(true,true);
                 $(".weTalkRemoveDiag").hide()
             }
         })
@@ -5124,7 +5293,7 @@ $(function () {
                 $('.weTalkFunCover').show();
                 $(".weTalkSwitchChatRoomTip").show().attr("data-websiteId", websiteId)
                     .children(".weTalkTitle").html("当前在" + $(".weTalkPublicChannnellTitle").html() + "是否切换到" + title + "聊天室");
-                console.log("切换房间")
+                // console.log("切换房间")
             } else {
                 loadChatRoomInitial();
                 // 需要打开的聊天窗口是当前窗口
@@ -5816,12 +5985,21 @@ $(function () {
                 curMin,
                 user;
             // 是否撤回了消息
+            // console.log("record",record)
             if(record.recall == 1){
                 // 处理时间
                 if (record.recallTime) {
                     curHour = record.recallTime.substring(11, 13)
                     curMin = record.recallTime.substring(14, 16)
-                } 
+                }
+
+                if(typeof(record.sendTime) == "string"){
+
+                }else{
+                    record.sendTime = "";
+                    curHour = undefined;
+                }
+
                 if (record.sendTime) {
                     curHour = record.sendTime.substring(11, 13)
                     curMin = record.sendTime.substring(14, 16)
@@ -5889,7 +6067,9 @@ $(function () {
             }
 
             $(".weTalkChatItemList").children().each(function () {
+                
                 if ($(this).attr("data-index") == index) {
+                    console.log("content",content)
                     $(this).children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordUser").html(user)
                     $(this).children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordContent").html(content)
                     // console.log($(this).children(".weTalkChatItemOne").children(".weTalkNewsTime")[0], $(this).children(".weTalkChatItemOne")[0])
@@ -6186,10 +6366,11 @@ $(function () {
             // 添加自定义属性
             let weTalkChatSelfContent = myChatRecord.children(".weTalkChatSelfLeft").children(".weTalkChatSelfContent")
             weTalkChatSelfContent.attr({ "data_messageType": item.messageType })
+
             if(item.sendTime){
                 var sendTime = item.sendTime;
             }else{
-                var sendTime = new Date().getTime();
+                var sendTime = undefined;
             }
             myChatRecord.children(".weTalkChatSelfLeft")
                 .children(".weTalkChatSelfLeftRecall")
@@ -6715,6 +6896,7 @@ $(function () {
                                             id:response.messageId
                                         };
                                         obj.content = disposeText(obj);
+                                        let isHas = false;
                                         for (let j = 0; j < data.weTalkPerList.length; j++) {
                                             if (obj.targetId == data.weTalkPerList[j].userId) {
                                                 data.weTalkPerList[j].records.unshift(obj);
@@ -6737,12 +6919,12 @@ $(function () {
                                                         }
                                                     }
                                                 });
-                                                data.isHasThisFriend = true;
+                                                isHas = true;
                                                 break;
                                             }
                                         }
 
-                                        if (!(data.isHasThisFriend)) {
+                                        if (!isHas) {
                                             addUserMethod(obj.targetId, 1, 0);
                                         }
 
@@ -7007,7 +7189,8 @@ $(function () {
                                                 senderId: data.id,
                                                 messageType: 2,
                                                 content: fileName,
-                                                id:response.messageId
+                                                id:response.messageId,
+                                                recall:0,
                                             };
                                             obj.content = disposeText(obj);
                                             for (let j = 0; j < data.weTalkPerList.length; j++) {
@@ -7085,7 +7268,8 @@ $(function () {
                                                 senderId: data.id,
                                                 messageType: 3,
                                                 content: fileName + "?duration=" + data.recordDuration.substring(0, data.recordDuration.length - 1),
-                                                id:response.messageId
+                                                id:response.messageId,
+                                                recall:0,
                                             };
                                             obj.content = disposeText(obj);
                                             for (let j = 0; j < data.weTalkPerList.length; j++) {
@@ -7306,10 +7490,10 @@ $(function () {
             }
         }else{
             // console.log("是私聊")
-            for(let j = 0;j < data.weTalkPerList.length - 1; j++){
+            for(let j = 0;j < data.weTalkPerList.length; j++){
                 if(data.weTalkPerList[j].userId == data.friendId){
                     // console.log("找到对应的私聊对象了")
-                    for(let k = 0;k < data.weTalkPerList[j].records.length - 1; k++){
+                    for(let k = 0;k < data.weTalkPerList[j].records.length; k++){
                         if(data.weTalkPerList[j].records[k].id == id){
                             // console.log("找到对应的私聊对象的聊天记录了")
                             // 处理数组
@@ -7331,6 +7515,47 @@ $(function () {
                 }
             }
         }
+    }
+
+    // 加载小组成员
+    function loadGroupMember(item,index){
+        let weTalkGroupMember = $(`
+        <div class="weTalkGroupItem">
+            <div class="weTalkGroupItemAvatar">
+                <img class="weTalkBoy"></img>
+                <div class="weTalkGroupItemDeAvatar">${item.nick.substring(0,1)}</div>
+                <img class="weTalkGroupItemAvatarImg">
+            </div>
+            <div class="weTalkGroupItemNick weTalkTextDis">${item.nick}</div>
+            <div class="weTalkGroupItemNickVip weTalkTextDis">${item.nick}</div>
+        </div>
+        `)
+
+        if(item.avatar){
+            weTalkGroupMember.children(".weTalkGroupItemAvatar").children(".weTalkGroupItemAvatarImg").attr("src",data.cdn + data.weTalkUsersItemList[i].avatar.replace(/\\/g, "/")).show();
+            weTalkGroupMember.children(".weTalkGroupItemAvatar").children(".weTalkGroupItemDeAvatar").hide();
+        }else{
+            weTalkGroupMember.children(".weTalkGroupItemAvatar").children(".weTalkGroupItemAvatarImg").hide().attr("src","");
+            weTalkGroupMember.children(".weTalkGroupItemAvatar").children(".weTalkGroupItemDeAvatar").show();
+        }
+
+        if (item.vip == 1) {
+            weTalkGroupMember.children(".weTalkGroupItemNickVip").show();
+            weTalkGroupMember.children(".weTalkGroupItemNick").hide();
+        } else {
+            weTalkGroupMember.children(".weTalkGroupItemNickVip").hide();
+            weTalkGroupMember.children(".weTalkGroupItemNick").show();
+        }
+
+        if (item.sex == 1) {
+            weTalkGroupMember.children(".weTalkGroupItemAvatar").children(".weTalkBoy").attr("src","./images/boy.png")
+        } else if (item.sex == 2) {
+            weTalkGroupMember.children(".weTalkGroupItemAvatar").children(".weTalkBoy").attr("src","./images/girl.png")
+        } else {
+            weTalkGroupMember.children(".weTalkGroupItemAvatar").children(".weTalkBoy").hide();
+        }
+
+        weTalkGroupMember.appendTo(".weTalkGroupMembersList")
     }
 
 
