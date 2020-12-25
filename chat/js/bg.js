@@ -5,17 +5,17 @@ $(function () {
         isHas: false,
     }
     // 设置发消息给前台
-    function sendMessageToContentScript() {
-        chrome.tabs.query({ active: false }, function (tabs) {
-            console.log("tabs", tabs)
-            if (tabs.length > 0) {
-                for (let i = 0; i < tabs.length; i++) {
-                    console.log("tabs[i].id", tabs[i].id)
-                    chrome.tabs.sendMessage(tabs[i].id, "111")
-                }
-            }
-        });
-    }
+    // function sendMessageToContentScript() {
+    //     chrome.tabs.query({ active: false }, function (tabs) {
+    //         console.log("tabs", tabs)
+    //         if (tabs.length > 0) {
+    //             for (let i = 0; i < tabs.length; i++) {
+    //                 console.log("tabs[i].id", tabs[i].id)
+    //                 chrome.tabs.sendMessage(tabs[i].id, "111")
+    //             }
+    //         }
+    //     });
+    // }
 
     // 监听前台发的消息
     chrome.runtime.onMessage.addListener(function (request) {

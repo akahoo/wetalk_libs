@@ -322,7 +322,6 @@ function bottleJs() {
                 if (data.throwDriftBottlePicList.length == 3) {
                     $(".throwDriftBottleUplode").hide()
                 }
-
             });
 
         }
@@ -616,7 +615,7 @@ function bottleJs() {
         let list = data.bottleLocalityPic
         for (let i = 0; i < list.length; i++) {
             bottleLocalityPic = $(
-                `<li id="showBottleLocalityPic">
+            `<li id="showBottleLocalityPic">
               <img src="${list[i]}" class="BottleLocalityPic">
               <div id="throwBottleMasking"></div>
               <img src="images/driftbottle/10.png" id="removeBottleLocalityPic">

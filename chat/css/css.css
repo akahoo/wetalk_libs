@@ -29,12 +29,52 @@ body {
   color: #999999;
 }
 
+.weTalkBtnqx{
+  width: 80px;
+  height: 34px;
+  background: #EDE7FF;
+  color:#8E4AE0;
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  border-radius: 17px;
+  text-align: center;
+  line-height: 34px;
+  cursor: pointer;
+}
+
+.weTalkBtnqd{
+  width: 80px;
+  height: 34px;
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  background: #8E4BE0;
+  color:#fff;
+  border-radius: 17px;
+  text-align: center;
+  line-height: 34px;
+  cursor: pointer;
+}
+
+
+.weTalkBtn1,.weTalkBtn2{
+  user-select: none;
+}
+
 .weTalkBtn1:hover {
   background: #ddd5fc !important;
 }
 
 .weTalkBtn2:hover {
   background: #7944d8 !important;
+}
+
+/* 灰度图片 */
+.grayPic{
+  -webkit-filter: grayscale(1); /* Webkit */
+  filter: gray; /* IE6-9 */
+  filter: grayscale(1); /* W3C */
 }
 
 /* 文字溢出省略 */
@@ -599,25 +639,203 @@ body {
 }
 
 .weTalkPublicChannnell {
+  position: relative;
   width: 100%;
-  height: 52px;
-  background: linear-gradient(-90deg, #944eea 0%, #ffadd0 100%);
-
-  padding: 8px 10px 8px 20px;
+  height: 102px;
+  /* background: linear-gradient(-90deg, #944eea 0%, #ffadd0 100%); */
+  /* padding: 8px 10px 8px 20px; */
   box-sizing: border-box;
 
   cursor: pointer;
+}
+
+.weTalkPublicChannelSecond{
+  width:100%;
+  height:59px;
+  padding:5px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.weTalkPublicSwitch{
+  width:100%;
+  height:42px;
+
+  padding:12px 10px 0 10px;
+  box-sizing: border-box;
+
+  display: flex;
+  justify-content: space-between;
+  border-bottom:1px solid #eee;
+}
+
+.weTalkSwitchRoomView{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 15;
+
+  width: 404px;
+  height: 394px;
+  background: #FFFFFF;
+  box-shadow: 0px 8px 35px 0px #CCCCCC;
+  border-radius: 4px;
+  
+  user-select: none;
+  padding:29px 20px;
+  box-sizing: border-box;
+}
+
+.weTalkSwitchRoomViewTitle{
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom:20px;
+}
+
+.weTalkSwitchRoomViewSearch{
+  width: 100%;
+  height:36px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.weTalkSwitchRoomViewSearchInput{
+  width: 274px;
+  height: 36px;
+  background: #F5F5F5;
+
+  padding:5px 10px;
+  box-sizing: border-box;
+
+  outline: none;
+  border:0;
+  background-color: #f5f5f5;
+
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #999999;
+}
+
+.weTalkSwitchRoomViewSearchRes{
+  margin-top:10px;
+
+  position: relative;
+  width: 364px;
+  height: 190px;
+  background: #F5F5F5;
+
+  padding:10px;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.weTalkSwitchRoomViewSearchResEmpty{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weTalkSwitchRoomViewSearchResItem{
+    width:100%;
+    height:44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom:1px solid #eee;
+    cursor:pointer;
+    padding:0 5px;
+    box-sizing: border-box;
+}
+
+.weTalkSwitchRoomViewSearchResItem:hover{
+  background:rgb(237,231,255);
+}
+
+.weTalkSwitchRoomViewSearchResItemLeft{
+  display:flex;
+  align-items: center;
+}
+
+.weTalkSwitchRoomViewSearchResImg{
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+}
+
+.weTalkSwitchRoomViewSearchResEmptyTitle{
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #999999;
+}
+
+.weTalkSwitchRoomViewSearchResTitle{
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #666666;
+
+  margin-left:4px;
+}
+
+.weTalkSwitchRoomViewSearchResRadio{
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  border:1px solid #944eea;
+
+  cursor: pointer;
+}
+
+.weTalkSwitchRoomViewBtn2{
+  margin:30px auto 0;
+}
+
+.weTalkPublicSwitchTitle{
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+}
+
+.weTalkPublicSwitchBtn{
+  cursor: pointer;
+}
+
+.weTalkPublicSwitchBtn > span{
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #944EEA;
 }
 
 .weTalkPublicChannnellTime {
   font-size: 12px;
   font-family: Microsoft YaHei;
   font-weight: 300;
-  color: #ffffff;
+  color: #999999;
+
+  width:32px;
+  height:18px;
 }
 
 .weTalkPublicChannnellOne {
-  width: 100%;
+  width: 148px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -627,10 +845,10 @@ body {
   max-width: 126px;
   overflow: hidden;
   white-space: nowrap;
-  font-size: 14px;
+  font-size: 12px;
   font-family: Microsoft YaHei;
-  font-weight: bold;
-  color: #ffffff;
+  font-weight: 400;
+  color: #666666;
 }
 
 .weTalkPublicChannnellUser,
@@ -638,9 +856,10 @@ body {
   font-size: 12px;
   font-weight: Regular;
   font-family: Microsoft YaHei;
-  color: #ffffff;
+  color: #999;
 
   white-space: nowrap;
+  height:18px;
 }
 
 .weTalkPublicChannnellRecord {
@@ -654,7 +873,7 @@ body {
 
 .weTalkPublicChannnellLastRecords {
   position: relative;
-  width: 100%;
+  width: 148px;
   display: flex;
   align-items: center;
 }
@@ -675,12 +894,21 @@ body {
   font-size: 12px;
   font-family: Source Han Sans CN;
   font-weight: bold;
-  color: #ffffff;
+  color: #fff;
 
   display: none;
 }
 
-.weTalkChatItem {
+.roomGrayLine{
+  position:absolute;
+  bottom:0;
+  /* width: 198px; */
+  width:100%;
+  height: 6px;
+  background: #F5F5F5;
+}
+
+.weTalkChatItem,.weTalkGroupItem{
   width: 100%;
   height: 52px;
   background: #fff;
@@ -807,6 +1035,7 @@ body {
 .weTalkBoy {
   width: 12px;
   height: 12px;
+  z-index: 1;
 
   position: absolute;
   bottom: 0;
@@ -823,7 +1052,7 @@ body {
   margin-left: 4px;
 }
 
-.weTalkItemNickVip{
+.weTalkItemNickVip,.weTalkGroupItemNickVip{
   font-size: 12px;
   font-family: Microsoft YaHei;
   font-weight: 400;
@@ -1079,6 +1308,22 @@ body {
 
 /* 滚动条 */
 
+.weTalkChatFrame::-webkit-scrollbar {
+  width: 8px;
+}
+.weTalkChatFrame::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+.weTalkChatFrame::-webkit-scrollbar-thumb {
+  background-color: rgba(221, 221, 221, 1);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
 .weTalkChatMain::-webkit-scrollbar {
   width: 8px;
 }
@@ -1094,6 +1339,57 @@ body {
   -moz-border-radius: 2em;
   border-radius: 2em;
 }
+
+
+
+.weTalkSwitchRoomViewSearchRes::-webkit-scrollbar {
+  width: 8px;
+}
+.weTalkSwitchRoomViewSearchRes::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+.weTalkSwitchRoomViewSearchRes::-webkit-scrollbar-thumb {
+  background-color: rgba(221, 221, 221, 1);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+.myDynamicConditionLeft::-webkit-scrollbar {
+  width: 8px;
+}
+.myDynamicConditionLeft::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+.myDynamicConditionLeft::-webkit-scrollbar-thumb {
+  background-color: rgba(221, 221, 221, 1);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
+.weTalkGroupMembersList::-webkit-scrollbar {
+  width: 8px;
+}
+.weTalkGroupMembersList::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+.weTalkGroupMembersList::-webkit-scrollbar-thumb {
+  background-color: rgba(221, 221, 221, 1);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+
 
 .weTalkSystemNewsViewContent::-webkit-scrollbar {
   width: 8px;
@@ -1295,6 +1591,9 @@ body {
   max-width: 334px;
   min-height: 42px;
 
+  word-break:break-all;
+  text-align: left;
+
   background: #f5f5f5;
   border-radius: 0px 10px 10px 10px;
 
@@ -1350,6 +1649,9 @@ body {
   box-sizing: border-box;
   padding: 16px 14px;
   margin-top: 6px;
+
+  word-break:break-all;
+  text-align: left;
 
   /* background: #944eea; */
   background: #f5f5f5;
@@ -1498,9 +1800,11 @@ body {
 
   box-sizing: border-box;
   padding: 10px;
+  word-break: break-all;
 
   overflow-y: auto;
 }
+
 
 /* 聊天主体 结束 */
 
@@ -1538,10 +1842,10 @@ body {
   line-height: 50px;
 }
 
-.weTalkUsersItem,.weTalkGroupItem {
+.weTalkUsersItem,.weTalkGroupUserItem {
   position: relative;
 
-  width: 150px;
+  width: 100%;
   height: 40px;
 
   display: flex;
@@ -1666,7 +1970,8 @@ body {
 }
 
 .weTalkPersonalInfoClose,
-.weTalkSystemNewsViewClose {
+.weTalkSystemNewsViewClose,
+.weTalkSwitchRoomViewClose {
   position: absolute;
   top: 30px;
   right: 20px;
@@ -2513,6 +2818,7 @@ body {
 .weTalkAddSuc,
 .weTalkChatCommonTip,
 .weTalkGlobalTip,
+.weTalkTkTip,
 .weTalkRemove,
 .weTalkCommonTip,
 .weTalkLTip,
@@ -2563,13 +2869,18 @@ body {
 .searchChatroomHint,
 .collectChatroomSucceed,
 .driftBottleDetailsHint,
+.issueDynamicHint,
+.searchWebsiteIdHint,
 .throwDriftBottleHint,
+.establishGroupHint,
+.joinReasonHint,
+.quickJoinHint,
 .bottleOnePage,
 .bottleHint,
 .bottleEndPage,
 .bottleRemove,
 .removePickBottle,
-.alreadycollectChatroom {
+.alreadycollectChatroom{
   position: absolute;
   top: 50%;
   left: 50%;
@@ -2731,7 +3042,7 @@ body {
 }
 
 .weTalkAboutIntro {
-  width: 350px;
+  width: 100%;
 
   font-size: 14px;
   font-family: Microsoft YaHei;
@@ -2823,7 +3134,8 @@ body {
 }
 
 .weTalkZfSwitchSession,
-.weTalkZfSwitchFriend {
+.weTalkZfSwitchFriend,
+.weTalkZfSwitchGroup {
   font-size: 14px;
   font-family: Microsoft YaHei;
   font-weight: bold;
@@ -3967,7 +4279,7 @@ body {
   top: 46%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 15;
+  z-index: 16;
   width: 404px;
   height: 154px;
   background: #ffffff;
@@ -4022,7 +4334,7 @@ body {
 .weTalkAwardPoint {
   width: 46px;
   height: 48px;
-  box-shadow: -1px 4px 6px 0px rgba(232, 120, 0, 0.91);
+  /* box-shadow: -1px 4px 6px 0px rgba(232, 120, 0, 0.91); */
 }
 
 .weTalkAwardInfo {
@@ -4564,12 +4876,13 @@ body {
   width: 589px;
   height: 45px;
   padding:13px 20px;
+  box-sizing: border-box !important;
   background-color: #fff;
   border-bottom: 1px solid #eee;
   display:flex;
   align-items: center;
   justify-content: space-between;
-  user-select: none;
+  /* user-select: none; */
   display:none;
 }
 
@@ -4596,6 +4909,7 @@ body {
 .weTalkGroupOpe{
   display: flex;
   align-items: center;
+  user-select: none;
 }
 
 .weTalkGroupChat,.weTalkGroupMoment,.weTalkGroupManage{
@@ -4603,11 +4917,16 @@ body {
   align-items: center;
 }
 
+.weTalkGroupManage{
+  display: none;
+}
+
 .weTalkGroupChatBtn,.weTalkGroupMomentBtn,.weTalkGroupManageBtn{
   font-size: 14px;
   font-family: Microsoft YaHei;
   font-weight: 400;
   color: #999999;
+  cursor: pointer;
 }
 
 .weTalkGroupShu{
@@ -4626,6 +4945,10 @@ body {
   border: 2px solid #f4f4f4;
   user-select: none;
   display:none;
+}
+
+.weTalkGroupItemAvatar{
+  margin-right:4px;
 }
 
 .weTalkGroupAnnounce{
@@ -4665,6 +4988,59 @@ body {
   box-sizing: border-box;
 }
 
+.weTalkGroupAnnounceEdit{
+  cursor: pointer;
+}
+
+.weTalkEditAnnounceView{
+  position: absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width: 404px;
+  height: 268px;
+  background: #FFFFFF;
+  box-shadow: 0px 8px 35px 0px #CCCCCC;
+  border-radius: 4px;
+  z-index:15;
+
+  padding:29px 20px;
+  box-sizing: border-box;
+
+  display: none;
+}
+
+.weTalkEditAnnounceTitle,
+.weTalkEditGroupTitleView{
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #333333;
+}
+
+.weTalkEditAnnounceInput{
+  width: 364px;
+  height: 120px;
+  background: #F5F5F5;
+  margin-top:15px;
+
+  padding:20px;
+  box-sizing: border-box;
+
+  border: 0;
+  outline: none;
+  resize: none;
+}
+
+.weTalkEditAnnounceBtns{
+  width:180px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin:25px auto 0;
+}
+
+
 .weTalkGroupMembers{
   width:150px;
   height:338px;
@@ -4682,4 +5058,1018 @@ body {
   font-weight: 400;
   color: #333333;
   border-bottom: 1px solid #eee;
+}
+
+.weTalkGroupMembersList{
+  width:150px;
+  height:306px;
+  overflow: auto;
+}
+
+/* 小组管理 */
+.weTalkGroupManageView{
+  position: relative;
+  width:750px;
+  height:530px;
+  background-color:#fff;
+
+  padding:55PX 20px 0;
+  box-sizing: border-box;
+  display: none;
+  user-select: none;
+}
+
+.weTalkGroupMTitle,
+.weTalkGroupIntro,
+.weTalkGroupAddStyle,
+.weTalkGroupMemberList{
+  width: 710px;
+  height: 40px;
+  background: #F5F5F5;
+
+  padding:0 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.weTalkEditGroupTitleView{
+  position: absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width: 404px;
+  height: 194px;
+  background: #FFFFFF;
+  box-shadow: 0px 8px 35px 0px #CCCCCC;
+  border-radius: 4px;
+  z-index:15;
+
+  padding:29px 20px;
+  box-sizing: border-box;
+
+  display: none;
+}
+
+.weTalEditTitleInput{
+  width: 364px !important;
+  height: 36px !important;
+  background: #f5f5f5 !important;
+  border-radius: 4px !important;
+
+  box-sizing: border-box !important;
+  padding: 10px !important;
+  margin-top: 20px !important;
+
+  border: none !important;
+  outline: none !important;
+
+  font-size:12px;
+  font-weight: 400;
+}
+
+.weTalkEditTitleBtns{
+  width:180px;
+  display: flex;
+  justify-content: space-between;
+
+  margin:25px auto 0;
+}
+
+.weTalkGroupMTitleLeft{
+  display: flex;
+  align-items: center;
+}
+
+.weTalkGroupMTitleLeftF{
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #333333;
+  margin-right:9px;
+}
+
+.weTalkGroupMTitleLeftL{
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+  margin-left:21px;
+}
+
+.weTalkGroupMTitleRight{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.weTalkGroupMTitleRightF{
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #333333;
+}
+
+.weTalkGroupMTitleLeftEdit{
+  cursor: pointer;
+}
+
+.weTalkGroupMTitleRightL{
+  width: 24px;
+  height: 16px;
+  background: #EC5455;
+  border-radius: 8px;
+  
+  text-align: center;
+  line-height: 16px;
+
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #FFFFFF;
+
+  margin-left:6px;
+}
+
+.weTalkGroupMavatar{
+  position: relative;
+  width: 88px;
+  height: 88px;
+
+  margin-top:10px;
+}
+
+.weTalkGroupMavatarImg{
+  width:88px;
+  height:88px;
+  background-color: pink;
+}
+
+.weTalkGroupMavatarCover{
+  position: absolute;
+  top:0;
+  left:0;
+  width:88px;
+  height:88px;
+  background-color: #000;
+  opacity: 0.5;
+
+  /* display: flex; */
+  flex-direction:column;
+  align-items: center;
+  justify-content: center;
+
+  cursor:pointer;
+  display:none;
+}
+
+#setGroupAvatar{
+  display: none;
+}
+
+.weTalkGroupMavatarCover > div{
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #FFFFFF;
+}
+
+.weTalkGroupIntro{
+  margin-top:20px;
+}
+
+.weTalkGroupIntroL{
+  display:flex;
+  align-items: center;
+}
+
+.weTalkGroupFont1{
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #333333;
+}
+
+
+.weTalkGroupIntroContent,.weTalkGroupIntroR{
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #666666;
+}
+
+.weTalkGroupIntroContent{
+  margin:0 9px 0;
+}
+
+.weTalkGroupIntroEdit{
+  cursor: pointer;
+}
+
+
+.weTalkGroupAddStyle{
+  margin-top:10px;
+  justify-content: left;
+}
+
+.weTalkGroupAddStyle1,.weTalkGroupAddStyle2{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.weTalkGroupAddStyle1{
+  margin-left: 40px;
+}
+
+.weTalkGroupAddStyle2{
+  margin-left: 20px;
+}
+
+.weTalkGroupRadio{
+  width: 14px;
+  height: 14px;
+  border: 1px solid #944EEA;
+  border-radius: 50%;
+
+  margin-right: 10px;
+}
+
+.weTalkGroupRadioName{
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+}
+
+.weTalkGroupMemberList{
+  margin-top:10px;
+}
+
+.weTalkGroupMemberListR{
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+}
+
+.weTalkGroupMemberLists{
+  width:587px;
+  height: 160px;
+
+  box-sizing: border-box;
+  padding-top: 15px;
+  margin-left:21px;
+  display:flex;
+  /* align-items: center; */
+  flex-wrap: wrap;
+  /* overflow: auto; */
+}
+
+
+
+.weTalkGroupMemberItem{
+  position: relative;
+  width: 58px;
+  height: 57px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.weTalkGroupMemberItemAvatar,.weTalkGroupMemberItemDeAvatar{
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.weTalkGroupMemberItemDeAvatar{
+    background: #944eea;
+    font-size: 18px;
+    font-family: Source Han Sans CN;
+    font-weight: bold;
+    color: #ffffff;
+
+    text-align: center;
+    line-height: 36px;
+}
+
+.weTalkGroupMemberItemUname,.weTalkGroupMemberItemUnameVip{
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #333333;
+  width:56px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.weTalkGroupMemberItemUnameVip{
+  color: #ec5455;
+}
+
+.weTalkGroupMemberItemDel{
+  position: absolute;
+  top:0;
+  right:4px;
+
+  width:14px;
+  height:14px;
+  cursor: pointer;
+  display: none;
+}
+
+.weTalkdelGroupUserConfirmTip{
+  position: absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+
+  width: 404px;
+  height: 194px;
+  background: #FFFFFF;
+  box-shadow: 0px 8px 35px 0px #CCCCCC;
+  border-radius: 4px;
+  
+  padding:30px 25px;
+  box-sizing: border-box;
+
+  display: none;
+}
+
+.weTalkdelGroupUserTip{
+  margin-top:20px;
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #333333;
+}
+
+.weTalkdelGroupUserConfirmTipBtns{
+  margin:40px auto 0;
+  width:180px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.weTalkGroupMemberItemSex{
+  position: absolute;
+  bottom: 22px;
+  left:9px;
+}
+
+/* 小组待审核 */
+.weTalkWaitingTest{
+  position: relative;
+  width:750px;
+  height:530px;
+  background-color:#fff;
+
+  padding:55px 20px 0;
+  box-sizing: border-box;
+  display: none;
+}
+
+.weTalkWaitingTestHt{
+  width: 710px;
+  height: 40px;
+  background: #F5F5F5;
+
+  padding:0 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+
+.weTalkWaitingTestTitle{
+
+}
+
+.weTalkWaitingTestBack{
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #666666;
+  cursor: pointer;
+}
+
+.weTalkWaitingTestList{
+  width:689px;
+  height: 320px;
+  margin-left:21px;
+}
+
+.weTalkWaitingTestItem{
+  position: relative;
+  width:100%;
+  height:70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.weTalkWaitingTestItemL{
+  display: flex;
+  align-items: center;
+}
+
+.weTalkWaitingTestItemImg,.weTalkWaitingTestItemDeImg{
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.weTalkWaitingTestItemDeImg{
+  background: #944eea;
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  line-height: 36px;
+}
+
+.weTalkWaitingTestItemInfo{
+  margin-left:10px;
+}
+
+.weTalkWaitingTestItemInfo1{
+  display: flex;
+  align-items: center;
+}
+
+.weTalkWaitingTestItemInfo1 > div{
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+}
+
+.weTalkWaitingTestItemInfo1Name{
+  color: #8E4BE0;
+}
+
+.weTalkWaitingTestItemInfo1VipName{
+  color:#ec5455;
+}
+
+.weTalkWaitingTestItemInfoRequest{
+  color:#666666;
+}
+
+.weTalkWaitingTestItemInfo2{
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #999999;
+}
+
+.weTalkWaitingTestItemSex{
+  position: absolute;
+  left:0;
+  bottom:15px;
+  width: 12px;
+  height: 12px; 
+}
+
+.weTalkWaitingTestBtns{
+  width:180px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.weTalkWaitingTestPage{
+  width:70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin:40px 0 0 auto;
+}
+
+.weTalkWaitingTestLastPage,
+.weTalkWaitingTestNextPage{
+  cursor: pointer;
+}
+
+/* 我的动态/小组动态 */
+.myDynamicCondition {
+  position:relative;
+  width: 750px;
+  height: 530px;
+  display: none;
+  box-sizing: border-box;
+  /* user-select: none; */
+}
+
+
+
+.myDynamicConditionTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 4px solid #F5F5F5;
+  padding-bottom: 10px;
+}
+
+.myDynamicConditionTop p {
+  display: flex;
+  align-items: center;
+}
+
+.myDynamicConditionTopLeft span {
+  margin-left: 5px;
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #944EEA;
+}
+
+.myDynamicConditionTopRight {
+  cursor: pointer;
+  margin-left: 5px;
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #944EEA;
+}
+
+.myDynamicConditionBottom{
+  width: 100%;
+  display: flex;
+  margin-top: 10px;
+  position: relative;
+}
+
+.myDynamicConditionLeft{
+  position: relative;
+  width: 100%;
+  height:440px;
+  overflow: auto;
+}
+
+.myDynamicConditionLeftEmpty{
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display:none;
+}
+
+.myDynamicConditionLeftEmpty > div{
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 300;
+  color: #999999;
+  margin-top:10px;
+}
+
+
+.myDynamicConditionLeft li{
+  width:90%;
+  border-bottom: 1px solid #F5F5F5;
+  padding: 10px 0;
+
+}
+
+.myDynamicConditionDetailsTop {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.myDynamicConditionDetailsTop p{
+  display: flex;
+  align-items: center;
+}
+
+#myDynamicConditionDetailsHead {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.myDynamicConditionDetailsHeadSex{
+  position: absolute;
+  left:0;
+  bottom:0;
+}
+
+.myDynamicConditionDetailsHeadImg,
+.myDynamicConditionDetailsHeadDe{
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.myDynamicConditionDetailsHeadDe{
+  display: inline-block;
+  text-align: center;
+  line-height: 36px;
+
+  background:rgb(148, 78, 234);
+
+  font-size: 18px;
+  font-family: Source Han Sans CN;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+#myDynamicConditionDetailsName,
+#myDynamicConditionDetailsNickName {
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #333333;
+  margin-right:10px;
+}
+
+#myDynamicConditionDetailsNickName{
+  color:#ec5455;
+}
+
+
+
+.myDynamicConditionDetailsTopIcon{
+  display: inline-block;
+  width: 50px;
+  height: 20px;
+  background: #FFA631;
+  border-radius: 5px;
+  
+  text-align: center;
+  line-height: 20px;
+
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #FFFFFF;
+}
+
+.myDynamicConditionDetailsTopRight{
+  font-size: 12px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #999999;
+  margin-right: 20px;
+}
+
+.myDynamicConditionDetailsImg {
+  display: flex;
+  align-items: center;
+  max-height: 100px;
+  margin-bottom: 10px;
+}
+.myDynamicConditionDetailsImg div{
+  position: relative;
+	width: 100px;
+	height: 100px;
+	border: 1px solid #F5F5F5;
+	display: flex;
+	align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  display: none;
+}
+.myDynamicConditionDetailsImg img {
+  display: inline-block;
+  max-width: 100px;
+  max-height: 100px;
+}
+.myDynamicConditionDetailsMasking {
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: none;
+}
+
+.myDynamicConditionDetailsNum {
+  width: 100%;
+  height: 100%;
+  font-size: 36px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 100px;
+  text-shadow: 1px 2px 4px #BEBEBE;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  text-align: center;
+  cursor: pointer;
+  display: none;
+}
+
+.myDynamicConditionDetailsZanImg,
+.myDynamicConditionDetailsZanImg1{
+  display: none;
+}
+
+
+.weTalkManageMoment{
+  display: inline-block;
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #944EEA;
+  cursor: pointer;
+
+  margin-left:10px;
+}
+
+.weTalkManageMomentView{
+  position: absolute;
+  width: 130px;
+  z-index:1;
+
+  top:35px;
+  right:20px;
+  display: none;
+  background-color: #fff;
+  box-shadow: 0px 2px 10px 0px rgba(187, 187, 187, 0.5);
+}
+
+.weTalkManageMomentView > div{
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #666666;
+
+  height:40px;
+
+  text-align: center;
+  line-height: 40px;
+
+  background: #FFFFFF;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.weTalkManageMomentView > div:hover{
+  color: #944EEA;
+  background: #EDE7FF;
+}
+
+
+.myDynamicConditionDetailsText {
+
+  width: 100%;
+  padding-right: 27px;
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 300;
+  color: #333333;
+  line-height: 24px;
+}
+.myDynamicConditionDetailsImg {
+  display: flex;
+}
+
+/* .myDynamicConditionDetailsImg span {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background: pink;
+  margin:10px 10px 15px 0;
+} */
+.myDynamicConditionDetailsBootom {
+  display: flex;
+  align-items: center;
+  padding-right: 17px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.myDynamicConditionDetailsBootom>p {
+
+  font-size: 12px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #999999;
+}
+
+.myDynamicConditionDetailsBootomRight {
+  display: flex;
+  align-items: center;
+}
+
+.myDynamicConditionDetailsBootomRight p {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #999999;
+}
+
+.myDynamicConditionDetailsBootomRight p img {
+  margin-right: 5px;
+}
+
+.myDynamicConditionDetailsComment {
+  margin-right: 31px;
+}
+
+.myDynamicConditionDetailsComment,
+.myDynamicConditionDetailsZan{
+  cursor: pointer;
+}
+
+.myDynamicConditionBottomRinght {
+  margin-top: 10px;
+  width: 150px;
+}
+.myDynamicConditionRight{
+  position: absolute;
+  bottom: 0px;
+  right: 13px;
+}
+
+.myDynamicConditionRight > p{
+  user-select: none;
+}
+
+
+.writeMyDynamicCondition {
+  width: 44px;
+  height: 44px;
+  background: #944EEA;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.myDynamicConditionGotop {
+  margin-top: 10px;
+  width: 44px;
+  height: 44px;
+  background: #F5F5F5;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.opeMomentTip{
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 15;
+  width: 404px;
+  height: 120px;
+  background: #ffffff;
+  box-shadow: 0px 8px 35px 0px #cccccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 20px 25px;
+  display: none;
+}
+
+.weTalkOpeMomentBtns{
+  width:180px;
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin:20px auto 0;
+}
+
+/* 发布动态选择小组弹出框 */
+.selectGroupIssue {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index:15;
+  width: 404px;
+  height: 330px;
+  background: #FFFFFF;
+  box-shadow: 0px 8px 35px 0px #CCCCCC;
+  border-radius: 4px;
+  padding: 0 20px;
+  padding-top: 5px;
+  display: none;
+}
+.selectGroupIssueUl{
+  width: 100%;
+  height: 215px;
+  overflow-y: auto;
+}
+.selectGroupIssueUl::-webkit-scrollbar {
+  width: 8px;
+}
+.selectGroupIssueUl::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+.selectGroupIssueUl::-webkit-scrollbar-thumb {
+  background-color: rgba(221, 221, 221, 1);
+  -webkit-border-radius: 2em;
+  -moz-border-radius: 2em;
+  border-radius: 2em;
+}
+.selectGroupIssueTitle {
+  width: 100%;
+  border-bottom: 2px solid #F5F5F5;
+  font-size: 16px;
+  font-family: Microsoft YaHei;
+  font-weight: bold;
+  color: #333333;
+  line-height: 50px;
+}
+
+.selectGroup {
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  height: 43px;
+  border-bottom: 1px solid #F5F5F5;
+  padding: 0 10px;
+}
+.selectGroup p{
+  display: flex;
+  align-items: center;  
+  font-size: 12px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: #666666;
+}
+
+.img{
+  display: inline-block;
+  margin: 0 10px 0 5px;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+}
+.selectGroupIssueAllBtn {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.selectGroupIssueCancel {
+  width: 80px;
+  height: 34px;
+  background: #EDE7FF;
+  border-radius: 17px;
+  border: none;
+  outline-style: none;
+  color: #8E4AE0;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.selectGroupIssueSub {
+  width: 80px;
+  height: 34px;
+  background: #8E4BE0;
+  border-radius: 17px;
+  border: none;
+  outline-style: none;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+
+.weTalkRightmMasking{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  background: #000000;
+  opacity: 0.5;
+  display: none;
 }

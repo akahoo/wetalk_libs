@@ -58,7 +58,7 @@ function recall(type, messageId, token) {
         jQuery.ajax({
             type: "post",
             url: wTurl + `/chat/recall`,
-            data:{type : type, messageId : messageId},
+            data: { type: type, messageId: messageId },
             headers: { user_token: token },
             success: function (res) {
                 resolve(res)
@@ -66,11 +66,11 @@ function recall(type, messageId, token) {
             fail: function (error) {
                 reject(error)
             },
-            statusCode: {
-                500: function () {
-                    reject(error)
-                }
-            }
+            // statusCode: {
+            //     500: function () {
+            //         reject(error)
+            //     }
+            // }
         })
     })
 }
@@ -111,7 +111,7 @@ function getImageSignature(token) {
 }
 
 // 获取私聊聊天记录
-function getPrivateLog(targetId, current,token) {
+function getPrivateLog(targetId, current, token) {
     return new Promise((resolve, reject) => {
         jQuery.ajax({
             type: "get",
@@ -128,7 +128,7 @@ function getPrivateLog(targetId, current,token) {
 }
 
 // 获取聊天室聊天记录 roomId
-function getPublicLog(roomId,current,token) {
+function getPublicLog(roomId, current, token) {
     return new Promise((resolve, reject) => {
         jQuery.ajax({
             type: "get",
@@ -365,12 +365,12 @@ function submitFeedback(type, contact, content, token) {
 }
 
 // type 4：骰子 5：猜拳 6：抛硬币
-function specialMessage(interactType, roomId, targetId, token) {
+function specialMessage(interactType , targetId , chatType , token) {
     return new Promise((resolve, reject) => {
         jQuery.ajax({
             type: "post",
             url: wTurl + `/chat/specialMessage`,
-            data: { interactType: interactType, roomId: roomId, targetId: targetId },
+            data: { interactType: interactType, targetId: targetId, chatType: chatType },
             headers: { user_token: token },
             success: function (res) {
                 resolve(res)
@@ -739,8 +739,8 @@ function updateAvatar(path, roomId, token) {
             fail: function (error) {
                 reject(error)
             },
-            statusCode:{
-                500:function(error){
+            statusCode: {
+                500: function (error) {
                     reject(error)
                 }
             }
@@ -1053,6 +1053,241 @@ function getLotteryNum(token) {
     })
 }
 
+// 获取待审核的人
+function listReview(teamId,current,size,token){
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "post",
+            url: wTurl + `/team/listReview`,
+            headers: { user_token: token },
+            data:{teamId :teamId ,current :current ,size :size },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+// 审核 1通过 2拒绝
+function review(id ,review,token){
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "post",
+            url: wTurl + `/team/review`,
+            headers: { user_token: token },
+            data:{id :id ,review :review},
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+// 踢出用户
+function removeTeamUser(teamId,targetId,token){
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "post",
+            url: wTurl + `/team/removeUser`,
+            headers: { user_token: token },
+            data:{teamId :teamId ,targetId :targetId},
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+
+// 更新动态
+function updateBlog(blogId  ,content ,images ,isPublic,token){
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "post",
+            url: wTurl + `/blog/updateBlog`,
+            headers: { user_token: token },
+            data:{blogId :blogId ,content :content,images:images,isPublic:isPublic},
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+// 删除动态
+function deleteBlog(blogId,token){
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "post",
+            url: wTurl + `/blog/deleteBlog`,
+            headers: { user_token: token },
+            data:{blogId:blogId},
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            },
+            statusCode:{
+                500:function(error){
+                    reject(error)
+                }
+            }
+        })
+    })
+}
+
+// 置顶动态
+function editTop(blogId,top,token){
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "post",
+            url: wTurl + `/blog/editTop`,
+            headers: { user_token: token },
+            data:{blogId:blogId,top:top},
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            },
+            statusCode:{
+                500:function(error){
+                    reject(error)
+                }
+            }
+        })
+    })
+}
+
+// 获取小组聊天记录
+function getGroupRecords(teamId,current,token){
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "post",
+            url: wTurl + `/chat/team/log`,
+            headers: { user_token: token },
+            data:{teamId:teamId,current:current},
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+
+// 小组添加到会话列表
+function addGroupToSession(teamId,token){
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "post",
+            url: wTurl + `/team/addChatList`,
+            headers: { user_token: token },
+            data:{teamId:teamId},
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+// 获取小组信息
+function getGroupInfo(teamId,token){
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "post",
+            url: wTurl + `/team/info`,
+            headers: { user_token: token },
+            data:{teamId:teamId},
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+// 更改小组信息
+function editGroupInfo(teamId,title,intro,icon,notice,reviewState,token){
+    let param = {teamId:teamId};
+    if(title){
+        param.title = title;
+    }
+    if(intro){
+        param.intro = intro;
+    }
+    if(icon){
+        param.icon = icon;
+    }
+    if(notice){
+        param.notice = notice;
+    }
+    if(reviewState){
+        param.reviewState = reviewState;
+    }
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "post",
+            url: wTurl + `/team/edit`,
+            headers: { user_token: token },
+            data:param,
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            },
+            statusCode:{
+                500:function(){
+                    reject(error)
+                }
+            }
+        })
+    })
+}
+
+// 退出小组
+function quitGroup(token,teamId){
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "post",
+            url: wTurl + `/team/quit`,
+            headers: { user_token: token },
+            data:{teamId :teamId },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            },
+            statusCode:{
+                500:function(){
+                    reject(error)
+                }
+            }
+        })
+    })
+}
 
 // 退出登录
 function logout(token) {
@@ -1220,7 +1455,6 @@ function dailyRecommend(token) {
 
 
 //网站搜索
-
 function search(current, size, param, token) {
     return new Promise((resolve, reject) => {
         jQuery.ajax({
@@ -1503,3 +1737,366 @@ function removePickBottle(token, bottleId) {
     })
 }
 
+
+
+//动态的评论列表
+function blogListComment(token, blogId, current, size) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "POST",
+            url: wTurl + '/blog/listComment',
+            data: {
+                blogId: blogId,
+                current: current,
+                size: size
+            },
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+
+//发表新动态
+function blogpostBlog(token, teamId, content, images, isPublic) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "POST",
+            url: wTurl + '/blog/postBlog',
+            data: {
+                teamId: teamId,
+                content: content,
+                images: images,
+                isPublic: isPublic
+            },
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+//我的动态
+function bloglistMine(token, current, size) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "POST",
+            url:wTurl + '/blog/listMine',
+            data: {
+                current: current,
+                size: size
+            },
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+//小组动态
+function bloglistTeam(token, teamId, current, size) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "POST",
+            url: wTurl + '/blog/listTeam',
+            data: {
+                teamId: teamId,
+                current: current,
+                size: size
+            },
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+
+//发表评论
+function blogpostComment(token, blogId, content) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "POST",
+            url: wTurl + '/blog/postComment',
+            data: {
+                blogId: blogId,
+                content: content,
+            },
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+
+//删除评论
+function blogdeleteComment(token, commentId, content) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "POST",
+            url: wTurl + '/blog/deleteComment',
+            data: {
+                commentId: commentId,
+                content: content,
+            },
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+//给动态点赞
+function bloglike(token, blogId) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "POST",
+            url: wTurl + '/blog/like',
+            data: {
+                blogId: blogId,
+            },
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+//广场动态
+function bloglistPublic(token,current, size) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "POST",
+            url: wTurl + '/blog/listPublic',
+            data: {
+                current: current,
+                size: size
+            },
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+//加入小组
+function joinTeam(token,teamId, reason) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "POST",
+            url: wTurl + '/team/join',
+            data: {
+                teamId:teamId,
+                reason: reason,
+            },
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+//创建小组
+function addTeam(token,websiteId,title,intro, icon,reviewState) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "POST",
+            url: wTurl + '/team/add',
+            data: {
+                websiteId:websiteId,
+                title:title,
+                intro: intro,
+                icon:icon,
+                reviewState:reviewState,
+            },
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+//我的小组
+function listMyTeam(token) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "POST",
+            url: wTurl + '/team/listMyTeam',
+            data: {},
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+//	根据对外小组id查找
+function quickGetTeam(token,externalId) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "POST",
+            url: wTurl + '/team/quickGet',
+            data: {
+                externalId:externalId
+            },
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+//查看网站的小组
+
+function listByWebsiteTeam(token,current,size,websiteId) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "POST",
+            url: wTurl + '/team/listByWebsite',
+            data: {
+                current:current,
+                size:size,
+                websiteId:websiteId
+            },
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+//小组搜索
+function searchTeam(token,current,size,param) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "POST",
+            url: wTurl + '/team/search',
+            data: {
+                current:current,
+                size:size,
+                param:param 
+            },
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+//热门小组
+function heatTeam(token) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "POST",
+            url: wTurl + '/team/heat',
+            data: {},
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+//热门小组
+function dissolveTeam(token,teamId) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "POST",
+            url: wTurl + '/team/dissolve',
+            data: {
+                teamId:teamId
+            },
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
+
+//小组动态
+
+function listPartakeTeam(token,current,size) {
+    return new Promise((resolve, reject) => {
+        jQuery.ajax({
+            type: "POST",
+            url: wTurl + '/blog/listPartakeTeam',
+            data: {
+                current :current,
+                size:size
+            },
+            headers: { user_token: token },
+            success: function (res) {
+                resolve(res)
+            },
+            fail: function (error) {
+                reject(error)
+            }
+        })
+    })
+}
