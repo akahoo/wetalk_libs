@@ -204,7 +204,7 @@ $(function () {
         otherUserId: null,
 
         // 撤回的频道类别
-        recallType:null,
+        recallType: null,
 
         // 公告
         announce: null,
@@ -688,8 +688,8 @@ $(function () {
                                 <ul class="searchGroupResultCenter">
                                 </ul>
                                 <p class="searchGroupResultFooter">
-                                    <img src="../images/zuo1.png" >
-                                    <img src="../images/you1.png" >
+                                    <img src="./images/zuo1.png" >
+                                    <img src="./images/you1.png" >
                                 </p>
                             </div>
                             <!-- 加入理由 -->
@@ -806,10 +806,10 @@ $(function () {
                             <!-- 广场动态 -->
                             <div id="quareDynamicCondition" class="weTalkRightItem">
                                 <div class="quareDynamicConditionTop">
-                                    <p class="quareDynamicConditionTopLeft"><img src="../images/guangchang.png"><span>广场动态</span></p>
+                                    <p class="quareDynamicConditionTopLeft"><img src="./images/guangchang.png"><span>广场动态</span></p>
                                     <div>
-                                         <p class="quareDynamicConditionTopRightLeft"><img src="../images/xiaozu1.png"><span>小组动态</span></p> 
-                                         <p class="quareDynamicConditionTopRight"><img src="../images/dongtai.png"><span>我的动态</span></p>
+                                         <p class="quareDynamicConditionTopRightLeft"><img src="./images/xiaozu1.png"><span>小组动态</span></p> 
+                                         <p class="quareDynamicConditionTopRight"><img src="./images/dongtai.png"><span>我的动态</span></p>
                                     </div>
                                 </div>
                                 <div class="quareDynamicConditionBottom">
@@ -823,16 +823,16 @@ $(function () {
                                             </ul>
                                             <div class="hotGroupBottom">
                                                 <p>
-                                                    <img src="../images/gengxin.png">
+                                                    <img src="./images/gengxin.png">
                                                     <span>换一组</span>
                                                 </p>
                                             </div>
                                         </div>
                                         <div>
                                             <p class="writeQuareDynamicCondition">
-                                                <img src="../images/comment.png">
+                                                <img src="./images/comment.png">
                                             </p>
-                                            <p class="quareDynamicConditionGotop"><img src="../images/draw-down.png"></p>
+                                            <p class="quareDynamicConditionGotop"><img src="./images/draw-down.png"></p>
                                         </div>
                                     </div>
                                 </div>
@@ -1728,7 +1728,7 @@ $(function () {
 
         // 小组聊天/动态/管理 移入/移出事件
         // $(".weTalkGroupHead").on("mouseenter",".weTalkGroupChatBtn",function(){
-            // $(".weTalkGroupChat").children("img").attr("src","./images/2liaotian.png");
+        // $(".weTalkGroupChat").children("img").attr("src","./images/2liaotian.png");
         //     $(this).css("color","#944eea");
         // })
         // $(".weTalkGroupHead").on("mouseleave",".weTalkGroupChatBtn",function(){
@@ -1799,11 +1799,11 @@ $(function () {
         // 监听小组公告的字数
         $('.weTalkChatRoom').on('input propertychange', '.weTalkEditAnnounceInput', limitInputWords);
         // 移入图片时显示更换图片
-        $(".weTalkGroupManageView").on("mouseenter",".weTalkGroupMavatar",function(){
-            $(".weTalkGroupMavatarCover").css("display","flex");
+        $(".weTalkGroupManageView").on("mouseenter", ".weTalkGroupMavatar", function () {
+            $(".weTalkGroupMavatarCover").css("display", "flex");
         })
-        $(".weTalkGroupManageView").on("mouseleave",".weTalkGroupMavatar",function(){
-            $(".weTalkGroupMavatarCover").css("display","none");
+        $(".weTalkGroupManageView").on("mouseleave", ".weTalkGroupMavatar", function () {
+            $(".weTalkGroupMavatarCover").css("display", "none");
         })
         // 删除某个小组成员
         $(".weTalkGroupManageView").on("mouseenter", ".weTalkGroupMemberItem", showDelMember)
@@ -2575,28 +2575,28 @@ $(function () {
             }
         });
 
-        document.querySelector('.shurukuang').addEventListener("paste",function(event){
+        document.querySelector('.shurukuang').addEventListener("paste", function (event) {
             if (event.clipboardData || event.originalEvent) {
                 var clipboardData = event.clipboardData || event.originalEvent.clipboardData;
                 var items = clipboardData.items,
-                len = items.length;
-                if(len == 2){
+                    len = items.length;
+                if (len == 2) {
                     let isText = false;
                     for (var i = 0; i < len; i++) {
-                        if(items[i].type.indexOf("image") == -1 && !isText){
-                                isText = true;
-                                let paste = clipboardData.getData("text");
-                                const selection = window.getSelection();
-                                if (!selection.rangeCount) return false;
-                                // 创建文本节点
-                                var text = document.createTextNode(paste);
-                                selection.getRangeAt(0).insertNode(text);
-                                let range = selection.createRange ? selection.createRange() : selection.getRangeAt(0);
-                                range.collapse(false);
-                                break;
+                        if (items[i].type.indexOf("image") == -1 && !isText) {
+                            isText = true;
+                            let paste = clipboardData.getData("text");
+                            const selection = window.getSelection();
+                            if (!selection.rangeCount) return false;
+                            // 创建文本节点
+                            var text = document.createTextNode(paste);
+                            selection.getRangeAt(0).insertNode(text);
+                            let range = selection.createRange ? selection.createRange() : selection.getRangeAt(0);
+                            range.collapse(false);
+                            break;
                         }
-                }
-                }else if(len == 3){
+                    }
+                } else if (len == 3) {
                     let paste = clipboardData.getData("text");
                     const selection = window.getSelection();
                     if (!selection.rangeCount) return false;
@@ -3045,7 +3045,7 @@ $(function () {
                 primsg.isPublic = 0;
             }
             if (primsg.recall == 1) {
-                recallMsgCallback(primsg.id,false,primsg.senderId)
+                recallMsgCallback(primsg.id, false, primsg.senderId)
             }
 
             // 判断接收类型
@@ -3210,7 +3210,7 @@ $(function () {
 
             // 收到撤回消息时执行
             if (teammsg.recall == 1) {
-                    recallMsgCallback(teammsg.id, false,teammsg.targetId)
+                recallMsgCallback(teammsg.id, false, teammsg.targetId)
             }
             let teamId;
             // 数组
@@ -4789,7 +4789,7 @@ $(function () {
                 let others = res.data.others;
                 others.forEach(item => {
                     // 用户
-                    if(item.listType == 1){
+                    if (item.listType == 1) {
                         item.isUsers = true;
                         item.userId = item.targetUserId;
                         item.Scurrent = 1;
@@ -4801,7 +4801,7 @@ $(function () {
                         } else {
                             item.avatarDefault = "W";
                         }
-                    }else if(item.listType == 2){
+                    } else if (item.listType == 2) {
                         // 小组
                         item.isUsers = false;
                         item.Gcurrent = 1;
@@ -5315,9 +5315,9 @@ $(function () {
                 }
             }
         });
-        $("#weTalkChatFrame").off("keyup").on("keyup",function(e){
+        $("#weTalkChatFrame").off("keyup").on("keyup", function (e) {
             // console.log($(this).html().length);
-            if($(this).html().length > 251){
+            if ($(this).html().length > 251) {
                 $(this).html($(this).html().trim().substr(0, 250));
                 $(this).blur();
                 showTip("输入文字个数不能超过250");
@@ -5336,7 +5336,7 @@ $(function () {
             // 加载第一页的聊天记录
             if (isDefault == true) {
                 data.weTalkPerList[myindex].records = records;
-                
+
                 // 处理数据+渲染
                 data.weTalkPerList[myindex].records.forEach((item, index) => {
                     loadSessionData(item, true)
@@ -5709,9 +5709,9 @@ $(function () {
                 let list = res.data;
                 showRoomSearchRes(list);
                 // 回车调用查找
-                $('.weTalkSwitchRoomView').off("keydown").on("keydown",function(e){
+                $('.weTalkSwitchRoomView').off("keydown").on("keydown", function (e) {
                     var ev = e || window.event; //兼容
-                    if(ev.keyCode == 13){
+                    if (ev.keyCode == 13) {
                         searchCurRoom();
                     }
                 });
@@ -6543,12 +6543,12 @@ $(function () {
         }
 
         // 小组聊天按钮变为紫色
-        $(".weTalkGroupChat").children("img").attr("src","./images/2liaotian.png");
-        $(".weTalkGroupChatBtn").css("color","#944eea")
-        $(".weTalkGroupMoment").children("img").attr("src","./images/1dongtailan.png");
-        $(".weTalkGroupMomentBtn").css("color","#999");
-        $(".weTalkGroupManage").children("img").attr("src","./images/1guanli.png");
-        $(".weTalkGroupManageBtn").css("color","#999")
+        $(".weTalkGroupChat").children("img").attr("src", "./images/2liaotian.png");
+        $(".weTalkGroupChatBtn").css("color", "#944eea")
+        $(".weTalkGroupMoment").children("img").attr("src", "./images/1dongtailan.png");
+        $(".weTalkGroupMomentBtn").css("color", "#999");
+        $(".weTalkGroupManage").children("img").attr("src", "./images/1guanli.png");
+        $(".weTalkGroupManageBtn").css("color", "#999")
 
         // 加载成员列表
         $(".weTalkGroupMembersNum").html("成员：" + `${userNum}/${maxUserNum}`)
@@ -7715,18 +7715,17 @@ $(function () {
             let href = window.location.href;
             // 带参数
             if (href.indexOf("?from=") != -1) {
-            	var link = href.substring(href.indexOf("?from="));
-            	if(!link.startsWith("http")){
-            		link= "http://"+link;
-            	}
-            	data.curDomain = window.location.href;
+                var link = href.substring(href.indexOf("?from="));
+                if (!link.startsWith("http")) {
+                    link = "http://" + link;
+                }
+                data.curDomain = window.location.href;
                 data.curTitle = document.title;
             } else {
                 // 不带参数
                 data.curDomain = window.location.href;
                 data.curTitle = document.title;
             }
-			
         }
     }
 
@@ -8187,13 +8186,13 @@ $(function () {
     }
 
     // 撤销回调
-    function recallMsgCallback(id, isSelf,targetId) {
+    function recallMsgCallback(id, isSelf, targetId) {
         if (isSelf == true) {
             var nickname = "你"
         } else {
             nickname = "";
         }
-        console.log("recallType",data.recallType)
+        console.log("recallType", data.recallType)
         if (data.recallType == 1) {
             for (let i = 0; i < data.chatPublicRecords.length - 1; i++) {
                 if (data.chatPublicRecords[i].id == id) {
@@ -8216,11 +8215,11 @@ $(function () {
         } else if (data.recallType == 0) {
             // console.log("是私聊")
             for (let j = 0; j < data.weTalkPerList.length; j++) {
-                console.log("id",data.weTalkPerList[j].userId,targetId)
+                console.log("id", data.weTalkPerList[j].userId, targetId)
                 if (data.weTalkPerList[j].userId == targetId) {
                     // console.log("找到对应的私聊对象了")
                     for (let k = 0; k < data.weTalkPerList[j].records.length; k++) {
-                        console.log("id",data.weTalkPerList[j].records[k].id,id)
+                        console.log("id", data.weTalkPerList[j].records[k].id, id)
                         if (data.weTalkPerList[j].records[k].id == id) {
                             // console.log("找到对应的私聊对象的聊天记录了")
                             // 处理数组
@@ -8379,8 +8378,8 @@ $(function () {
         if (item.UnReadNum == 0) {
             weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkNewsRecords").hide();
             weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkNewsRecordsjd").hide();
-        } 
-        else if(item.UnReadNum > 0){
+        }
+        else if (item.UnReadNum > 0) {
             weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkNewsRecords").css("display", "block");
             weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkNewsRecordsjd").hide();
             // }
@@ -8394,23 +8393,23 @@ $(function () {
         }
 
         // 处理最后一条消息
-        if(item.lastMsg){
-            item.lastMsg = chuliLastMsg(item.lastMsg,item.messageType);
+        if (item.lastMsg) {
+            item.lastMsg = chuliLastMsg(item.lastMsg, item.messageType);
         }
 
         // 渲染最后一条消息
-        if(item.recall == 1){
+        if (item.recall == 1) {
             weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordContent").html("撤回了一条消息");
-            if(item.isMySend == 1){
+            if (item.isMySend == 1) {
                 weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordUser").html("我");
-            }else if(item.isMySend == 0){
+            } else if (item.isMySend == 0) {
                 weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordUser").html(item.senderName);
             }
-        }else if(item.recall == 0){
+        } else if (item.recall == 0) {
             weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordContent").html(item.lastMsg);
-            if(item.isMySend == 1){
+            if (item.isMySend == 1) {
                 weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordUser").html("我：");
-            }else if(item.isMySend == 0){
+            } else if (item.isMySend == 0) {
                 weTalkChatItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordUser").html();
             }
         }
@@ -8583,13 +8582,13 @@ $(function () {
         }
 
         // 处理最后一条消息
-        if(item.lastMsg){
-            item.lastMsg = chuliLastMsg(item.lastMsg,item.messageType);
+        if (item.lastMsg) {
+            item.lastMsg = chuliLastMsg(item.lastMsg, item.messageType);
             // 渲染最后一条消息
-            if(item.recall == 1){
+            if (item.recall == 1) {
                 weTalkGroupItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordUser").html(item.senderName)
                 weTalkGroupItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordContent").html("撤回了一条消息");
-            }else if(item.recall == 0){
+            } else if (item.recall == 0) {
                 weTalkGroupItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordUser").html(item.senderName + "：")
                 weTalkGroupItem.children(".weTalkChatItemOne").children(".weTalkItemRecordView").children(".weTalkItemRecord").children(".weTalkItemRecordContent").html(item.lastMsg);
             }
@@ -8599,12 +8598,12 @@ $(function () {
         if (item.UnReadNum == 0) {
             weTalkGroupItem.children(".weTalkChatItemOne").children(".weTalkNewsRecords").hide();
             weTalkGroupItem.children(".weTalkChatItemOne").children(".weTalkNewsRecordsjd").hide();
-        } else if(item.UnReadNum > 0){
+        } else if (item.UnReadNum > 0) {
             weTalkGroupItem.children(".weTalkChatItemOne").children(".weTalkNewsRecords").hide();
             weTalkGroupItem.children(".weTalkChatItemOne").children(".weTalkNewsRecordsjd").show();
         }
 
-        
+
 
         if (isAppend == true) {
             weTalkGroupItem.appendTo(".weTalkChatItemList")
@@ -8766,14 +8765,14 @@ $(function () {
     function showGroupChat() {
         // 如果聊天窗口未打开，就打开聊天窗口，否则就什么都不做
         if ($(".weTalkRightMain").css("display") == "none") {
-            $(".weTalkGroupChat").children("img").attr("src","./images/2liaotian.png");
-            $(this).css("color","#944eea");
-            $(".weTalkGroupManage").children("img").attr("src","./images/1guanli.png");
-            $(".weTalkGroupManageBtn").css("color","#999");
-            $(".weTalkGroupMoment").children("img").attr("src","./images/1dongtailan.png");
-            $(".weTalkGroupMomentBtn").css("color","#999")
+            $(".weTalkGroupChat").children("img").attr("src", "./images/2liaotian.png");
+            $(this).css("color", "#944eea");
+            $(".weTalkGroupManage").children("img").attr("src", "./images/1guanli.png");
+            $(".weTalkGroupManageBtn").css("color", "#999");
+            $(".weTalkGroupMoment").children("img").attr("src", "./images/1dongtailan.png");
+            $(".weTalkGroupMomentBtn").css("color", "#999")
 
-            
+
             $(".weTalkRightItem").hide();
             $(".weTalkRightMain").show();
             $(".weTalkGroupHead").css({ "display": "flex", "width": "597px" });
@@ -8821,12 +8820,12 @@ $(function () {
 
     // 小组动态
     function showGroupMoment() {
-        $(".weTalkGroupMoment").children("img").attr("src","./images/2dongtailan.png");
-        $(this).css("color","#944eea");
-        $(".weTalkGroupManage").children("img").attr("src","./images/1guanli.png");
-        $(".weTalkGroupManageBtn").css("color","#999")
-        $(".weTalkGroupChat").children("img").attr("src","./images/1liaotian.png");
-        $(".weTalkGroupChatBtn").css("color","#999")
+        $(".weTalkGroupMoment").children("img").attr("src", "./images/2dongtailan.png");
+        $(this).css("color", "#944eea");
+        $(".weTalkGroupManage").children("img").attr("src", "./images/1guanli.png");
+        $(".weTalkGroupManageBtn").css("color", "#999")
+        $(".weTalkGroupChat").children("img").attr("src", "./images/1liaotian.png");
+        $(".weTalkGroupChatBtn").css("color", "#999")
         data.isShowMomentType = 2;
         // 调接口
         getGroupMoment();
@@ -8861,12 +8860,12 @@ $(function () {
     function showGroupManage() {
         // 如果小组管理页面未打开，就打开它，否则什么都不做
         if ($(".weTalkGroupManageView").css("display") == "none") {
-            $(".weTalkGroupManage").children("img").attr("src","./images/2guanli.png");
-            $(this).css("color","#944eea");
-            $(".weTalkGroupMoment").children("img").attr("src","./images/1dongtailan.png");
-            $(".weTalkGroupMomentBtn").css("color","#999")
-            $(".weTalkGroupChat").children("img").attr("src","./images/1liaotian.png");
-            $(".weTalkGroupChatBtn").css("color","#999")
+            $(".weTalkGroupManage").children("img").attr("src", "./images/2guanli.png");
+            $(this).css("color", "#944eea");
+            $(".weTalkGroupMoment").children("img").attr("src", "./images/1dongtailan.png");
+            $(".weTalkGroupMomentBtn").css("color", "#999")
+            $(".weTalkGroupChat").children("img").attr("src", "./images/1liaotian.png");
+            $(".weTalkGroupChatBtn").css("color", "#999")
 
             // 获取小组信息
             getGroupInfo(data.friendId, data.token).then(res => {
@@ -9769,19 +9768,19 @@ $(function () {
     }
 
     // 处理最后一条消息
-    function chuliLastMsg(msg,type){
-        console.log("msg",msg)
-        if(type == 1){
+    function chuliLastMsg(msg, type) {
+        console.log("msg", msg)
+        if (type == 1) {
             return msg.replace(/\[emoj\]/g, "<img src='./images/face/").replace(/\[\/emoj\]/g, ".png'>").replace(/\\n/g, "<br>");
-        }else if(type == 2){
+        } else if (type == 2) {
             return "图片";
-        }else if(type == 3){
+        } else if (type == 3) {
             return "语音";
-        }else if(type == 4){
+        } else if (type == 4) {
             return "骰子";
-        }else if(type == 5){
+        } else if (type == 5) {
             return "剪刀石头布";
-        }else if(type == 6){
+        } else if (type == 6) {
             return "硬币";
         }
     }
@@ -10131,20 +10130,20 @@ $(function () {
             $(".dissolveTeam").hide()
         })
         $(".quareDynamicConditionTopRightLeft").on("mouseover", function () {
-            $(this).children("img").attr("src","../images/xiaozu2.png")
-            $(this).children("span").css("color","#944EEA")
+            $(this).children("img").attr("src", "./images/xiaozu2.png")
+            $(this).children("span").css("color", "#944EEA")
         });
         $(".quareDynamicConditionTopRightLeft").on("mouseleave", function () {
-            $(this).children("img").attr("src","../images/xiaozu1.png")
-            $(this).children("span").css("color","#666666")
+            $(this).children("img").attr("src", "./images/xiaozu1.png")
+            $(this).children("span").css("color", "#666666")
         })
         $(".quareDynamicConditionTopRight").on("mouseover", function () {
-            $(this).children("img").attr("src","../images/dongtai1.png")
-            $(this).children("span").css("color","#944EEA")
+            $(this).children("img").attr("src", "./images/dongtai1.png")
+            $(this).children("span").css("color", "#944EEA")
         });
         $(".quareDynamicConditionTopRight").on("mouseleave", function () {
-            $(this).children("img").attr("src","../images/dongtai.png")
-            $(this).children("span").css("color","#666666")
+            $(this).children("img").attr("src", "./images/dongtai.png")
+            $(this).children("span").css("color", "#666666")
         })
     };
     //好友列表
@@ -10821,7 +10820,7 @@ $(function () {
                                 </div>
                             </div>
                             <div class="searchGroupDetailsBottom">
-                                <p class="searchGroupDetailsBottomLeft"><img src="../images/qun.png"><span>${list[i].user_num}/${list[i].max_user_num}</span></p>
+                                <p class="searchGroupDetailsBottomLeft"><img src="./images/qun.png"><span>${list[i].user_num}/${list[i].max_user_num}</span></p>
                                 <p><button type="button" id="searchGroupDetailsBtn">+加入</button></p>
                             </div>
                         </div>
@@ -11154,7 +11153,7 @@ $(function () {
                                 </div>
                             </div>
                             <div class="hotGroupDetailsBottom">
-                                <p class="hotGroupDetailsBottomLeft"><img src="../images/qun.png"><span>${list[i].user_num}/${list[i].max_user_num}</span></p>
+                                <p class="hotGroupDetailsBottomLeft"><img src="./images/qun.png"><span>${list[i].user_num}/${list[i].max_user_num}</span></p>
                                 <p><button type="button" id="hotGroupDetailsBtn">+加入</button></p>
                             </div>
                         </div>
@@ -11252,10 +11251,10 @@ $(function () {
                     <div class="quareDynamicConditionDetailsBootom">
                         <p>发表于：<span>${list[i].create_time}</span></p>
                         <div class="quareDynamicConditionDetailsBootomRight">
-                            <p class="quareDynamicConditionDetailsComment"><img src="../images/xiaoxi.png"><span>${list[i].comment_count}</span></p>
+                            <p class="quareDynamicConditionDetailsComment"><img src="./images/xiaoxi.png"><span>${list[i].comment_count}</span></p>
                             <p>
-                                <img src="../images/zan%20(1).png" id="quareDynamicConditionLike">
-                                <img src="../images/zan.png" id="quareDynamicConditionAlreadyLike">
+                                <img src="./images/zan%20(1).png" id="quareDynamicConditionLike">
+                                <img src="./images/zan.png" id="quareDynamicConditionAlreadyLike">
                                 <span class="quareDynamicConditionNum">${list[i].like_count}</span>
                             </p>
                         </div>
@@ -11844,7 +11843,7 @@ $(function () {
                             </div>
                         </div>
                         <div class="quickSearchGroupDetailsBottom">
-                            <p class="quickSearchGroupDetailsBottomLeft"><img src="../images/qun.png"><span>${details.user_num}/${details.max_user_num}</span></p>
+                            <p class="quickSearchGroupDetailsBottomLeft"><img src="./images/qun.png"><span>${details.user_num}/${details.max_user_num}</span></p>
                             <p><button type="button" id="quickSearchGroupDetailsBtn">+加入</button></p>
                         </div>
                     </div>
@@ -11913,7 +11912,7 @@ $(function () {
                                 </div>
                             </div>
                             <div class="searchGroupDetailsBottom">
-                                <p class="searchGroupDetailsBottomLeft"><img src="../images/qun.png"><span>${list[i].user_num}/${list[i].max_user_num}</span></p>
+                                <p class="searchGroupDetailsBottomLeft"><img src="./images/qun.png"><span>${list[i].user_num}/${list[i].max_user_num}</span></p>
                                 <p><button type="button" id="searchGroupDetailsBtn">+加入</button></p>
                             </div>
                         </div>
