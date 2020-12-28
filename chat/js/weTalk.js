@@ -7719,12 +7719,14 @@ $(function () {
             	if(!link.startsWith("http")){
             		link= "http://"+link;
             	}
+            	data.curDomain = link || window.location.href;
+                data.curTitle = link || document.title;
             } else {
                 // 不带参数
                 data.curDomain = window.location.href;
                 data.curTitle = document.title;
             }
-
+			
         }
     }
 
