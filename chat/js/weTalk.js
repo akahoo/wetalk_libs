@@ -7715,13 +7715,10 @@ $(function () {
             let href = window.location.href;
             // 带参数
             if (href.indexOf("?from=") != -1) {
-                if (href.indexOf("?from=http://") != -1) {
-
-                } else {
-                    data.curDomain = "http://" + href.substring(href.indexOf("?from=") + 6);
-                    data.curTitle = href.substring(href.indexOf("?from=") + 6);
-                }
-
+            	var link = href.substring(href.indexOf("?from="));
+            	if(!link.startsWith("http")){
+            		link= "http://"+link;
+            	}
             } else {
                 // 不带参数
                 data.curDomain = window.location.href;
