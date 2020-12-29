@@ -7726,6 +7726,7 @@ $(function () {
                 data.curDomain = window.location.href;
                 data.curTitle = document.title;
             }
+            console.log('loginInfo domain='+data.curDomain+' title='+data.curTitle)
         }
     }
 
