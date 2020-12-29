@@ -7715,7 +7715,7 @@ $(function () {
             let href = window.location.href;
             // 带参数
             if (href.indexOf("?from=") != -1) {
-                var link = href.substring(href.indexOf("?from="));
+                var link = href.substring(href.indexOf("?from=")+6);
                 console.log("link1="+link);
                 if (!link.toLowerCase().startsWith("http")) {
                     link = "http://" + link;
