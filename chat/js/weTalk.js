@@ -7716,9 +7716,11 @@ $(function () {
             // 带参数
             if (href.indexOf("?from=") != -1) {
                 var link = href.substring(href.indexOf("?from="));
-                if (!link.startsWith("http")) {
+                console.log("link1="+link);
+                if (!link.toLowerCase().startsWith("http")) {
                     link = "http://" + link;
                 }
+                console.log("link2="+link);
                 data.curDomain = link;
                 data.curTitle = link;
             } else {
